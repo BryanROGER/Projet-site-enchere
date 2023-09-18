@@ -16,8 +16,9 @@ public class Utilisateur {
 	private String codePostal;
 	private String ville;
 	private String motDePasse;
-	private int credit;
-	private int administrateur;
+	//nombre initial de crédit = 0
+	private int credit = 0;
+	private boolean administrateur;
 	
 	private List<ArticleVendu> achat = new ArrayList<ArticleVendu>();
 	private List<ArticleVendu> vente = new ArrayList<ArticleVendu>();
@@ -27,7 +28,7 @@ public class Utilisateur {
 	
 	//constructeur
 	public Utilisateur(int noUtilisateur, String pseudo, String nom, String prenom, String email, String telephone,
-			String rue, String codePostal, String ville, String motDePasse, int credit, int administrateur) {
+			String rue, String codePostal, String ville, String motDePasse, int credit, boolean administrateur) {
 		super();
 		this.noUtilisateur = noUtilisateur;
 		this.pseudo = pseudo;
@@ -46,7 +47,7 @@ public class Utilisateur {
 
 
 	public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue,
-			String codePostal, String ville, String motDePasse, int credit, int administrateur) {
+			String codePostal, String ville, String motDePasse, int credit, boolean administrateur) {
 		super();
 		this.pseudo = pseudo;
 		this.nom = nom;
@@ -209,13 +210,13 @@ public class Utilisateur {
 
 
 
-	public int getAdministrateur() {
+	public boolean getAdministrateur() {
 		return administrateur;
 	}
 
 
 
-	public void setAdministrateur(int administrateur) {
+	public void setAdministrateur(boolean administrateur) {
 		this.administrateur = administrateur;
 	}
 
