@@ -15,7 +15,7 @@
 	 	<label>Mot de passe</label>
 	 	<input type="password" name="mot_de_passe" />
 	 	<button type="submit">Connexion</button>
-	 	<input type="checkbox"/>
+	 	<input type="checkbox" name="se_souvenir_de_moi" value="isChecked"/>
 	 	<label>Se souvenir de moi</label>
 	 	<p><a>Mot de passe oublié</a></p>
 	 </form>

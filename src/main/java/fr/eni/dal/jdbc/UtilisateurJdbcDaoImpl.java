@@ -5,6 +5,7 @@ import java.sql.Connection;
 import com.microsoft.sqlserver.jdbc.SQLServerStatement;
 
 import fr.eni.bo.Utilisateur;
+import fr.eni.dal.DALException;
 import fr.eni.dal.UtilisateurDao;
 
 public class UtilisateurJdbcDaoImpl implements UtilisateurDao{
@@ -25,7 +26,7 @@ public class UtilisateurJdbcDaoImpl implements UtilisateurDao{
 			
 			if(rs.next())
 				return new Utilisateur(rs.getString("pseudo"), rs.getString("nom"), rs.getString("prenom"),
-						rs.getString("email"), rs.getString("numéro téléphone"), rs.getString("rue"), rs.getString("code_postal"),
+						rs.getString("email"), rs.getString("telephone"), rs.getString("rue"), rs.getString("code_postal"),
 						rs.getString("ville"), rs.getString("mot_de_passe"), rs.getInt("credit"), rs.getBoolean("administrateur"));
 			else
 				throw new DALException("La récupération de l'utilisateur à échoue ");

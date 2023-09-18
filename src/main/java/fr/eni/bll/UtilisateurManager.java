@@ -14,7 +14,7 @@ public class UtilisateurManager {
 		
 	}
 	
-	public UtilisateurManager getIntance() {
+	public static UtilisateurManager getInstance() {
 		if(instance == null)
 			instance = new UtilisateurManager();
 		return instance;
@@ -30,6 +30,10 @@ public class UtilisateurManager {
 	
 	public Utilisateur unUtilisateurParPseudoOuMail(String query) {
 		return utilisateurDao.selectByPseudoMail(query);
+	}
+	
+	public void ajouterUtilisateur(Utilisateur utilisateur) {
+		utilisateurDao.insertUtilisateur(utilisateur);
 	}
 	
 	
