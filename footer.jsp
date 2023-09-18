@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-		<footer class="row text-center text-white bg-dark">			
+		<footer class=" row text-center text-white bg-dark">			
 			<p class="my-4" >Eni-encheres &copy; 2023 </p>
 		</footer>
 	</div>
