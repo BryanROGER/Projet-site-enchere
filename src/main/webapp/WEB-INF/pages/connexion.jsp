@@ -16,6 +16,7 @@
 	 	<label class= "col-4 offset-md-3 col-md-2 col-form label" for="identifiant">Identifiant</label>
 	 	<div class="col-8 col-md3 "> 
 	 	<input type="text" name="identifiant" placeholder="Peuso ou email" />
+<<<<<<< HEAD
 	 	</div>
 	 	<div class="form-group row">
 	 	<label class="col-4 offset-md-3 col-md-2 col-form-label" for="mot_de_passe">Mot de passe</label>
@@ -29,6 +30,13 @@
             <label class="form-check-label" for="remember_login">Se souvenir de moi</label>
 	 	</div>
 	 	
+=======
+	 	<label>Mot de passe</label>
+	 	<input type="password" name="mot_de_passe" />
+	 	<button type="submit">Connexion</button>
+	 	<input type="checkbox" name="se_souvenir_de_moi" value="isChecked"/>
+	 	<label>Se souvenir de moi</label>
+>>>>>>> 4637215ec4ccb0b0ad864c593b519224d54696a2
 	 	<p><a>Mot de passe oublié</a></p>
 	 </form>
 </div>
