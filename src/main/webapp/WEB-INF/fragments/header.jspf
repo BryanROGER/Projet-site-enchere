@@ -19,7 +19,7 @@
 <title>ENI-encheres</title>
 </head>
 <body>
-	<div class="container">
+	<div >
 		<header class="row">
 			<nav class="navbar navbar-expand-lg navbar-dark bg-dark"
 				style="color: blue">
