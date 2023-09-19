@@ -19,10 +19,13 @@ public class ConnexionServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		var cookies = request.getCookies();
+		if (cookies != null) {
 		for (Cookie cookie : cookies) {
 			if(cookie.getName().equalsIgnoreCase("sessionID")) {
 				request.getSession();
+				
 			}
+		}
 		}
 		
 		request.getRequestDispatcher("WEB-INF/pages/connexion.jsp").forward(request, response);
