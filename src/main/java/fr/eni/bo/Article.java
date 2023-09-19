@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ArticleVendu {
+public class Article {
 
 	// Attributs
 	private int noArticle;
@@ -24,7 +24,7 @@ public class ArticleVendu {
 
 	// constructeurs
 
-	public ArticleVendu(int noArticle, String nomArticle, String description, LocalDate dateDebutEncheres,
+	public Article(int noArticle, String nomArticle, String description, LocalDate dateDebutEncheres,
 			LocalDate dateFinEncheres, int miseAPrix, int prixVente, Utilisateur vendeur, Categorie categorieArticle) {
 		super();
 		this.noArticle = noArticle;
@@ -110,6 +110,46 @@ public class ArticleVendu {
 
 	public void setEtatVente(int etatVente) {
 		this.etatVente = etatVente;
+	}
+
+	public Utilisateur getAcheteur() {
+		return acheteur;
+	}
+
+	public void setAcheteur(Utilisateur acheteur) {
+		this.acheteur = acheteur;
+	}
+
+	public Utilisateur getVendeur() {
+		return vendeur;
+	}
+
+	public void setVendeur(Utilisateur vendeur) {
+		this.vendeur = vendeur;
+	}
+
+	public List<Enchere> getArticleEnEnchere() {
+		return articleEnEnchere;
+	}
+
+	public void setArticleEnEnchere(List<Enchere> articleEnEnchere) {
+		this.articleEnEnchere = articleEnEnchere;
+	}
+
+	public Categorie getCategorieArticle() {
+		return categorieArticle;
+	}
+
+	public void setCategorieArticle(Categorie categorieArticle) {
+		this.categorieArticle = categorieArticle;
+	}
+
+	public Retrait getLieuRetrait() {
+		return lieuRetrait;
+	}
+
+	public void setLieuRetrait(Retrait lieuRetrait) {
+		this.lieuRetrait = lieuRetrait;
 	}
 
 }

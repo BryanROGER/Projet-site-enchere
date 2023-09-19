@@ -10,7 +10,7 @@ public class Categorie {
 	private int noCategorie;
 	private String libelle;
 	
-	List<ArticleVendu> articles = new ArrayList<ArticleVendu>();
+	List<Article> articles = new ArrayList<Article>();
 	
 	// constructeurs
 	public Categorie(int noCategorie, String libelle) {
@@ -49,12 +49,12 @@ public class Categorie {
 	}
 
 
-	public List<ArticleVendu> getArticles() {
+	public List<Article> getArticles() {
 		return articles;
 	}
 
 
-	public void setArticles(List<ArticleVendu> articles) {
+	public void setArticles(List<Article> articles) {
 		this.articles = articles;
 	}
 	

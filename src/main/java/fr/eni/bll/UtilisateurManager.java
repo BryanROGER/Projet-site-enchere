@@ -36,7 +36,9 @@ public class UtilisateurManager {
 		utilisateurDao.insertUtilisateur(utilisateur);
 	}
 	
-	
+	public Utilisateur unUtilisateurParID(int id) {
+		return utilisateurDao.selectByID(id);
+	}
 	
 	
 	

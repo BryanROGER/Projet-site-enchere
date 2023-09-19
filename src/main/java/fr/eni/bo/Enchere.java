@@ -6,13 +6,13 @@ public class Enchere {
 	
 	//Attributs
 	private Utilisateur utilisateur;
-	private ArticleVendu article;
+	private Article article;
 	private LocalDate dateEnchere;
 	private int montantEnchere;
 	
 	
 	//Constructeur
-	public Enchere(Utilisateur utilisateur, ArticleVendu article, LocalDate dateEnchere, int montantEnchere) {
+	public Enchere(Utilisateur utilisateur, Article article, LocalDate dateEnchere, int montantEnchere) {
 		this.utilisateur = utilisateur;
 		this.article = article;
 		this.dateEnchere = dateEnchere;
@@ -40,12 +40,12 @@ public class Enchere {
 	}
 
 
-	public ArticleVendu getArticle() {
+	public Article getArticle() {
 		return article;
 	}
 
 
-	public void setArticle(ArticleVendu article) {
+	public void setArticle(Article article) {
 		this.article = article;
 	}
 

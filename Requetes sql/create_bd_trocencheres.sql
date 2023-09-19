@@ -9,6 +9,7 @@ drop table CATEGORIES;
 drop table UTILISATEURS;
 
 
+
 use ENCHERE_BDD
 go
 
@@ -100,25 +101,8 @@ ALTER TABLE ARTICLES_VENDUS
 ON DELETE NO ACTION 
     ON UPDATE no action 
 
--- TABLE UTILISATEUR
+
 -- Mofidication de la Table Utilisateurs 
 -- Colonne email : passage varchar(20) à :
 Alter table utilisateurs
 	alter column email varchar(80);
-
--- Modification code postal en char(5)
-Alter table utilisateurs
-	alter column code_postal char(5);
-
--- ajout de valeurs défaut
--- pour crédit : 0
--- pour administrateur : 0
-ALTER TABLE utilisateurs
-ADD CONSTRAINT DF_utilisateurs_credit
-DEFAULT 0 FOR credit;
-
-ALTER TABLE utilisateurs
-ADD CONSTRAINT DF_utilisateurs_administrateur
-DEFAULT 0 FOR administrateur;
-
-

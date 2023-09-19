@@ -6,13 +6,13 @@ import java.util.List;
 public class Retrait {
 	
 	//Attributs
-	private List<ArticleVendu> article = new ArrayList<ArticleVendu>();
+	private List<Article> article = new ArrayList<Article>();
 	private String rue;
 	private String codePostal;
 	private String ville;
 	
 	//Constructeur
-	public Retrait(List<ArticleVendu> article, String rue, String codePostal, String ville) {
+	public Retrait(List<Article> article, String rue, String codePostal, String ville) {
 		super();
 		this.article = article;
 		this.rue = rue;
@@ -27,12 +27,12 @@ public class Retrait {
 	}
 
 
-	public List<ArticleVendu> getArticle() {
+	public List<Article> getArticle() {
 		return article;
 	}
 
 
-	public void setArticle(List<ArticleVendu> article) {
+	public void setArticle(List<Article> article) {
 		this.article = article;
 	}
 

@@ -21,8 +21,8 @@ public class Utilisateur {
 	// valeur par défaut non administrateur
 	private boolean administrateur=false;
 	
-	private List<ArticleVendu> achat = new ArrayList<ArticleVendu>();
-	private List<ArticleVendu> vente = new ArrayList<ArticleVendu>();
+	private List<Article> achat = new ArrayList<Article>();
+	private List<Article> vente = new ArrayList<Article>();
 	private List<Enchere> encherir = new ArrayList<Enchere>();
 	
 	
@@ -242,25 +242,25 @@ public class Utilisateur {
 
 
 
-	public List<ArticleVendu> getAchat() {
+	public List<Article> getAchat() {
 		return achat;
 	}
 
 
 
-	public void setAchat(List<ArticleVendu> achat) {
+	public void setAchat(List<Article> achat) {
 		this.achat = achat;
 	}
 
 
 
-	public List<ArticleVendu> getVente() {
+	public List<Article> getVente() {
 		return vente;
 	}
 
 
 
-	public void setVente(List<ArticleVendu> vente) {
+	public void setVente(List<Article> vente) {
 		this.vente = vente;
 	}
 

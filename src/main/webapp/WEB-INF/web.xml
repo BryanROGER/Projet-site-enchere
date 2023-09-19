@@ -10,4 +10,24 @@
     <servlet-name>InscriptionServlet</servlet-name>
     <url-pattern>/InscriptionServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>DeconnexionServlet</display-name>
+    <servlet-name>DeconnexionServlet</servlet-name>
+    <servlet-class>fr.eni.ihm.DeconnexionServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DeconnexionServlet</servlet-name>
+    <url-pattern>/DeconnexionServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>DetailUtilisateurServlet</display-name>
+    <servlet-name>DetailUtilisateurServlet</servlet-name>
+    <servlet-class>fr.eni.ihm.DetailUtilisateurServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DetailUtilisateurServlet</servlet-name>
+    <url-pattern>/DetailUtilisateurServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

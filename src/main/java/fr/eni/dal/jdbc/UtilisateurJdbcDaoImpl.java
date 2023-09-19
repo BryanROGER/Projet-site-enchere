@@ -13,6 +13,7 @@ public class UtilisateurJdbcDaoImpl implements UtilisateurDao{
 	private static final String SELECT_BY_PSEUDO_OR_MAIL = "SELECT * FROM utilisateurs WHERE pseudo = ? or email = ?";
 	private static final String INSERT = "INSERT INTO UTILISATEURS (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) "
 			+ "VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+	private static final String SELECT_BY_ID = "SELECT * FROM utilisateurs WHERE no_utilisateur = ?";
 
 	@Override
 	public Utilisateur selectByPseudoMail(String query) {
@@ -29,12 +30,13 @@ public class UtilisateurJdbcDaoImpl implements UtilisateurDao{
 						rs.getString("email"), rs.getString("telephone"), rs.getString("rue"), rs.getString("code_postal"),
 						rs.getString("ville"), rs.getString("mot_de_passe"), rs.getInt("credit"), rs.getBoolean("administrateur"));
 			else
-				throw new DALException("La récupération de l'utilisateur à échoue ");
+				throw new DALException("La récupération de l'utilisateur à échouée ");
 			
 
 		} catch (Exception e) {
 			e.printStackTrace();
-		}		return null;
+		}		
+		return null;
 	}
 
 	@Override
@@ -72,6 +74,29 @@ public class UtilisateurJdbcDaoImpl implements UtilisateurDao{
 		} catch (Exception e) {
 			e.printStackTrace();
 		}				
+	}
+
+	@Override
+	public Utilisateur selectByID(int id) {
+		try (Connection connection = ConnectionProvider.getConnection();
+				var stmt = connection.prepareStatement(SELECT_BY_ID)
+				) {
+
+			stmt.setInt(1, id);
+			var rs = stmt.executeQuery();
+			
+			if(rs.next())
+				return new Utilisateur(rs.getString("pseudo"), rs.getString("nom"), rs.getString("prenom"),
+						rs.getString("email"), rs.getString("telephone"), rs.getString("rue"), rs.getString("code_postal"),
+						rs.getString("ville"), rs.getString("mot_de_passe"), rs.getInt("credit"), rs.getBoolean("administrateur"));
+			else
+				throw new DALException("La récupération de l'utilisateur à échouée ");
+			
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}		
+		return null;
 	}
 	
 	

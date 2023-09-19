@@ -1,14 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Inscription</title>
-</head>
-<body>
+<%@ include file="/WEB-INF/fragments/header.jspf"%>
 
-<h1>Mon profil</h1>
+<main>
+<h1>Inscription</h1>
 
 <form action="${pageContext.request.contextPath}/inscription" method="post">
 	<label>Pseudo :</label>
@@ -19,7 +12,7 @@
 	<input type="text" name="prenom"/>
 	<label>Email :</label>
 	<input type="text" name="email"/>
-	<label>TÃ©lÃ©phone :</label>
+	<label>Téléphone :</label>
 	<input type="text" name="telephone"/>
 	<label>Rue :</label>
 	<input type="text" name="rue"/>
@@ -32,7 +25,7 @@
 	<label>confirmation</label>
 	<input type="password" name="confirmation_mdp"/>
 	
-	<button type="submit">CrÃ©er</button>
+	<button type="submit">Créer</button>
 	
 	
 	
@@ -42,7 +35,6 @@
 <form action="${pageContext.request.contextPath}/encheres" method="get">
 <button type="submit"> Annuler</button>
 </form>
+</main>
 
-
-</body>
-</html>
+<%@ include file="/WEB-INF/fragments/footer.jspf"%>
