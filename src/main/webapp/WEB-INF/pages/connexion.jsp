@@ -14,7 +14,7 @@
 				<label for="password">Mot de passe </label> <input type="password"
 					class="form-control" name="mot_de_passe" id="mot_de_passe">
 				<p>
-					<a>Mot de passe oublié ?</a>
+					<a>Mot de passe oubliï¿½ ?</a>
 				</p>
 			</div>
 			<div class="form-group">
@@ -32,7 +32,7 @@
 
 	<form class="mb-3"
 		action="${pageContext.request.contextPath}/inscription" method="get">
-		<button class="btn btn-info btn-md btn-block" type="submit">Créer
+		<button class="btn btn-info btn-md btn-block" type="submit">Crï¿½er
 			un compte</button>
 	</form>
 </main>

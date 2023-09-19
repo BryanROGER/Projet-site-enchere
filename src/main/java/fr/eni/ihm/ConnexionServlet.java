@@ -20,13 +20,13 @@ public class ConnexionServlet extends HttpServlet {
 
 		var cookies = request.getCookies();
 		if (cookies != null) {
+
 			for (Cookie cookie : cookies) {
 				if (cookie.getName().equalsIgnoreCase("sessionID")) {
 					request.getSession();
 				}
 			}
 		}
-
 		
 		request.getRequestDispatcher("WEB-INF/pages/connexion.jsp").forward(request, response);
 		

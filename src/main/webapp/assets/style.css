@@ -1,10 +1,6 @@
 @charset "UTF-8";
 
-  main {
+
+main {
   min-height: 84vh;
-  display: grid;
-  grid-template-rows: 1fr auto;
 }
-
-
-
