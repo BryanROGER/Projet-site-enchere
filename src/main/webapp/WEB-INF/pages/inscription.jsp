@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/fragments/header.jspf"%>
 
 <main>
@@ -12,7 +14,7 @@
 	<input type="text" name="prenom"/>
 	<label>Email :</label>
 	<input type="text" name="email"/>
-	<label>Téléphone :</label>
+	<label>TÃ©lÃ©phone :</label>
 	<input type="text" name="telephone"/>
 	<label>Rue :</label>
 	<input type="text" name="rue"/>
@@ -25,7 +27,7 @@
 	<label>confirmation</label>
 	<input type="password" name="confirmation_mdp"/>
 	
-	<button type="submit">Créer</button>
+	<button type="submit">CrÃ©er</button>
 	
 	
 	

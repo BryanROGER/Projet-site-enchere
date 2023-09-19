@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/fragments/header.jspf"%>
 
 
@@ -13,7 +15,7 @@
 					value="${utilisateur.getNom() }">
 			</div>
 			<div>
-				<label>Prénom :</label> <input readonly="readonly"
+				<label>PrÃ©nom :</label> <input readonly="readonly"
 					value="${utilisateur.getPrenom() }">
 			</div>
 			<div>
@@ -21,7 +23,7 @@
 					value="${utilisateur.getEmail() }">
 			</div>
 			<div>
-				<label>Téléphone :</label> <input readonly="readonly"
+				<label>TÃ©lÃ©phone :</label> <input readonly="readonly"
 					value="${utilisateur.getTelephone() }">
 			</div>
 			<div>

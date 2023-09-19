@@ -1,16 +1,18 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/fragments/header.jspf"%>
 
 
 <main>
 
-<h2>Liste des enchères</h2>
+<h2>Liste des enchÃ¨res</h2>
 
 <h3>Filtres :</h3>
 <form action="" method="get">
 <!-- Ajouter via bootstrap une barre de recherche -->
-<label>Catégorie :</label>
+<label>CatÃ©gorie :</label>
 <select>
-	<option>Catégorie 1</option>
+	<option>CatÃ©gorie 1</option>
 
 </select>
 
@@ -22,7 +24,7 @@
 <div>
 <p>${article.getNomArticle() }</p>
 <p>Prix : ${article.getMiseAPrix() }</p>
-<p>Fin de l'enchère : ${article.getDateFinEncheres() }</p>
+<p>Fin de l'enchÃ¨re : ${article.getDateFinEncheres() }</p>
 <p>Vendeur : <a href="${pageContext.request.contextPath}/detail-utilisateur?id=${article.getVendeur().getNoUtilisateur() }">${article.getVendeur().getPseudo() }</a></p>
 </div>
 </c:forEach>

@@ -21,8 +21,7 @@
 <body>
 	<div >
 		<header class="row">
-			<nav class="navbar navbar-expand-lg navbar-dark bg-dark"
-				style="color: blue">
+			<nav class="navbar navbar-expand-sm bg-primary navbar-dark">
 				<div class="container-fluid">
 					<a class="navbar-brand" href="#">ENI-encheres</a>
 					<button class="navbar-toggler" type="button"
@@ -34,26 +33,26 @@
 					<div class="collapse navbar-collapse" id="navbarNav">
 						<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
-							<li class="nav-item"><a class="nav-link"
+							<li class="nav-item ms-5"><a class="nav-link"
 								aria-current="page"
 								href="${ pageContext.request.contextPath }/encheres">Encheres
 									<i class="fa-solid fa-gavel"></i>
 							</a></li>
 
 
-							<li class="nav-item"><a class="nav-link"
+							<li class="nav-item ms-5"><a class="nav-link"
 								href="${ pageContext.request.contextPath }/vendre"> Vendre <i
 									class="fa-solid fa-hand-holding-dollar"></i></a></li>
 
 
-							<li class="nav-item"><a class="nav-link"
+							<li class="nav-item ms-5"><a class="nav-link"
 								href="${ pageContext.request.contextPath }/se-connecter">Connexion
 									<i class="fa-solid fa-right-to-bracket"></i>
 							</a></li>
 
 							<c:if test="${ user == null }">
 
-								<li class="nav-item"><a class="nav-link"
+								<li class="nav-item ms-5"><a class="nav-link"
 									href="${ pageContext.request.contextPath }/profil">Mon
 										Profil <i class="fa-regular fa-user"></i>
 								</a></li>
@@ -61,7 +60,7 @@
 							</c:if>
 							<c:if test="${ user != null }">
 
-								<li class="nav-item"><a class="nav-link"
+								<li class="nav-item ms-5"><a class="nav-link"
 									href="${ pageContext.request.contextPath }/deconnexion">Deconnexion<i
 										class="fa-solid fa-right-to-bracket"></i></a></li>
 
