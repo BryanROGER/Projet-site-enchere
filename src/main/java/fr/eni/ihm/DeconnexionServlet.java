@@ -16,7 +16,7 @@ public class DeconnexionServlet extends HttpServlet {
 		// on vide la session
 		var session = request.getSession();
 		session.invalidate();
-		request.getRequestDispatcher("/WEB-INF/pages/encheres.jsp").forward(request, response);
+		response.sendRedirect(request.getContextPath()+"/encheres");
 	}
 
 	

@@ -27,9 +27,8 @@ public class ConnexionServlet extends HttpServlet {
 				}
 			}
 		}
-		
+
 		request.getRequestDispatcher("WEB-INF/pages/connexion.jsp").forward(request, response);
-		
 
 	}
 
@@ -47,16 +46,17 @@ public class ConnexionServlet extends HttpServlet {
 			// exception à gérer mauvais mot de passe
 			System.out.println("mauvais mot de passe");
 
+		var session = request.getSession();
 		if (request.getParameter("se_souvenir_de_moi") != null) {
-			var session = request.getSession();
-			var cookies = request.getCookies();
+
 			Cookie cookie = new Cookie("JSESSIONID", session.getId());
 			int time = (int) (System.currentTimeMillis() / 1000); // secondes
 			cookie.setMaxAge(time + (3600 * 24 * 7));
 			response.addCookie(cookie);
 		}
 
-		response.sendRedirect(request.getContextPath()+"/encheres");
+		session.setAttribute("user", utilisateur);
+		response.sendRedirect(request.getContextPath() + "/encheres");
 
 	}
 

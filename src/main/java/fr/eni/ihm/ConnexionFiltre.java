@@ -15,10 +15,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 @WebFilter(
         urlPatterns = {
-                "/profile",
-                "/encheres/*",
-                "/suppressionProfile",
-                "/ventes",
+       
+                "/detail-utilisateur",
+            
                
         },
         dispatcherTypes = {
@@ -43,21 +42,19 @@ public class ConnexionFiltre  implements Filter {
         if (isUserLoggedIn(httpRequest)) {
             chain.doFilter(request, response);
         } else {
-            httpResponse.sendRedirect(httpRequest.getContextPath() + "/connexion.jsp"); // Redirige vers la page d'accueil
+            httpResponse.sendRedirect(httpRequest.getContextPath() + "/se-connecter"); // Redirige vers la page d'accueil
         }
     }
 
 	public static boolean isUserLoggedIn(HttpServletRequest request) {
-
+		boolean isConnecte = true;
         HttpSession session = request.getSession(false);
-
-        
-        if (session != null && session.getAttribute("utilisateurConnecte") != null) {
+        System.out.println(session.toString());
+        //&& session.getAttribute("utilisateurConnecte") != null
+        if (session == null	|| session.getAttribute("user")== null) {
    
-            return true;
-        } else {
-           
-            return false;
-        }
+        	isConnecte = false;
+        } 
+          return isConnecte;
     }
 }
