@@ -9,7 +9,7 @@ import java.io.IOException;
 
 import fr.eni.bll.UtilisateurManager;
 
-@WebServlet("/detail-utilisateur")
+@WebServlet("/profil")
 public class DetailUtilisateurServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

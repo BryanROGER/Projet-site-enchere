@@ -25,7 +25,7 @@
 <p>${article.getNomArticle() }</p>
 <p>Prix : ${article.getMiseAPrix() }</p>
 <p>Fin de l'enchère : ${article.getDateFinEncheres() }</p>
-<p>Vendeur : <a href="${pageContext.request.contextPath}/detail-utilisateur?id=${article.getVendeur().getNoUtilisateur() }">${article.getVendeur().getPseudo() }</a></p>
+<p>Vendeur : <a href="${pageContext.request.contextPath}/profil?id=${article.getVendeur().getNoUtilisateur() }">${article.getVendeur().getPseudo() }</a></p>
 </div>
 </c:forEach>
 
