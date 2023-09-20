@@ -9,7 +9,9 @@ import java.io.IOException;
 import java.util.List;
 
 import fr.eni.bll.ArticleManager;
+import fr.eni.bll.CategorieManager;
 import fr.eni.bo.Article;
+import fr.eni.bo.Categorie;
 
 @WebServlet("/encheres")
 public class EncheresServlet extends HttpServlet {
@@ -23,6 +25,10 @@ public class EncheresServlet extends HttpServlet {
 		List<Article> articles = articleManager.tousLesArticles();
 		request.setAttribute("articles", articles);
 		
+		
+		CategorieManager categorieManager = CategorieManager.getInstance();
+		List<Categorie> categories = categorieManager.selectionnerToutesLesCategories();
+		request.setAttribute("categories", categories);
 		
 		
 		request.getRequestDispatcher("/WEB-INF/pages/encheres.jsp").forward(request, response);
