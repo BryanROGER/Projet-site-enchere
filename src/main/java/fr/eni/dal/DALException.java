@@ -2,13 +2,24 @@ package fr.eni.dal;
 
 public class DALException extends Exception{
 
-	private String message;
-
 	public DALException(String message) {
 		super(message);
-		this.message = message;
 	}
 	
+	public DALException(String message, Throwable exception) {
+		super(message, exception);
+	}
+	
+	//Méthodes
+		@Override
+		public String getMessage() {
+			StringBuffer sb = new StringBuffer("Couche DAL - ");
+			sb.append(super.getMessage());
+			
+			return sb.toString() ;
+		}
+		
+		
 	
 	
 }

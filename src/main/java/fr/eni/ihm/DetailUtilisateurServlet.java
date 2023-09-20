@@ -7,7 +7,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import fr.eni.bll.BLLException;
 import fr.eni.bll.UtilisateurManager;
+import fr.eni.bo.Utilisateur;
 
 @WebServlet("/profil")
 public class DetailUtilisateurServlet extends HttpServlet {
@@ -19,9 +21,16 @@ public class DetailUtilisateurServlet extends HttpServlet {
 		int id = Integer.parseInt((String) request.getParameter("id"));
 		var utilisateurManager = UtilisateurManager.getInstance();
 		
-		var utilisateur = utilisateurManager.unUtilisateurParID(id);
-		request.setAttribute("utilisateur", utilisateur);
-		request.getRequestDispatcher("/WEB-INF/pages/detail-utilisateur.jsp").forward(request, response);
+		Utilisateur utilisateur;
+		try {
+			utilisateur = utilisateurManager.unUtilisateurParID(id);
+			request.setAttribute("utilisateur", utilisateur);
+			request.getRequestDispatcher("/WEB-INF/pages/detail-utilisateur.jsp").forward(request, response);
+		} catch (BLLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 
 	}
 

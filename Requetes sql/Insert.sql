@@ -1,18 +1,40 @@
 use ENCHERE_BDD
 go
 
+
+delete from ARTICLES_VENDUS;
+delete from CATEGORIES;
+delete from UTILISATEURS;
+
+
 select * from UTILISATEURS;
 select * from ARTICLES_VENDUS;
+select * from CATEGORIES;
+select * from ENCHERES;
 
 select * from ARTICLES_VENDUS a
 inner join UTILISATEURS u on a.no_utilisateur= u.no_utilisateur
 inner join CATEGORIES c on c.no_categorie = a.no_categorie
+inner join ENCHERES e on e.no_article = a.no_article
 
 
 -- TABLE UTILISATEURS
 
 INSERT INTO UTILISATEURS (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur)
-VALUES ('test1', 'Premier', 'Test', 'premier.test@example.com', '06 42 75 64 02', '123 Main St', '35131', 'Chartres', 'azerty', 1000, 0);
+VALUES 
+('test1', 'Premier', 'Test', 'premier.test@example.com', '06 42 75 64 02', '123 Main St', '35131', 'Chartres', 'azertyuiop', 1000, 0),
+('acheteur', 'Premier', 'Test', 'premi.test@example.com', '06 42 75 64 02', '123 Main St', '35131', 'Chartres', 'azertyuiop', 1000, 0);
+
+
+
+-- TABLE CATEGORIES
+INSERT INTO CATEGORIES (libelle)
+VALUES
+    ('Informatique'),
+    ('Ammeublement'),
+    ('Vêtement'),
+    ('Sport&Loisirs');
+
 
 
 -- TABLE ARTICLES_VENDUS
@@ -26,11 +48,7 @@ VALUES
     ('Trophés de Dimitri Payet', 'Grande collection des trophés du joueur de foot', '2023-09-23', '2023-09-24', 120, 0, 1, 4);
 
 
--- TABLE CATEGORIES
-INSERT INTO CATEGORIES (libelle)
-VALUES
-    ('Informatique'),
-    ('Ammeublement'),
-    ('Vêtement'),
-    ('Sport&Loisirs');
+-- TABLE ENCHERES	
 
+INSERT INTO ENCHERES (no_utilisateur,no_article,date_enchere,montant_enchere) 
+VALUES (1,2,GETDATE(),0);

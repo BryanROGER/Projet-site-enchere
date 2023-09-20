@@ -1,14 +1,15 @@
 package fr.eni.ihm;
 
+import java.io.IOException;
+
+import fr.eni.bll.BLLException;
+import fr.eni.bll.UtilisateurManager;
+import fr.eni.bo.Utilisateur;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.io.IOException;
-
-import fr.eni.bll.UtilisateurManager;
-import fr.eni.bo.Utilisateur;
 
 @WebServlet("/inscription")
 public class InscriptionServlet extends HttpServlet {
@@ -40,21 +41,31 @@ public class InscriptionServlet extends HttpServlet {
 		String confirmationMDP = request.getParameter("confirmation_mdp");
 
 		Utilisateur utilisateur = null;
-		if (motDePasse.equals(confirmationMDP)) {
-			utilisateur = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville, motDePasse);
-			utilisateurManager.ajouterUtilisateur(utilisateur);
-		} else {
-			
-			//erreur à gérer si mdp et confirmation sont identiques
-		}
-		
-		if(utilisateur != null) {
-			var session = request.getSession();
-			session.setAttribute("pseudo", utilisateur.getPseudo());
-			session.setAttribute("motDePasse", "");
-		}
-		
 
+		try {
+			if (motDePasse.equals(confirmationMDP)) {
+				utilisateur = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville,
+						motDePasse);
+				utilisateurManager.ajouterUtilisateur(utilisateur);
+
+			} else {
+				request.setAttribute("error", "Le mot de passe et la confirmation ne sont pas identiques");
+				doGet(request, response);
+				return;
+			}
+
+		} catch (BLLException e) {
+			
+			request.setAttribute("error", e.getMessage());
+			doGet(request, response);
+			e.printStackTrace();
+			return;
+		}
+
+		var session = request.getSession();
+
+		session.setAttribute("user", utilisateur);
+		request.getSession().setAttribute("success", "Le compte a bien été créer!");
 		response.sendRedirect(request.getContextPath() + "/encheres");
 
 	}

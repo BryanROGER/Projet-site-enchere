@@ -20,12 +20,12 @@
 </form>
 
 
-<c:forEach items="${articles }" var="article">
+<c:forEach items="${encheres }" var="enchere">
 <div>
-<p>${article.getNomArticle() }</p>
-<p>Prix : ${article.getMiseAPrix() }</p>
-<p>Fin de l'enchère : ${article.getDateFinEncheres() }</p>
-<p>Vendeur : <a href="${pageContext.request.contextPath}/profil?id=${article.getVendeur().getNoUtilisateur() }">${article.getVendeur().getPseudo() }</a></p>
+<p>${enchere.getArticle().getNomArticle() }</p>
+<p>Prix : ${enchere.getArticle().getMiseAPrix() }</p>
+<p>Fin de l'enchère : ${enchere.getArticle().getDateFinEncheres() }</p>
+<p>Vendeur : <a href="${pageContext.request.contextPath}/profil?id=${enchere.getArticle().getVendeur().getNoUtilisateur() }">${enchere.getArticle().getVendeur().getPseudo() }</a></p>
 </div>
 </c:forEach>
 

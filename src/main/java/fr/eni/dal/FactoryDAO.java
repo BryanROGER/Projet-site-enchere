@@ -1,6 +1,6 @@
 package fr.eni.dal;
 
-import fr.eni.dal.jdbc.ArticleJdbcDaoImpl;
+import fr.eni.dal.jdbc.EnchereJdbcDaoImpl;
 import fr.eni.dal.jdbc.UtilisateurJdbcDaoImpl;
 
 public class FactoryDAO {
@@ -13,8 +13,8 @@ public class FactoryDAO {
 		return new UtilisateurJdbcDaoImpl();
 	}
 	
-	public static ArticleDao getArticle() {
-		return new ArticleJdbcDaoImpl();
+	public static EnchereDao getEnchere() {
+		return new EnchereJdbcDaoImpl();
 	}
 
 }
