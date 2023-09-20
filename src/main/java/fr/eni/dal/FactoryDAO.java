@@ -1,6 +1,7 @@
 package fr.eni.dal;
 
 import fr.eni.dal.jdbc.ArticleJdbcDaoImpl;
+import fr.eni.dal.jdbc.CategorieJdbcDaoImpl;
 import fr.eni.dal.jdbc.UtilisateurJdbcDaoImpl;
 
 public class FactoryDAO {
@@ -15,6 +16,9 @@ public class FactoryDAO {
 	
 	public static ArticleDao getArticle() {
 		return new ArticleJdbcDaoImpl();
+		
 	}
-
+	public static CategorieDao getCategorie() {
+		return new CategorieJdbcDaoImpl();
+	}
 }
