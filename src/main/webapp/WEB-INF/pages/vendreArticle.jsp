@@ -12,11 +12,11 @@
 
 	<div class="row mt-5">
 		<div class="col-4 offset-4">
-			<form action="" method="post">
+			<form action="${ pageContext.request.contextPath }/vendre" method="post">
 
 				<div class="mb-3">
 					<label for="article">Article :</label> <input class="input"
-						type="text" name="article" id="article" placeholder="Article"
+						type="text" name="nom" id="article" placeholder="Article"
 						required>
 				</div>
 
@@ -27,31 +27,25 @@
 				</div>
 
 				<div class="mb-3">
-					<label for="categorie">Catégorie :</label> <select name="categorie"
-						class="input" id="categorie">
-						<%
-						for (Categorie categorie : CategorieManager.getInstance().selectionnerToutesLesCategories()) {
-						%>
-						<option value="<%=categorie.getNoCategorie()%>"><%=categorie.getLibelle()%></option>
-						<%
-						}
-						%>
+					<label for="categorie">Catégorie :</label> 
+					<select name="categorie" class="input" id="categorie">
+						
 					</select>
 				</div>
 				<div class="mb-3">
 					<label for="mPrix">Mise à prix :</label> <input class="input"
-						type="number" name="mPrix" id="mPrix" step="1" max="10000"
+						type="number" name="prix" id="mPrix" step="1" max="10000"
 						required>
 				</div>
 
 				<div class="mb-3">
 					<label for="dEnchere">Début de l'enchère :</label> <input
-						class="input" type="date" name="dEnchere" id="dEnchere" required>
+						class="input" type="date" name="debut_enchere" id="dEnchere" required>
 				</div>
 
 				<div class="mb-3">
 					<label for="fEnchere">Fin de l'enchère :</label> <input
-						class="input" type="date" name="fEnchere" id="fEnchere" required>
+						class="input" type="date" name="fin_enchere" id="fEnchere" required>
 				</div>
 
 				<!-- Retrait-->
@@ -59,18 +53,18 @@
 				<h1>Retrait de l'objet</h1>
 				<div class="mb-3">
 					<label for="rue">Rue :</label> <input class="input" type="text"
-						name="rue" id="rue" maxlength="100" required>
+						name="rue" id="rue" maxlength="100" required value="${user.getRue() }">
 				</div>
 
 				<div class="mb-3">
 					<label for="cp">Code Postal :</label> <input class="input"
 						type="text" name="codePostal" id="cp" step="1000" min="0"
-						maxlength="5" required>
+						maxlength="5" required value="${user.getCodePostal() }">
 				</div>
 
 				<div class="mb-3">
 					<label for="ville">Ville :</label> <input class="input" type="text"
-						name="ville" id="ville" required>
+						name="ville" id="ville" required value="${user.getVille() }">
 				</div>
 				<div class="form-row">
 					<input type="submit"
@@ -82,5 +76,7 @@
 				</div>
 
 			</form>
+		</div>
+	</div>
 </main>
 <%@ include file="/WEB-INF/fragments/footer.jspf"%>

@@ -1,7 +1,6 @@
 package fr.eni.ihm;
 
 import java.io.IOException;
-import java.sql.Timestamp;
 
 import fr.eni.bll.BLLException;
 import fr.eni.bll.UtilisateurManager;
