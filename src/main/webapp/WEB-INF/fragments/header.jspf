@@ -15,11 +15,12 @@
 	rel="stylesheet"
 	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
 	crossorigin="anonymous">
-<link rel="stylesheet" href="${ pageContext.request.contextPath }/assets/style.css">
+<link rel="stylesheet"
+	href="${ pageContext.request.contextPath }/assets/style.css">
 <title>ENI-encheres</title>
 </head>
 <body>
-	<div >
+	<div>
 		<header class="row">
 			<nav class="navbar navbar-expand-sm bg-primary navbar-dark">
 				<div class="container-fluid">
@@ -44,25 +45,26 @@
 								href="${ pageContext.request.contextPath }/vendre"> Vendre <i
 									class="fa-solid fa-hand-holding-dollar"></i></a></li>
 
-
-							<li class="nav-item ms-5"><a class="nav-link"
-								href="${ pageContext.request.contextPath }/se-connecter">Connexion
-									<i class="fa-solid fa-right-to-bracket"></i>
-							</a></li>
-
 							<c:if test="${ user == null }">
+								<li class="nav-item ms-5"><a class="nav-link"
+									href="${ pageContext.request.contextPath }/se-connecter">Connexion
+										<i class="fa-solid fa-right-to-bracket"></i>
+								</a></li>
+							</c:if>
+
+							<c:if test="${ user != null }">
 
 								<li class="nav-item ms-5"><a class="nav-link"
-									href="${ pageContext.request.contextPath }/profil">Mon
+									href="${ pageContext.request.contextPath }/mon-profil">Mon
 										Profil <i class="fa-regular fa-user"></i>
 								</a></li>
 
 							</c:if>
 							<c:if test="${ user != null }">
 
-								<li class="nav-item ms-5"><a class="nav-link"
+								<li class="nav-item ms-5"><a onclick="return confirm('Voulez-vous vraiment vous déconnecter ?')" class="nav-link"
 									href="${ pageContext.request.contextPath }/deconnexion">Deconnexion<i
-										class="fa-solid fa-right-to-bracket"></i></a></li>
+										class="fa-solid fa-right-to-bracket" ></i></a></li>
 
 							</c:if>
 						</ul>

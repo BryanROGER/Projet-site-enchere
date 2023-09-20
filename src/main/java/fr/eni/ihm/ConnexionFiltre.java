@@ -49,8 +49,6 @@ public class ConnexionFiltre  implements Filter {
 	public static boolean isUserLoggedIn(HttpServletRequest request) {
 		boolean isConnecte = true;
         HttpSession session = request.getSession(false);
-        System.out.println(session.toString());
-        //&& session.getAttribute("utilisateurConnecte") != null
         if (session == null	|| session.getAttribute("user")== null) {
    
         	isConnecte = false;

@@ -42,9 +42,11 @@ public class ConnexionServlet extends HttpServlet {
 		var utilisateur = utilisateurManager.unUtilisateurParPseudoOuMail(identifiant);
 		request.setAttribute("utilisateur", utilisateur);
 
-		if (!utilisateur.getMotDePasse().equalsIgnoreCase(motDePasse))
+		if (!utilisateur.getMotDePasse().equalsIgnoreCase(motDePasse)) {
 			// exception à gérer mauvais mot de passe
 			System.out.println("mauvais mot de passe");
+			request.getRequestDispatcher("WEB-INF/pages/connexion.jsp").forward(request, response);
+		}
 
 		var session = request.getSession();
 		if (request.getParameter("se_souvenir_de_moi") != null) {

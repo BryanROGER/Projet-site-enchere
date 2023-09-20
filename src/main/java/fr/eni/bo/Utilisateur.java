@@ -81,13 +81,15 @@ public class Utilisateur {
 		this.motDePasse = motDePasse;
 	}
 
+	
+	
 
 
 	// toString
 	@Override
 	public String toString() {
 		return "Utilisateur [noUtilisateur=" + noUtilisateur + ", pseudo=" + pseudo + ", nom=" + nom + ", prenom="
-				+ prenom + ", email=" + email + "]";
+				+ prenom + ", email=" + email + "]" + "("+motDePasse+")";
 	}
 
 	

@@ -9,5 +9,9 @@ public interface UtilisateurDao {
 	public void insertUtilisateur(Utilisateur utilisateur);
 	
 	public Utilisateur selectByID(int id);
+	
+	public void update(Utilisateur utilisateur);
+	
+	public void delete(Utilisateur utilisateur);
 
 }

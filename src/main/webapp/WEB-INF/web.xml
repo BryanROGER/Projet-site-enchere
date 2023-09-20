@@ -30,4 +30,14 @@
     <servlet-name>DetailUtilisateurServlet</servlet-name>
     <url-pattern>/DetailUtilisateurServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ProfilServlet</display-name>
+    <servlet-name>ProfilServlet</servlet-name>
+    <servlet-class>fr.eni.ihm.ProfilServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ProfilServlet</servlet-name>
+    <url-pattern>/ProfilServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

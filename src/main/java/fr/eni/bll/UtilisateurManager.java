@@ -40,6 +40,15 @@ public class UtilisateurManager {
 		return utilisateurDao.selectByID(id);
 	}
 	
+	public void miseAJourProfilUtilisateur(Utilisateur utilisateur) {
+		utilisateurDao.update(utilisateur);
+	}
+	
+	public void supprimerCompteUtilisateur(Utilisateur utilisateur) {
+		utilisateurDao.delete(utilisateur);
+	}
+
+	
 	
 	
 }
