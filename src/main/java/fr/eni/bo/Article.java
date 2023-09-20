@@ -38,6 +38,10 @@ public class Article {
 		this.categorieArticle = categorieArticle;
 	}
 
+	public Article() {
+		// TODO Auto-generated constructor stub
+	}
+
 	// toString
 	@Override
 	public String toString() {
