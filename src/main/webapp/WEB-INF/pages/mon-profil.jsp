@@ -4,6 +4,10 @@
 
 
 	<main>
+	
+	<c:if test="${ ! empty error }">
+			<div class="alert alert-danger">${ error }</div>
+		</c:if>
 
 		<h1>Mon profil</h1>
 		

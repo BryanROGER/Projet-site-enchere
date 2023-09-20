@@ -3,6 +3,9 @@
 <%@ include file="/WEB-INF/fragments/header.jspf"%>
 
 <main>
+	<c:if test="${ ! empty error }">
+			<div class="alert alert-danger">${ error }</div>
+	</c:if>
 	<div class="form-group">
 		<form action="${pageContext.request.contextPath}/se-connecter"
 			method="post">

@@ -3,7 +3,9 @@ package fr.eni.ihm;
 import java.io.IOException;
 import java.sql.Timestamp;
 
+import fr.eni.bll.BLLException;
 import fr.eni.bll.UtilisateurManager;
+import fr.eni.bo.Utilisateur;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.Cookie;
@@ -39,13 +41,22 @@ public class ConnexionServlet extends HttpServlet {
 		String identifiant = request.getParameter("utilisateur");
 		String motDePasse = request.getParameter("mot_de_passe");
 
-		var utilisateur = utilisateurManager.unUtilisateurParPseudoOuMail(identifiant);
+		Utilisateur utilisateur =null;
+		try {
+			utilisateur = utilisateurManager.unUtilisateurParPseudoOuMail(identifiant);
+		} catch (BLLException e) {
+			request.setAttribute("error","Le champs saisit n'est pas correct");
+			request.getRequestDispatcher("WEB-INF/pages/connexion.jsp").forward(request, response);
+			e.printStackTrace();
+			return;			
+		}
 		request.setAttribute("utilisateur", utilisateur);
 
 		if (!utilisateur.getMotDePasse().equalsIgnoreCase(motDePasse)) {
-			// exception à gérer mauvais mot de passe
-			System.out.println("mauvais mot de passe");
+			request.setAttribute("error","Le mot de passe ne correspont pas");
+
 			request.getRequestDispatcher("WEB-INF/pages/connexion.jsp").forward(request, response);
+			return;
 		}
 
 		var session = request.getSession();

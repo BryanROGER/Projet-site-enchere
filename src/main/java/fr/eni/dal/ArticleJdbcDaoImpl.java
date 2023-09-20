@@ -1,6 +1,4 @@
-package fr.eni.dal.jdbc;
-
-import fr.eni.dal.ArticleDao;
+package fr.eni.dal;
 
 public class ArticleJdbcDaoImpl implements ArticleDao {
 

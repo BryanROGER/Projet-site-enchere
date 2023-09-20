@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import fr.eni.bll.BLLException;
 import fr.eni.bll.UtilisateurManager;
 import fr.eni.bo.Utilisateur;
 
@@ -28,7 +29,13 @@ public class ProfilServlet extends HttpServlet {
 		UtilisateurManager utilisateurManager = UtilisateurManager.getInstance();
 		
 		String pseudo = request.getParameter("pseudo");
-		Utilisateur utilisateur = utilisateurManager.unUtilisateurParPseudoOuMail(pseudo);
+		Utilisateur utilisateur;
+		try {
+			utilisateur = utilisateurManager.unUtilisateurParPseudoOuMail(pseudo);
+		} catch (BLLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		var session = request.getSession();
 		String choix = request.getParameter("bouton");
 		
@@ -46,31 +53,47 @@ public class ProfilServlet extends HttpServlet {
 			
 			
 			
-			utilisateur = utilisateurManager.unUtilisateurParPseudoOuMail(pseudo);
-			
-			System.out.println(utilisateur.getMotDePasse()+" - "+motDePasse);
-			
-			if(utilisateur.getMotDePasse().equals(motDePasse)) {
-				if(!nouveauMDP.isBlank() && nouveauMDP.equals(confirmationMDP)) {
-					Utilisateur utilisateurModifié = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville, nouveauMDP);
-					utilisateurManager.miseAJourProfilUtilisateur(utilisateurModifié);
-					session.setAttribute("user", utilisateurModifié);
+			try {
+				utilisateur = utilisateurManager.unUtilisateurParPseudoOuMail(pseudo);
+				
+				if(utilisateur.getMotDePasse().equals(motDePasse)) {
+					if(!nouveauMDP.isBlank() && nouveauMDP.equals(confirmationMDP)) {
+						Utilisateur utilisateurModifié = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville, nouveauMDP);
+						utilisateurManager.miseAJourProfilUtilisateur(utilisateurModifié);
+						session.setAttribute("user", utilisateurModifié);
+						
+					} else {
+						Utilisateur utilisateurModifié = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville, motDePasse);
+						utilisateurManager.miseAJourProfilUtilisateur(utilisateurModifié);
+						session.setAttribute("user", utilisateurModifié);
+					}
 					
 				} else {
-					Utilisateur utilisateurModifié = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville, motDePasse);
-					utilisateurManager.miseAJourProfilUtilisateur(utilisateurModifié);
-					session.setAttribute("user", utilisateurModifié);
-				}
-				//ajouter controle entre mot de passe et confirmation mdp
-			} else {
-				System.out.println("merci de saisir le mot de passe");
-				request.getRequestDispatcher("/WEB-INF/pages/mon-profil.jsp").forward(request, response);		}
+					request.setAttribute("error","Le mot de passe n'est pas le bon");
+					request.getRequestDispatcher("/WEB-INF/pages/mon-profil.jsp").forward(request, response);		
+					return;
+					}
+					
+				
+			} catch (BLLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
+			
 			
 			response.sendRedirect(request.getContextPath()+"/encheres");
 		}
 		
 		if(choix.equals("suppr")) {
-			utilisateurManager.supprimerCompteUtilisateur(utilisateur);
+			try {
+				utilisateur = utilisateurManager.unUtilisateurParPseudoOuMail(pseudo);
+				utilisateurManager.supprimerCompteUtilisateur(utilisateur);
+			} catch (BLLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			session.invalidate();
 			response.sendRedirect(request.getContextPath()+"/encheres");
 		}
