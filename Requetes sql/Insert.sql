@@ -5,12 +5,16 @@ go
 delete from ARTICLES_VENDUS;
 delete from CATEGORIES;
 delete from UTILISATEURS;
-
+delete from ENCHERES;
+delete from ARTICLES_VENDUS;
+delete from RETRAITS;
 
 select * from UTILISATEURS;
 select * from ARTICLES_VENDUS;
 select * from CATEGORIES;
 select * from ENCHERES;
+select * from ARTICLES_VENDUS;
+select * from RETRAITS;
 
 select * from ARTICLES_VENDUS a
 inner join UTILISATEURS u on a.no_utilisateur= u.no_utilisateur

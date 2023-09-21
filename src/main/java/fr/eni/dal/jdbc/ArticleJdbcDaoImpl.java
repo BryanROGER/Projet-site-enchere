@@ -18,7 +18,7 @@ import fr.eni.dal.FactoryDAO;
 import fr.eni.dal.UtilisateurDao;
 
 public class ArticleJdbcDaoImpl implements ArticleDao {
-	private static final String INSERT = "insert into ARTICLES_VENDUS (nom_article, description, date_debut_encheres, date_fin_encheres,prix_initial,prix_vente, no_utilisateur,no_categorie) VALUES (?,?,?,?,?,?,?,?)";
+	private static final String INSERT = "insert into ARTICLES_VENDUS (nom_article, description, date_debut_encheres, date_fin_encheres,prix_initial, no_utilisateur,no_categorie) VALUES (?,?,?,?,?,?,?)";
 	private static final String GET_BY_ID = "select * from ARTICLES_VENDUS where no_article= ?";
 	private static final String GET_BY_CATEGORIE = "SELECT *" +
             "FROM ARTICLES_VENDUS " +
@@ -37,7 +37,7 @@ public class ArticleJdbcDaoImpl implements ArticleDao {
             "WHERE nom_article LIKE ?";
 
 	@Override
-	public Article insert(Article article) {
+	public void insert(Article article) {
 		try (Connection cnx = ConnectionProvider.getConnection()) {
 
 			PreparedStatement statement = cnx.prepareStatement(INSERT, PreparedStatement.RETURN_GENERATED_KEYS);
@@ -46,7 +46,6 @@ public class ArticleJdbcDaoImpl implements ArticleDao {
 			statement.setDate(3, java.sql.Date.valueOf(article.getDateDebutEncheres()));
 			statement.setDate(4, java.sql.Date.valueOf(article.getDateFinEncheres()));
 			statement.setInt(5, article.getMiseAPrix());
-			statement.setInt(6, article.getPrixVente());
 			statement.setInt(6, article.getVendeur().getNoUtilisateur());
 			statement.setInt(7, article.getCategorieArticle().getNoCategorie());
 
@@ -62,7 +61,6 @@ public class ArticleJdbcDaoImpl implements ArticleDao {
 			e.printStackTrace();
 		
 		}
-		return article;
 	}
 
 	@Override
@@ -137,7 +135,7 @@ public class ArticleJdbcDaoImpl implements ArticleDao {
 			statement.setInt(7, article.getVendeur().getNoUtilisateur());
 			statement.setInt(8, article.getCategorieArticle().getNoCategorie());
 			if (article.getLieuRetrait() != null) {
-				statement.setInt(9, article.getLieuRetrait().get());
+				//statement.setInt(9, article.getLieuRetrait());
 			} else {
 				statement.setNull(9, Types.INTEGER);
 			}
@@ -210,10 +208,10 @@ public class ArticleJdbcDaoImpl implements ArticleDao {
 		return categorieArticle;
 	}
 	private Retrait getRetraitArticle(int retraitId) {
-		RetraitDao retraitDAO = FactoryDAO.getRetrait();
+		//RetraitDao retraitDAO = FactoryDAO.getRetrait();
 		Retrait retraitArticle = null;
 		try {
-			retraitArticle = retraitDAO.getById(retraitId);
+		//	retraitArticle = retraitDAO.getById(retraitId);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

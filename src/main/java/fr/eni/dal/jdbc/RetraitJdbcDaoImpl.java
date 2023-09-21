@@ -14,11 +14,11 @@ public class RetraitJdbcDaoImpl implements RetraitDao {
 	private static final String SELECT_BY_ADRESSE = "selet * from retrait where rue=? and ville=? and code_postal =? ";
 
 	@Override
-	public void insert(int noArticle, Retrait retrait) {
+	public void insert(Retrait retrait) {
 		try (Connection cnx = ConnectionProvider.getConnection()) {
 
 			PreparedStatement statement = cnx.prepareStatement(INSERT);
-			statement.setInt(1, noArticle);
+			statement.setInt(1, retrait.getArticle().getNoArticle());
 			statement.setString(2, retrait.getRue());
 			statement.setString(3, retrait.getCodePostal());
 			statement.setString(4, retrait.getVille());
@@ -50,7 +50,7 @@ public class RetraitJdbcDaoImpl implements RetraitDao {
 			ResultSet rs = statement.executeQuery();
 
 			if (rs.next()) {
-				retrait = new Retrait(rs.getInt("no_retrait"), rs.getString("rue"),rs.getString("ville"),rs.getString("code_postal"));
+				//retrait = new Retrait(rs.getInt("no_retrait"), rs.getString("rue"),rs.getString("ville"),rs.getString("code_postal"));
 			}
 			
 		} catch (Exception e) {

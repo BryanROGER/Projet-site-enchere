@@ -5,7 +5,10 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import fr.eni.bll.ArticleManager;
 import fr.eni.bll.CategorieManager;
+import fr.eni.bll.EnchereManager;
+import fr.eni.bll.RetraitManager;
 import fr.eni.bo.Article;
 import fr.eni.bo.Categorie;
 import fr.eni.bo.Enchere;
@@ -59,19 +62,25 @@ public class VendreArticleServlet extends HttpServlet {
 		
 		
 		// Création de l'article
+		var articleManager = ArticleManager.getInstance();
 		Article article = new Article(nomArticle, description, debutEnchere, finEnchere, miseAPrix, utilisateur, categorieArticle);
 		// ajout de l'article en BDD
-		
-		//récupération de l'article tour juste inséré
-		
-		// récupération du numero du nouvel article pour insérer le retrait en bdd
-		Retrait retrait = new Retrait(rue, codePostal, ville);
-		// récupé du retrait
-		
-		// article set retrait avec nouveau retrait
-		
+		articleManager.ajouterArticle(article);
+		// Le numéro de l'article tout juste inséré est modifié, on l'intègre dans le constructeur du retrait
+		Retrait retrait = new Retrait(article, rue, codePostal, ville);
+		var retraitManager = RetraitManager.getInstance();
+		retraitManager.ajouterRetrait(retrait);
+		// ajout du retrait dans l'article
+		article.setLieuRetrait(retrait);
 		// insert enchere
 		Enchere enchere = new Enchere(utilisateur, article, finEnchere, miseAPrix);
+		var enchereManager = EnchereManager.getInstance();
+		enchereManager.ajouterEnchere(enchere);
+
+		
+		request.getRequestDispatcher("/WEB-INF/pages/encheres.jsp").forward(request, response);
+
+		
 		
 	}
 }

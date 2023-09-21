@@ -60,7 +60,7 @@
 
 				<div class="mb-3">
 					<label for="cp">Code Postal :</label> <input class="input"
-						type="text" name="codePostal" id="cp" step="1000" min="0"
+						type="text" name="code_postal" id="cp" step="1000" min="0"
 						maxlength="5" required value="${user.getCodePostal() }">
 				</div>
 

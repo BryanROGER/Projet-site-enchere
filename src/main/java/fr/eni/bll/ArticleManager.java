@@ -23,7 +23,7 @@ private static ArticleManager instance;
 	ArticleDao articleDao = FactoryDAO.getArticle();
 	
 	public void ajouterArticle(Article article) {
-		articleDao.
+		articleDao.insert(article);
 	}
 	
 	

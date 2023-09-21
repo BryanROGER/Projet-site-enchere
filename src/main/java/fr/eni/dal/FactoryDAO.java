@@ -1,8 +1,10 @@
 package fr.eni.dal;
 
 
+import fr.eni.dal.jdbc.ArticleJdbcDaoImpl;
 import fr.eni.dal.jdbc.CategorieJdbcDaoImpl;
 import fr.eni.dal.jdbc.EnchereJdbcDaoImpl;
+import fr.eni.dal.jdbc.RetraitJdbcDaoImpl;
 import fr.eni.dal.jdbc.UtilisateurJdbcDaoImpl;
 
 public class FactoryDAO {
@@ -27,5 +29,9 @@ public class FactoryDAO {
 	public static CategorieDao getCategorie() {
 		return new CategorieJdbcDaoImpl();
 
+	}
+	
+	public static RetraitDao getRetrait() {
+		return new RetraitJdbcDaoImpl();
 	}
 }

@@ -62,7 +62,7 @@ public class EnchereJdbcDaoImpl implements EnchereDao {
 			statement.setDate(3, Date.valueOf(enchere.getArticle().getDateDebutEncheres()));
 			statement.setInt(4, enchere.getMontantEnchere());
 			
-			
+			statement.executeUpdate();
 			
 
 		} catch (

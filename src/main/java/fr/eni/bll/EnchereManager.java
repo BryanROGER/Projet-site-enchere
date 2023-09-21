@@ -33,6 +33,10 @@ private static EnchereManager instance;
 	}
 	
 	
+	public void ajouterEnchere(Enchere enchere) {
+		enchereDao.insert(enchere);
+	}
+	
 	
 
 }

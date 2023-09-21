@@ -7,7 +7,7 @@ import fr.eni.bo.Retrait;
 
 public interface ArticleDao {
 
-	public Article insert(Article article);
+	public void insert(Article article);
 	
 	public Article selectById(int id);
 	
