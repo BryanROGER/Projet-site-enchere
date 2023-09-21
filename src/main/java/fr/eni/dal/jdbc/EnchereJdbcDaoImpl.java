@@ -18,11 +18,18 @@ public class EnchereJdbcDaoImpl implements EnchereDao {
 			+ "inner join UTILISATEURS u on a.no_utilisateur= u.no_utilisateur\r\n"
 			+ "inner join CATEGORIES c on c.no_categorie = a.no_categorie inner join ENCHERES e on e.no_article = a.no_article";
 	private static final String INSERT = "INSERT INTO ENCHERES (no_utilisateur, no_article, date_enchere, montant_enchere) VALUES (?, ?, ?, ?)";
+
+	private static final String SELECT_BY_NAME = "SELECT * FROM ARTICLES_VENDUS a \r\n"
+	+"inner join UTILISATEURS u on a.no_utilisateur= u.no_utilisateur\r\n"
+			+ "inner join CATEGORIES c on c.no_categorie = a.no_categorie\r\n"
+			+ "inner join ENCHERES e on e.no_article = a.no_article where nom_article  LIKE ? or description LIKE ?" ;
+
 	private static final String SELECT_BY_CATEGORIE = "select * from ARTICLES_VENDUS a\r\n"
 			+ "inner join UTILISATEURS u on a.no_utilisateur= u.no_utilisateur\r\n"
 			+ "inner join CATEGORIES c on c.no_categorie = a.no_categorie\r\n"
 			+ "inner join ENCHERES e on e.no_article = a.no_article where c.no_categorie = ?";
-
+	
+	
 	@Override
 	public List<Enchere> selectAll() {
 		try (Connection connection = ConnectionProvider.getConnection(); var stmt = connection.createStatement()) {
@@ -79,6 +86,42 @@ public class EnchereJdbcDaoImpl implements EnchereDao {
 	}
 
 	@Override
+
+	public List<Enchere> selectByName(String query) {
+		try (Connection connection = ConnectionProvider.getConnection(); 
+				var stmt = connection.prepareStatement(SELECT_BY_NAME);) {
+
+			List<Enchere> encheres = new ArrayList<Enchere>();
+
+			stmt.setString(1, "%"+query+"%");
+			stmt.setString(2, "%"+query+"%");
+
+			var rs = stmt.executeQuery();
+			while (rs.next()) {
+			  	Utilisateur utilisateur = new Utilisateur(rs.getInt("no_utilisateur"),rs.getString("pseudo"), rs.getString("nom"),
+						rs.getString("prenom"), rs.getString("email"), rs.getString("telephone"), rs.getString("rue"),
+						rs.getString("code_postal"), rs.getString("ville"), rs.getString("mot_de_passe"),
+						rs.getInt("credit"), rs.getBoolean("administrateur"));
+
+				Categorie categorie = new Categorie(rs.getInt("no_categorie"), rs.getString("libelle"));
+
+				Article article = new Article(rs.getInt("no_article"), rs.getString("nom_article"),
+						rs.getString("description"), rs.getDate("date_debut_encheres").toLocalDate(),
+						rs.getDate("date_fin_encheres").toLocalDate(), rs.getInt("prix_initial"),
+						rs.getInt("prix_vente"), utilisateur, categorie);
+				
+				encheres.add(new Enchere(utilisateur,article,rs.getDate("date_enchere").toLocalDate(),rs.getInt("montant_enchere")));
+			} 
+			
+			return encheres;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+		return null;
+	}
+
 	public List<Enchere> selectByCategorie(int noCategorie) {
 		try (Connection connection = ConnectionProvider.getConnection();
 				var stmt = connection.prepareStatement(SELECT_BY_CATEGORIE)) {
@@ -101,15 +144,22 @@ public class EnchereJdbcDaoImpl implements EnchereDao {
 						rs.getDate("date_fin_encheres").toLocalDate(), rs.getInt("prix_initial"),
 						rs.getInt("prix_vente"), utilisateur, categorie);
 				
+
+				encheres.add(new Enchere(null,article,rs.getDate("date_enchere").toLocalDate(),rs.getInt("montant_enchere")));
+
 				encheres.add(new Enchere(utilisateur,article,rs.getDate("date_enchere").toLocalDate(),rs.getInt("montant_enchere")));
+
 				
 			} 
 			
-			return encheres;
+            return encheres;
 
 		} catch (Exception e) {
 			e.printStackTrace();
-		}		return null;
+
+		}
+		return null;
 	}
+
 
 }

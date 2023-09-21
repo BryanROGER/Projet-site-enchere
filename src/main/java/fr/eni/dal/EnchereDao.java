@@ -11,6 +11,10 @@ public interface EnchereDao {
 	
 	public void insert(Enchere enchere);
 	
+
+	public List<Enchere> selectByName (String query);
+
 	public List<Enchere> selectByCategorie(int noCategorie);
 	
+
 }
