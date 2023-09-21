@@ -20,6 +20,18 @@ public class Enchere {
 	}
 	
 	
+	
+	
+	public Enchere(Utilisateur utilisateur, Article article, LocalDate dateEnchere) {
+		super();
+		this.utilisateur = utilisateur;
+		this.article = article;
+		this.dateEnchere = dateEnchere;
+	}
+
+
+
+
 	// To String
 	@Override
 	public String toString() {

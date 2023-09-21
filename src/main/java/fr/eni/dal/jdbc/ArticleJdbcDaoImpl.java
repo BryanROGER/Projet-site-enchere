@@ -10,6 +10,7 @@ import java.util.List;
 
 import fr.eni.bo.Article;
 import fr.eni.bo.Categorie;
+import fr.eni.bo.Enchere;
 import fr.eni.bo.Retrait;
 import fr.eni.bo.Utilisateur;
 import fr.eni.dal.ArticleDao;
@@ -19,7 +20,10 @@ import fr.eni.dal.UtilisateurDao;
 
 public class ArticleJdbcDaoImpl implements ArticleDao {
 	private static final String INSERT = "insert into ARTICLES_VENDUS (nom_article, description, date_debut_encheres, date_fin_encheres,prix_initial, no_utilisateur,no_categorie) VALUES (?,?,?,?,?,?,?)";
-	private static final String GET_BY_ID = "select * from ARTICLES_VENDUS where no_article= ?";
+	private static final String GET_BY_ID = "SELECT * FROM ARTICLES_VENDUS a \r\n"
+	+"inner join UTILISATEURS u on a.no_utilisateur= u.no_utilisateur\r\n"
+			+ "inner join CATEGORIES c on c.no_categorie = a.no_categorie\r\n"
+			+ " inner join RETRAITS e on e.no_article = a.no_article where a.no_article = ?";
 	private static final String GET_BY_CATEGORIE = "SELECT *" +
             "FROM ARTICLES_VENDUS " +
             "INNER JOIN CATEGORIES C on ARTICLES_VENDUS.no_categorie = C.no_categorie " +
@@ -66,7 +70,7 @@ public class ArticleJdbcDaoImpl implements ArticleDao {
 	@Override
 	public Article selectById(int id) {
 		
-		Article art = null;
+		Article article = null;
 		try (Connection cnx = ConnectionProvider.getConnection()) {
 			PreparedStatement pstmt = cnx.prepareStatement(GET_BY_ID);
 			pstmt.setInt(1, id);
@@ -74,14 +78,35 @@ public class ArticleJdbcDaoImpl implements ArticleDao {
 			ResultSet rs = pstmt.executeQuery();
 
 			if (rs.next()) {
-				art = articleBuilder(rs);
+				
+				Utilisateur utilisateur = new Utilisateur(rs.getInt("no_utilisateur"),rs.getString("pseudo"), rs.getString("nom"),
+						rs.getString("prenom"), rs.getString("email"), rs.getString("telephone"), rs.getString("rue"),
+						rs.getString("code_postal"), rs.getString("ville"), rs.getString("mot_de_passe"),
+						rs.getInt("credit"), rs.getBoolean("administrateur"));
+
+				Categorie categorie = new Categorie(rs.getInt("no_categorie"), rs.getString("libelle"));
+				
+				
+
+				article = new Article(rs.getInt("no_article"), rs.getString("nom_article"),
+						rs.getString("description"), rs.getDate("date_debut_encheres").toLocalDate(),
+						rs.getDate("date_fin_encheres").toLocalDate(), rs.getInt("prix_initial"),
+						rs.getInt("prix_vente"), utilisateur, categorie);
+				
+
+				Retrait retrait = new Retrait(article, rs.getString("rue"), rs.getString("code_postal"), rs.getString("ville"));
+				
+				article.setLieuRetrait(retrait);
+				
+				
 
 			}
+			return article;
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return art;
+		return article;
 	}
 
 	@Override

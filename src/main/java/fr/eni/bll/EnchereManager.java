@@ -2,9 +2,9 @@ package fr.eni.bll;
 
 import java.util.List;
 
-
+import fr.eni.bo.Article;
 import fr.eni.bo.Enchere;
-
+import fr.eni.bo.Utilisateur;
 import fr.eni.dal.EnchereDao;
 import fr.eni.dal.FactoryDAO;
 
@@ -45,6 +45,16 @@ private static EnchereManager instance;
 	public List<Enchere> encheresParCategorie(int noCategorie){
 		return enchereDao.selectByCategorie(noCategorie);
 	}
+	
+	public Enchere enchereParArticle(Article article) {
+		return enchereDao.selectByArticle(article);
+	}
+
+	public void updateEnchere(Enchere enchere) {
+		enchereDao.update(enchere);		
+	}
+	
+	
 	
 
 

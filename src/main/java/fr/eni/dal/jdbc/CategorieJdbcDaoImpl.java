@@ -75,6 +75,9 @@ public class CategorieJdbcDaoImpl implements CategorieDao {
 			while (rs.next()) {
 				categories.add(new Categorie(rs.getInt("no_categorie"), rs.getString("libelle")));
 			}
+			
+			return categories;
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 

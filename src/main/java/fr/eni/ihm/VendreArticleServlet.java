@@ -73,12 +73,12 @@ public class VendreArticleServlet extends HttpServlet {
 		// ajout du retrait dans l'article
 		article.setLieuRetrait(retrait);
 		// insert enchere
-		Enchere enchere = new Enchere(utilisateur, article, finEnchere, miseAPrix);
+		Enchere enchere = new Enchere(utilisateur, article, finEnchere);
 		var enchereManager = EnchereManager.getInstance();
 		enchereManager.ajouterEnchere(enchere);
 
 		
-		request.getRequestDispatcher("/WEB-INF/pages/encheres.jsp").forward(request, response);
+		response.sendRedirect(request.getContextPath()+"/enchere");
 
 		
 		

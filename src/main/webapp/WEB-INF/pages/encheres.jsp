@@ -29,7 +29,7 @@
 
 	<c:forEach items="${encheres }" var="enchere">
 		<div>
-			<p><a href="${pageContext.request.contextPath}/detail-vente?noArticle=${enchere.getArticle().getNoArticle()}&noUtilisateur=${enchere.getUtilisateur().getNoUtilisateur()}">${enchere.getArticle().getNomArticle() }</a></p>
+			<p><a href="${pageContext.request.contextPath}/detail-vente?noArticle=${enchere.getArticle().getNoArticle()}">${enchere.getArticle().getNomArticle() }</a></p>
 			<p>Prix : ${enchere.getArticle().getMiseAPrix() }</p>
 			<p>Fin de l'enchère : ${enchere.getArticle().getDateFinEncheres() }</p>
 			<p>

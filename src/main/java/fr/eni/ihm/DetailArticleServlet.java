@@ -11,6 +11,7 @@ import fr.eni.bll.ArticleManager;
 import fr.eni.bll.BLLException;
 import fr.eni.bll.EnchereManager;
 import fr.eni.bll.UtilisateurManager;
+import fr.eni.bo.Utilisateur;
 
 @WebServlet("/detail-vente")
 public class DetailArticleServlet extends HttpServlet {
@@ -21,30 +22,38 @@ public class DetailArticleServlet extends HttpServlet {
 		
 		int noArticle = Integer.parseInt(request.getParameter("noArticle"));
 		var articleManager = ArticleManager.getInstance();
-		var Article = articleManager.rechercherUnArticle(noArticle);
-		int noUtilisateur = Integer.parseInt(request.getParameter("noUtilisateur"));
-		var utilisateurManager = UtilisateurManager.getInstance();
-		try {
-			var utilisateur = utilisateurManager.unUtilisateurParID(noUtilisateur);
-		} catch (BLLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		var article = articleManager.rechercherUnArticle(noArticle);
+		
 		
 		var enchereManager = EnchereManager.getInstance();
-		var enchere = enchereManager.enchereParArticleUtilisateur();
-		
+		var enchere = enchereManager.enchereParArticle(article);
 		request.setAttribute("enchere", enchere);
+		
+		
 		request.getRequestDispatcher("/WEB-INF/pages/detail-vente.jsp").forward(request, response);
 		
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		
+		int prixEnchère = Integer.parseInt(request.getParameter("prix_enchere"));
+		var utilisateurEncherisseur = (Utilisateur)request.getSession().getAttribute("user");
+		int noArticle = Integer.parseInt(request.getParameter("noArticle"));
+		var articleManager = ArticleManager.getInstance();
+		var article = articleManager.rechercherUnArticle(noArticle);
+		
+		
+		var enchereManager = EnchereManager.getInstance();
+		var enchere = enchereManager.enchereParArticle(article);
+		
+		enchere.setUtilisateur(utilisateurEncherisseur);
+		enchere.setMontantEnchere(prixEnchère);
+		enchereManager.updateEnchere(enchere);
+		
+		response.sendRedirect(request.getContextPath()+"/encheres");
+		
+		
 	}
 
 }

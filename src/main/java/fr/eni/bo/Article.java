@@ -51,6 +51,19 @@ public class Article {
 		this.vendeur = vendeur;
 		this.categorieArticle = categorie;
 	}
+	
+	public Article(String nomArticle, String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres,
+			int miseAPrix, Utilisateur vendeur,  Categorie categorie,Retrait retrait) {
+		super();
+		this.nomArticle = nomArticle;
+		this.description = description;
+		this.dateDebutEncheres = dateDebutEncheres;
+		this.dateFinEncheres = dateFinEncheres;
+		this.miseAPrix = miseAPrix;
+		this.vendeur = vendeur;
+		this.categorieArticle = categorie;
+		this.lieuRetrait = retrait;
+	}
 
 
 

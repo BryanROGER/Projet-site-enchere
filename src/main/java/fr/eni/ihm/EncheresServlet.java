@@ -27,23 +27,23 @@ public class EncheresServlet extends HttpServlet {
 		List<Enchere> encheres ;
 		
 
-		if (request.getParameter("string_filter") != null) {
-			encheres =enchereManager.selectionnerParNom(request.getParameter("string_filter"));
-			request.setAttribute("encheres", encheres);
-			request.getRequestDispatcher("/WEB-INF/pages/encheres.jsp").forward(request, response);
-			return;
-		}
+//		if (request.getParameter("string_filter") != null) {
+//			encheres =enchereManager.selectionnerParNom(request.getParameter("string_filter"));
+//			request.setAttribute("encheres", encheres);
+//			request.getRequestDispatcher("/WEB-INF/pages/encheres.jsp").forward(request, response);
+//			return;
+//		}
 		
-		if (request.getParameter("categorie") != null) {
-			int noCategorie = Integer.parseInt(request.getParameter("categorie"));
-			 encheres = enchereManager.encheresParCategorie(noCategorie);
-			request.setAttribute("encheres", encheres);
-		} else {
+//		if (request.getParameter("categorie") != null) {
+//			int noCategorie = Integer.parseInt(request.getParameter("categorie"));
+//			 encheres = enchereManager.encheresParCategorie(noCategorie);
+//			request.setAttribute("encheres", encheres);
+//		} else {
 
 			encheres = enchereManager.tousLesArticles();
 			request.setAttribute("encheres", encheres);
 
-		}
+		//}
 		
 	
 

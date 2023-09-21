@@ -20,6 +20,11 @@ inner join CATEGORIES c on c.no_categorie = a.no_categorie
 inner join ENCHERES e on e.no_article = a.no_article where c.no_categorie = 2
 
 
+SELECT * FROM ARTICLES_VENDUS a 
+inner join UTILISATEURS u on a.no_utilisateur= u.no_utilisateur
+inner join CATEGORIES c on c.no_categorie = a.no_categorie
+inner join RETRAITS e on e.no_article = a.no_article where a.no_article = 1;
+
 
 
 -- TABLE UTILISATEURS
