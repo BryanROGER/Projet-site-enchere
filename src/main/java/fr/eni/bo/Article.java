@@ -54,6 +54,10 @@ public class Article {
 
 
 
+	public Article() {
+		// TODO Auto-generated constructor stub
+	}
+
 	// toString
 	@Override
 	public String toString() {
