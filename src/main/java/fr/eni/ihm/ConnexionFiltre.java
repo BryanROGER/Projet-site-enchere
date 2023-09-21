@@ -17,6 +17,7 @@ import jakarta.servlet.http.HttpSession;
         urlPatterns = {
        
                 "/detail-utilisateur",
+                "/vendre"
               
             
                

@@ -8,7 +8,7 @@
 	<h2 class="mb-5 text-center">Liste des enchères</h2>
 
 
-<form class="row" action="" method="get" >
+<form class="row" action="${ pageContext.request.contextPath }/encheres" method="get" >
     <div class="offset-lg-3 col-lg-6 d-flex flex-column">
         <p class="m-0">Filtres&nbsp;:</p>
        </div>
@@ -18,7 +18,7 @@
             <select name="categorie" id="categories" class="col-lg-9 mt-2 form-control">
                 
                 <c:forEach items="${categories}" var="categorie">
-                    <option  value="${categorie.getLibelle() }">${categorie.getLibelle()}</option>
+                    <option  value="${categorie.getNoCategorie() }">${categorie.getLibelle()}</option>
                 </c:forEach>
             </select>
  <input type="submit" class="btn btn-info btn-lg btn-block mt-2" id="#searchButton" value="Rechercher"/>
