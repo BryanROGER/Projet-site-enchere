@@ -1,9 +1,10 @@
 package fr.eni.dal.jdbc;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.sql.Date;
 import fr.eni.bo.Article;
 import fr.eni.bo.Categorie;
 import fr.eni.bo.Enchere;
@@ -15,6 +16,7 @@ public class EnchereJdbcDaoImpl implements EnchereDao {
 	private static final String SELECT_ALL = "select * from ARTICLES_VENDUS a\r\n"
 			+ "inner join UTILISATEURS u on a.no_utilisateur= u.no_utilisateur\r\n"
 			+ "inner join CATEGORIES c on c.no_categorie = a.no_categorie inner join ENCHERES e on e.no_article = a.no_article";
+	private static final String INSERT = "INSERT INTO ENCHERES (no_utilisateur, no_article, date_enchere, montant_enchere) VALUES (?, ?, ?, ?)";
 
 	@Override
 	public List<Enchere> selectAll() {
@@ -47,6 +49,28 @@ public class EnchereJdbcDaoImpl implements EnchereDao {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	@Override
+	public void insert(Enchere enchere) {
+		try (Connection cnx = ConnectionProvider.getConnection();
+				PreparedStatement statement = cnx.prepareStatement(INSERT)
+				) {
+
+			statement.setInt(1, enchere.getArticle().getVendeur().getNoUtilisateur());
+			statement.setInt(2, enchere.getArticle().getNoArticle());
+			statement.setDate(3, Date.valueOf(enchere.getArticle().getDateDebutEncheres()));
+			statement.setInt(4, enchere.getMontantEnchere());
+			
+			
+			
+
+		} catch (
+
+		Exception e) {
+			e.printStackTrace();
+
+		}		
 	}
 
 }

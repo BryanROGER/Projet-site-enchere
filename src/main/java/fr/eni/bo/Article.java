@@ -37,6 +37,22 @@ public class Article {
 		this.vendeur = vendeur;
 		this.categorieArticle = categorieArticle;
 	}
+	
+	
+
+	public Article(String nomArticle, String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres,
+			int miseAPrix, Utilisateur vendeur,  Categorie categorie) {
+		super();
+		this.nomArticle = nomArticle;
+		this.description = description;
+		this.dateDebutEncheres = dateDebutEncheres;
+		this.dateFinEncheres = dateFinEncheres;
+		this.miseAPrix = miseAPrix;
+		this.vendeur = vendeur;
+		this.categorieArticle = categorie;
+	}
+
+
 
 	// toString
 	@Override

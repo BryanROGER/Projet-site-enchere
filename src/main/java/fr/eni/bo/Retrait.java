@@ -6,15 +6,21 @@ import java.util.List;
 public class Retrait {
 	
 	//Attributs
-	private List<Article> article = new ArrayList<Article>();
+	private Article article;
 	private String rue;
 	private String codePostal;
 	private String ville;
 	
 	//Constructeur
-	public Retrait(List<Article> article, String rue, String codePostal, String ville) {
+	public Retrait(Article article, String rue, String codePostal, String ville) {
 		super();
 		this.article = article;
+		this.rue = rue;
+		this.codePostal = codePostal;
+		this.ville = ville;
+	}
+	
+	public Retrait( String rue, String codePostal, String ville) {
 		this.rue = rue;
 		this.codePostal = codePostal;
 		this.ville = ville;
@@ -27,15 +33,17 @@ public class Retrait {
 	}
 
 
-	public List<Article> getArticle() {
+
+
+
+
+	public Article getArticle() {
 		return article;
 	}
 
-
-	public void setArticle(List<Article> article) {
+	public void setArticle(Article article) {
 		this.article = article;
 	}
-
 
 	public String getRue() {
 		return rue;

@@ -28,7 +28,7 @@ public void ajouterCategorie (Categorie categorie){
 		
 	}
 	
-	public Categorie CategorieById(int NoCategorie ) 
+	public Categorie categorieById(int NoCategorie ) 
 	{
 		return categorieDao.getById(NoCategorie);
 	}
@@ -48,4 +48,9 @@ public void ajouterCategorie (Categorie categorie){
 	{
 			categorieDao.delete(NoCategorie);
 		}
+	
+	public Categorie categorieByLibelle(String libelle) {
+		return categorieDao.selectByLibelle(libelle);
+	}
+	
 	}

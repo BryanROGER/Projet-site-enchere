@@ -8,4 +8,6 @@ import fr.eni.bo.Enchere;
 public interface EnchereDao {
 
 	public List<Enchere> selectAll();
+	
+	public void insert(Enchere enchere);
 }

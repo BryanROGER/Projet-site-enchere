@@ -8,7 +8,7 @@ public class Enchere {
 	private Utilisateur utilisateur;
 	private Article article;
 	private LocalDate dateEnchere;
-	private int montantEnchere;
+	private int montantEnchere = 0;
 	
 	
 	//Constructeur

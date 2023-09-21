@@ -28,8 +28,10 @@
 
 				<div class="mb-3">
 					<label for="categorie">Catégorie :</label> 
-					<select name="categorie" class="input" id="categorie">
-						
+					<select name="categorie" class="input" id="categorie" >
+						<c:forEach items="${categories }" var="categorie"> 
+							<option value="${categorie.getLibelle() }">${categorie.getLibelle() }</option>
+						</c:forEach>
 					</select>
 				</div>
 				<div class="mb-3">

@@ -24,11 +24,13 @@ public class ConnexionServlet extends HttpServlet {
 
 			for (Cookie cookie : cookies) {
 				if (cookie.getName().equalsIgnoreCase("sessionID")) {
+					int time = (int) (System.currentTimeMillis() / 1000); // secondes
+					cookie.setMaxAge(time + (3600 * 24 * 7));
 					request.getSession();
 				}
 			}
 		}
-
+	
 		request.getRequestDispatcher("WEB-INF/pages/connexion.jsp").forward(request, response);
 
 	}
