@@ -15,7 +15,6 @@ import fr.eni.bo.Utilisateur;
 public class ProfilServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-   
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		request.getRequestDispatcher("/WEB-INF/pages/mon-profil.jsp").forward(request, response);

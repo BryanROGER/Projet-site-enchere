@@ -10,23 +10,20 @@
 	<h1>Vendre un article</h1>
 
 
-	<div class="row mt-5">
-		<div class="col-4 offset-4">
-			<form action="${ pageContext.request.contextPath }/vendre" method="post">
-
-				<div class="mb-3">
+	<form class="row g-3" action="${pageContext.request.contextPath}/vendre" method="post">
+				 <div class="col-8">
 					<label for="article">Article :</label> <input class="input"
 						type="text" name="nom" id="article" placeholder="Article"
 						required>
 				</div>
 
-				<div class="mb-3">
+				 <div class="col-8">
 					<label for="description">Description :</label>
 					<textarea class="input" name="description" id="description"
 						placeholder="Entrez une description de l'article"></textarea>
 				</div>
 
-				<div class="mb-3">
+				 <div class="col-8">
 					<label for="categorie">Catégorie :</label> 
 					<select name="categorie" class="input" id="categorie" >
 						<c:forEach items="${categories }" var="categorie"> 
@@ -34,18 +31,18 @@
 						</c:forEach>
 					</select>
 				</div>
-				<div class="mb-3">
+				 <div class="col-8">
 					<label for="mPrix">Mise à prix :</label> <input class="input"
 						type="number" name="prix" id="mPrix" step="1" max="10000"
 						required>
 				</div>
 
-				<div class="mb-3">
+				 <div class="col-md-6">
 					<label for="dEnchere">Début de l'enchère :</label> <input
 						class="input" type="date" name="debut_enchere" id="dEnchere" required>
 				</div>
 
-				<div class="mb-3">
+				 <div class="col-md-6">
 					<label for="fEnchere">Fin de l'enchère :</label> <input
 						class="input" type="date" name="fin_enchere" id="fEnchere" required>
 				</div>
@@ -53,18 +50,18 @@
 				<!-- Retrait-->
 
 				<h1>Retrait de l'objet</h1>
-				<div class="mb-3">
+				 <div class="col-12">
 					<label for="rue">Rue :</label> <input class="input" type="text"
 						name="rue" id="rue" maxlength="100" required value="${user.getRue() }">
 				</div>
 
-				<div class="mb-3">
+				<div class="col-md-6">
 					<label for="cp">Code Postal :</label> <input class="input"
-						type="text" name="code_postal" id="cp" step="1000" min="0"
+						type="number" name="code_postal" id="cp"  min="0"
 						maxlength="5" required value="${user.getCodePostal() }">
 				</div>
 
-				<div class="mb-3">
+				<div class="col-md-6">
 					<label for="ville">Ville :</label> <input class="input" type="text"
 						name="ville" id="ville" required value="${user.getVille() }">
 				</div>
@@ -78,7 +75,6 @@
 				</div>
 
 			</form>
-		</div>
-	</div>
+		
 </main>
 <%@ include file="/WEB-INF/fragments/footer.jspf"%>
