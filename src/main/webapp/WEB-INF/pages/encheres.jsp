@@ -9,13 +9,13 @@
 
 
 <form class="row" action="${ pageContext.request.contextPath }/encheres" method="get" >
-    <div class="offset-lg-3 col-lg-6 d-flex flex-column">
+    <div class="col-4">
         <p class="m-0">Filtres&nbsp;:</p>
        </div>
         <input name="string_filter" type="text" class="form-control m-2" placeholder="Le nom de l'article contient" value="${stringFilter}">
         <p class="d-flex flex-row">
-            <label class="col-lg-3 pt-3" for="categories">Catégorie&nbsp;:</label>
-            <select name="categorie" id="categories" class="col-lg-9 mt-2 form-control">
+            <label class="col-6" for="categories">Catégorie&nbsp;:</label>
+            <select name="categorie" id="categories" class="col mt-2 form-control">
                 
                 <c:forEach items="${categories}" var="categorie">
                     <option  value="${categorie.getNoCategorie() }">${categorie.getLibelle()}</option>

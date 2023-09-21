@@ -23,32 +23,30 @@ public class EncheresServlet extends HttpServlet {
 		CategorieManager categorieManager = CategorieManager.getInstance();
 		List<Categorie> categories = categorieManager.selectionnerToutesLesCategories();
 		request.setAttribute("categories", categories);
-		
-		List<Enchere> encheres ;
-		
 
-		if (request.getParameter("string_filter") != null) {
-			encheres =enchereManager.selectionnerParNom(request.getParameter("string_filter"));
+		List<Enchere> encheres = null;
+		request.setAttribute("encheres", null);
+
+		if (request.getParameter("string_filter") != null && request.getParameter("categorie").equals("1")) {
+			encheres = enchereManager.selectionnerParNom(request.getParameter("string_filter"));
 			request.setAttribute("encheres", encheres);
 			request.getRequestDispatcher("/WEB-INF/pages/encheres.jsp").forward(request, response);
 			return;
 		}
-		
-		if (request.getParameter("categorie") != null) {
+			
+		if ( request.getParameter("categorie")!= null && !request.getParameter("categorie").equals("1")) {
 			int noCategorie = Integer.parseInt(request.getParameter("categorie"));
-			 encheres = enchereManager.encheresParCategorie(noCategorie);
+			encheres = enchereManager.encheresParCategorie(noCategorie);
 			request.setAttribute("encheres", encheres);
-		} else {
-
-			encheres = enchereManager.tousLesArticles();
-			request.setAttribute("encheres", encheres);
-
+			
+			request.getRequestDispatcher("/WEB-INF/pages/encheres.jsp").forward(request, response);
+			return;
 		}
-		
+		encheres = enchereManager.tousLesArticles();
+		request.setAttribute("encheres", encheres);
 	
-
 		request.getRequestDispatcher("/WEB-INF/pages/encheres.jsp").forward(request, response);
 
 	}
-	
+
 }
