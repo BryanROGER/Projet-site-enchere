@@ -37,6 +37,10 @@ private static EnchereManager instance;
 		enchereDao.insert(enchere);
 	}
 	
+	public List<Enchere> encheresParCategorie(int noCategorie){
+		return enchereDao.selectByCategorie(noCategorie);
+	}
+	
 	
 
 }

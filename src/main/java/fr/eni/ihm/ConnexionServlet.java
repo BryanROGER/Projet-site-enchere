@@ -23,9 +23,8 @@ public class ConnexionServlet extends HttpServlet {
 		if (cookies != null) {
 
 			for (Cookie cookie : cookies) {
-				if (cookie.getName().equalsIgnoreCase("sessionID")) {
-					int time = (int) (System.currentTimeMillis() / 1000); // secondes
-					cookie.setMaxAge(time + (3600 * 24 * 7));
+				if (cookie.getName().equalsIgnoreCase("JSESSIONID")) {				
+					cookie.setMaxAge(3600 * 24 * 7);
 					request.getSession();
 				}
 			}

@@ -10,4 +10,7 @@ public interface EnchereDao {
 	public List<Enchere> selectAll();
 	
 	public void insert(Enchere enchere);
+	
+	public List<Enchere> selectByCategorie(int noCategorie);
+	
 }
