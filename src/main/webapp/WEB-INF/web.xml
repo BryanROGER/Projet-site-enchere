@@ -40,4 +40,14 @@
     <servlet-name>ProfilServlet</servlet-name>
     <url-pattern>/ProfilServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>DetailArticleServlet</display-name>
+    <servlet-name>DetailArticleServlet</servlet-name>
+    <servlet-class>fr.eni.ihm.DetailArticleServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DetailArticleServlet</servlet-name>
+    <url-pattern>/DetailArticleServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

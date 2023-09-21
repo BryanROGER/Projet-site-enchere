@@ -15,9 +15,9 @@
         <input name="string_filter" type="text" class="form-control m-2" placeholder="Le nom de l'article contient" value="${stringFilter}">
         <p class="d-flex flex-row">
             <label class="col-lg-3 pt-3" for="categories">Catégorie&nbsp;:</label>
-            <select name="categorie" id="categories" class="col-lg-9 mt-2 form-control">
+            <select name="categorie" id="categories" class="col-lg-9 mt-2 form-control" >
                 
-                <c:forEach items="${categories}" var="categorie">
+                <c:forEach items="${categories}" var="categorie" >
                     <option  value="${categorie.getNoCategorie() }">${categorie.getLibelle()}</option>
                 </c:forEach>
             </select>
@@ -29,7 +29,7 @@
 
 	<c:forEach items="${encheres }" var="enchere">
 		<div>
-			<p>${enchere.getArticle().getNomArticle() }</p>
+			<p><a href="${pageContext.request.contextPath}/detail-vente?noArticle=${enchere.getArticle().getNoArticle()}&noUtilisateur=${enchere.getUtilisateur().getNoUtilisateur()}">${enchere.getArticle().getNomArticle() }</a></p>
 			<p>Prix : ${enchere.getArticle().getMiseAPrix() }</p>
 			<p>Fin de l'enchère : ${enchere.getArticle().getDateFinEncheres() }</p>
 			<p>

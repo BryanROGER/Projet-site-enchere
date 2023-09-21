@@ -26,6 +26,10 @@ private static ArticleManager instance;
 		articleDao.insert(article);
 	}
 	
+	public Article rechercherUnArticle(int noArticle) {
+		return articleDao.selectById(noArticle);
+	}
+	
 	
 	
 }
