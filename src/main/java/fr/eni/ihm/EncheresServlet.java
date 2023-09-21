@@ -27,6 +27,7 @@ public class EncheresServlet extends HttpServlet {
 		request.setAttribute("encheres", encheres);
 		
 		
+		
 		CategorieManager categorieManager = CategorieManager.getInstance();
 		List<Categorie> categories = categorieManager.selectionnerToutesLesCategories();
 		request.setAttribute("categories", categories);

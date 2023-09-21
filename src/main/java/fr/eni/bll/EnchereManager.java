@@ -37,6 +37,8 @@ private static EnchereManager instance;
 		enchereDao.insert(enchere);
 	}
 	
-	
+	public List<Enchere> selectionnerParNom(String query){
+		return enchereDao.selectByName(query);
+	}
 
 }
