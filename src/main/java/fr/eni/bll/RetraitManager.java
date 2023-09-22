@@ -47,7 +47,7 @@ public class RetraitManager {
 		//vérification de la taille des champs
 		if(retrait.getRue().length() > 80)
 			throw new BLLException("La rue ne peut pas dépasser 80 caractères!");
-		if(retrait.getCodePostal().length()== 5)
+		if(retrait.getCodePostal().length()!= 5)
 			throw new BLLException("Le code postal doit être égale à 5 caractères!");
 		if(retrait.getVille().length() > 80)
 			throw new BLLException("La ville ne peut pas dépasser 80 caractères!");

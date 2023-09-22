@@ -39,8 +39,8 @@ public class ArticleJdbcDaoImpl implements ArticleDao {
 			PreparedStatement statement = cnx.prepareStatement(INSERT, PreparedStatement.RETURN_GENERATED_KEYS);
 			statement.setString(1, article.getNomArticle());
 			statement.setString(2, article.getDescription());
-			statement.setDate(3, java.sql.Date.valueOf(article.getDateDebutEncheres()));
-			statement.setDate(4, java.sql.Date.valueOf(article.getDateFinEncheres()));
+			statement.setDate(3, Date.valueOf(article.getDateDebutEncheres()));
+			statement.setDate(4, Date.valueOf(article.getDateFinEncheres()));
 			statement.setInt(5, article.getMiseAPrix());
 			statement.setInt(6, article.getVendeur().getNoUtilisateur());
 			statement.setInt(7, article.getCategorieArticle().getNoCategorie());
@@ -54,6 +54,7 @@ public class ArticleJdbcDaoImpl implements ArticleDao {
 			}
 
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new DALException("Erreur lors de l'insertion d'un article"+article.toString());
 		}
 	}

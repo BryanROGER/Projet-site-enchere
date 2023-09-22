@@ -28,6 +28,7 @@ public class RetraitJdbcDaoImpl implements RetraitDao {
 		} catch (
 
 		Exception e) {
+			e.printStackTrace();
 			throw new DALException("Erreur lors de l'insertion d'un retrait " + retrait.toString());
 
 		}

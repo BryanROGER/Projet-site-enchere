@@ -53,7 +53,6 @@ public class VendreArticleServlet extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		
 		String nomArticle = request.getParameter("nom");
 		String description = request.getParameter("description");
 		String categorie = request.getParameter("categorie");
@@ -88,13 +87,16 @@ public class VendreArticleServlet extends HttpServlet {
 		// ajout de l'article en BDD
 		try {
 			articleManager.ajouterArticle(article);
+			// Le numéro de l'article tout juste inséré est modifié, on l'intègre dans le constructeur du retrait
+			
+			
 		} catch (BLLException e) {
 			request.setAttribute("error", e.getMessage());
 			doGet(request, response);
 			e.printStackTrace();
 			return;
 		}
-		// Le numéro de l'article tout juste inséré est modifié, on l'intègre dans le constructeur du retrait
+		
 		Retrait retrait = null;
 		try {
 			retrait = new Retrait(article, rue, codePostal, ville);
@@ -122,7 +124,7 @@ public class VendreArticleServlet extends HttpServlet {
 			return;
 		}
 
-		response.sendRedirect(request.getContextPath()+"/enchere");
+		response.sendRedirect(request.getContextPath()+"/encheres");
 		
 
 		

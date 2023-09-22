@@ -28,7 +28,7 @@
 		</div>
 		<div class="col-12">
   <label for="telephone" class="form-label">Téléphone :</label>
-	<input type="number" name="telephone" value="${user.getTelephone() }" readonly="readonly"/>
+	<input type="number" name="telephone" value="${user.getTelephone() }" />
 		</div>
   <div class="col-12">
   <label for="rue" class="form-label">Rue :</label>
