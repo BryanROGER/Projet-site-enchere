@@ -5,10 +5,8 @@ import fr.eni.bo.Categorie;
 
 public interface CategorieDao {
 
-	public void insert( Categorie categorie );
-	public Categorie getById(int noCategorie);
-	public List<Categorie> getAll();
-	public void update (Categorie categorie);
-	public void delete (int noCategorie);
-	public Categorie selectByLibelle(String libelle);
+
+	public Categorie getById(int noCategorie)throws DALException;
+	public List<Categorie> getAll()throws DALException;
+	public Categorie selectByLibelle(String libelle)throws DALException;
 }

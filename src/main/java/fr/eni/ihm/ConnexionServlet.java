@@ -43,10 +43,19 @@ public class ConnexionServlet extends HttpServlet {
 
 		Utilisateur utilisateur =null;
 		try {
+			if(identifiant.isBlank()) {
+				request.setAttribute("error","Le champs identifiant est obligatoire");
+				request.getRequestDispatcher("WEB-INF/pages/connexion.jsp").forward(request, response);
+				return;	
+			}
+			
 			utilisateur = utilisateurManager.unUtilisateurParPseudoOuMail(identifiant);
-		} catch (BLLException e) {
-			request.setAttribute("error","Le champs saisit n'est pas correct");
-			request.getRequestDispatcher("WEB-INF/pages/connexion.jsp").forward(request, response);
+			
+			if(utilisateur==null)
+				throw new IHMException("Cet identifiant n'existe pas !");
+		} catch (BLLException | IHMException e) {
+			request.setAttribute("error", e.getMessage());
+			doGet(request, response);
 			e.printStackTrace();
 			return;			
 		}

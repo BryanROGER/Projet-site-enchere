@@ -4,14 +4,15 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 import fr.eni.bo.Article;
 import fr.eni.bo.Categorie;
 import fr.eni.bo.Enchere;
-import fr.eni.bo.Retrait;
 import fr.eni.bo.Utilisateur;
+import fr.eni.dal.DALException;
 import fr.eni.dal.EnchereDao;
 
 public class EnchereJdbcDaoImpl implements EnchereDao {
@@ -33,13 +34,17 @@ public class EnchereJdbcDaoImpl implements EnchereDao {
 	private static final String SELECT_BY_ARTICLE= "select * from encheres e\r\n"
 			+ "inner join UTILISATEURS u on u.no_utilisateur = e.no_utilisateur where no_article = ?";
 	private static final String UPDATE = "UPDATE encheres SET no_utilisateur=?, montant_enchere=? where no_article = ?";
+	private static final String SELECT_BY_NAME_AND_CATEGORIE = "SELECT * FROM ARTICLES_VENDUS a \r\n"
+			+ "			inner join UTILISATEURS u on a.no_utilisateur= u.no_utilisateur\r\n"
+			+ "			inner join CATEGORIES c on c.no_categorie = a.no_categorie\r\n"
+			+ "			inner join ENCHERES e on e.no_article = a.no_article where (nom_article  LIKE ?  or description LIKE ? ) and c.no_categorie=?";
 
 	@Override
-	public List<Enchere> selectAll() {
-		try (Connection connection = ConnectionProvider.getConnection(); var stmt = connection.createStatement()) {
+	public List<Enchere> selectAll() throws DALException {
+		try (Connection connection = ConnectionProvider.getConnection(); Statement stmt = connection.createStatement()) {
 
 			List<Enchere> encheres = new ArrayList<Enchere>();
-			var rs = stmt.executeQuery(SELECT_ALL);
+			ResultSet rs = stmt.executeQuery(SELECT_ALL);
 
 			while (rs.next()) {
 
@@ -63,13 +68,13 @@ public class EnchereJdbcDaoImpl implements EnchereDao {
 			return encheres;
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw new DALException("Erreur lors de la récupération de toutes les encherers");
 		}
-		return null;
+
 	}
 
 	@Override
-	public void insert(Enchere enchere) {
+	public void insert(Enchere enchere) throws DALException {
 		try (Connection cnx = ConnectionProvider.getConnection();
 				PreparedStatement statement = cnx.prepareStatement(INSERT)) {
 
@@ -83,23 +88,23 @@ public class EnchereJdbcDaoImpl implements EnchereDao {
 		} catch (
 
 		Exception e) {
-			e.printStackTrace();
+			throw new DALException("Erreur lors de l'insertion d'une enchère : "+enchere.toString());
 
 		}
 	}
 
 	@Override
 
-	public List<Enchere> selectByName(String query) {
+	public List<Enchere> selectByName(String query) throws DALException {
 		try (Connection connection = ConnectionProvider.getConnection();
-				var stmt = connection.prepareStatement(SELECT_BY_NAME);) {
+				PreparedStatement stmt = connection.prepareStatement(SELECT_BY_NAME);) {
 
 			List<Enchere> encheres = new ArrayList<Enchere>();
 
 			stmt.setString(1, "%" + query + "%");
 			stmt.setString(2, "%" + query + "%");
 
-			var rs = stmt.executeQuery();
+			ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
 				Utilisateur utilisateur = new Utilisateur(rs.getInt("no_utilisateur"), rs.getString("pseudo"),
 						rs.getString("nom"), rs.getString("prenom"), rs.getString("email"), rs.getString("telephone"),
@@ -120,15 +125,16 @@ public class EnchereJdbcDaoImpl implements EnchereDao {
 			return encheres;
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw new DALException("Erreur lors de la récupération des enchères contenant "+query);
+
 
 		}
-		return null;
+
 	}
 
-	public List<Enchere> selectByCategorie(int noCategorie) {
+	public List<Enchere> selectByCategorie(int noCategorie) throws DALException {
 		try (Connection connection = ConnectionProvider.getConnection();
-				var stmt = connection.prepareStatement(SELECT_BY_CATEGORIE)) {
+				PreparedStatement stmt = connection.prepareStatement(SELECT_BY_CATEGORIE)) {
 
 			List<Enchere> encheres = new ArrayList<Enchere>();
 
@@ -148,9 +154,6 @@ public class EnchereJdbcDaoImpl implements EnchereDao {
 						rs.getDate("date_fin_encheres").toLocalDate(), rs.getInt("prix_initial"),
 						rs.getInt("prix_vente"), utilisateur, categorie);
 
-				encheres.add(new Enchere(null, article, rs.getDate("date_enchere").toLocalDate(),
-						rs.getInt("montant_enchere")));
-
 				encheres.add(new Enchere(utilisateur, article, rs.getDate("date_enchere").toLocalDate(),
 						rs.getInt("montant_enchere")));
 
@@ -159,16 +162,17 @@ public class EnchereJdbcDaoImpl implements EnchereDao {
 			return encheres;
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw new DALException("Erreur lors de la récupération de toutes les enchères de catégorie : "+String.valueOf(noCategorie));
+
 
 		}
-		return null;
+
 	}
 
 	@Override
-	public Enchere selectByArticle(Article article) {
+	public Enchere selectByArticle(Article article) throws DALException {
 		try (Connection connection = ConnectionProvider.getConnection();
-				var stmt = connection.prepareStatement(SELECT_BY_ARTICLE)) {
+				PreparedStatement stmt = connection.prepareStatement(SELECT_BY_ARTICLE)) {
 
 			Enchere enchere = null;
 
@@ -190,16 +194,16 @@ public class EnchereJdbcDaoImpl implements EnchereDao {
 			return enchere;
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw new DALException("Erreur lors de la récupération de l'enchère par l'article : "+article.toString());
 
 		}
-		return null;
+
 	}
 
 	@Override
-	public void update(Enchere enchere) {
+	public void update(Enchere enchere) throws DALException {
 		try (Connection connection = ConnectionProvider.getConnection();
-				var stmt = connection.prepareStatement(UPDATE);) {
+				PreparedStatement stmt = connection.prepareStatement(UPDATE);) {
 
 			stmt.setInt(1, enchere.getUtilisateur().getNoUtilisateur());
 			stmt.setInt(2, enchere.getMontantEnchere());
@@ -208,7 +212,48 @@ public class EnchereJdbcDaoImpl implements EnchereDao {
 			stmt.executeUpdate();
 
 		} catch (Exception e) {
+			throw new DALException("Erreur lors de la modification de l'enchère "+enchere.toString());
+
+
+		}
+	}
+
+	@Override
+	public List<Enchere> selectByNameAndCategorie(String query, int noCategorie) throws DALException {
+		try (Connection connection = ConnectionProvider.getConnection();
+				PreparedStatement stmt = connection.prepareStatement(SELECT_BY_NAME_AND_CATEGORIE);) {
+
+			List<Enchere> encheres = new ArrayList<Enchere>();
+
+			stmt.setString(1, "%" + query + "%");
+			stmt.setString(2, "%" + query + "%");
+			stmt.setInt(3, noCategorie);
+
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				Utilisateur utilisateur = new Utilisateur(rs.getInt("no_utilisateur"), rs.getString("pseudo"),
+						rs.getString("nom"), rs.getString("prenom"), rs.getString("email"), rs.getString("telephone"),
+						rs.getString("rue"), rs.getString("code_postal"), rs.getString("ville"),
+						rs.getString("mot_de_passe"), rs.getInt("credit"), rs.getBoolean("administrateur"));
+
+				Categorie categorie = new Categorie(rs.getInt("no_categorie"), rs.getString("libelle"));
+
+				Article article = new Article(rs.getInt("no_article"), rs.getString("nom_article"),
+						rs.getString("description"), rs.getDate("date_debut_encheres").toLocalDate(),
+						rs.getDate("date_fin_encheres").toLocalDate(), rs.getInt("prix_initial"),
+						rs.getInt("prix_vente"), utilisateur, categorie);
+
+				encheres.add(new Enchere(utilisateur, article, rs.getDate("date_enchere").toLocalDate(),
+						rs.getInt("montant_enchere")));
+			}
+			
+
+			return encheres;
+
+		} catch (Exception e) {
 			e.printStackTrace();
+			throw new DALException("Erreur lors de la récupération des enchères contenant "+query+" et de catégorie : "+String.valueOf(noCategorie));
+
 
 		}
 	}

@@ -25,6 +25,13 @@ inner join UTILISATEURS u on a.no_utilisateur= u.no_utilisateur
 inner join CATEGORIES c on c.no_categorie = a.no_categorie
 inner join RETRAITS e on e.no_article = a.no_article where a.no_article = 1;
 
+select * from encheres e
+inner join UTILISATEURS u on u.no_utilisateur = e.no_utilisateur where no_article = 7
+
+SELECT * FROM ARTICLES_VENDUS a 
+			inner join UTILISATEURS u on a.no_utilisateur= u.no_utilisateur
+			inner join CATEGORIES c on c.no_categorie = a.no_categorie
+			inner join ENCHERES e on e.no_article = a.no_article where nom_article  LIKE '%pin%'  or description LIKE '%pin%';
 
 
 -- TABLE UTILISATEURS
@@ -39,6 +46,7 @@ VALUES
 -- TABLE CATEGORIES
 INSERT INTO CATEGORIES (libelle)
 VALUES
+	('Tous les articles'),
     ('Informatique'),
     ('Ammeublement'),
     ('Vêtement'),

@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import fr.eni.bll.ArticleManager;
+import fr.eni.bll.BLLException;
 import fr.eni.bll.CategorieManager;
 import fr.eni.bll.EnchereManager;
 import fr.eni.bll.RetraitManager;
@@ -29,12 +30,24 @@ public class VendreArticleServlet extends HttpServlet {
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		CategorieManager categorieManager = CategorieManager.getInstance();
-		List<Categorie> categories = categorieManager.selectionnerToutesLesCategories();
-		request.setAttribute("categories", categories);
 		
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/pages/vendreArticle.jsp");
-				dispatcher.forward(request, response);
+		try {
+			CategorieManager categorieManager = CategorieManager.getInstance();
+			List<Categorie> categories;
+			categories = categorieManager.selectionnerToutesLesCategories();
+			categories.remove(0);// on enlève le libelle "tous les articles"
+			request.setAttribute("categories", categories);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/pages/vendreArticle.jsp");
+			dispatcher.forward(request, response);
+		} catch (BLLException e) {
+			request.setAttribute("error", e.getMessage());
+			doGet(request, response);
+			e.printStackTrace();
+			return;
+		}
+		
+		
+		
 	}
 	
 	
@@ -55,7 +68,15 @@ public class VendreArticleServlet extends HttpServlet {
 		
 		
 		CategorieManager categorieManager = CategorieManager.getInstance();
-		Categorie categorieArticle = categorieManager.categorieByLibelle(categorie);
+		Categorie categorieArticle=null;
+		try {
+			categorieArticle = categorieManager.categorieByLibelle(categorie);
+		} catch (BLLException e) {
+			request.setAttribute("error", e.getMessage());
+			doGet(request, response);
+			e.printStackTrace();
+			return;
+		}
 		
 		Utilisateur utilisateur = (Utilisateur) request.getSession().getAttribute("user");
 
@@ -65,20 +86,44 @@ public class VendreArticleServlet extends HttpServlet {
 		var articleManager = ArticleManager.getInstance();
 		Article article = new Article(nomArticle, description, debutEnchere, finEnchere, miseAPrix, utilisateur, categorieArticle);
 		// ajout de l'article en BDD
-		articleManager.ajouterArticle(article);
+		try {
+			articleManager.ajouterArticle(article);
+		} catch (BLLException e) {
+			request.setAttribute("error", e.getMessage());
+			doGet(request, response);
+			e.printStackTrace();
+			return;
+		}
 		// Le numéro de l'article tout juste inséré est modifié, on l'intègre dans le constructeur du retrait
-		Retrait retrait = new Retrait(article, rue, codePostal, ville);
-		var retraitManager = RetraitManager.getInstance();
-		retraitManager.ajouterRetrait(retrait);
+		Retrait retrait = null;
+		try {
+			retrait = new Retrait(article, rue, codePostal, ville);
+			var retraitManager = RetraitManager.getInstance();
+			retraitManager.ajouterRetrait(retrait);
+		} catch (BLLException e) {
+			request.setAttribute("error", e.getMessage());
+			doGet(request, response);
+			e.printStackTrace();
+			return;
+		}
 		// ajout du retrait dans l'article
 		article.setLieuRetrait(retrait);
 		// insert enchere
-		Enchere enchere = new Enchere(utilisateur, article, finEnchere);
-		var enchereManager = EnchereManager.getInstance();
-		enchereManager.ajouterEnchere(enchere);
-
 		
+		try {
+			Enchere enchere = new Enchere(utilisateur, article, finEnchere);
+			var enchereManager = EnchereManager.getInstance();
+			enchereManager.ajouterEnchere(enchere);
+			
+		} catch (BLLException e) {
+			request.setAttribute("error", e.getMessage());
+			doGet(request, response);
+			e.printStackTrace();
+			return;
+		}
+
 		response.sendRedirect(request.getContextPath()+"/enchere");
+		
 
 		
 		

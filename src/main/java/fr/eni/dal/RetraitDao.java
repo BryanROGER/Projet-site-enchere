@@ -4,9 +4,9 @@ import fr.eni.bo.Retrait;
 
 public interface RetraitDao {
 
-	public void insert( Retrait retrait);
+	public void insert( Retrait retrait) throws DALException;
 	
-	public Retrait selectByAdresse(String ville, String codePostal, String rue);
+	
 	
 	
 }

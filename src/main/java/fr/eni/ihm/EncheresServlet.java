@@ -3,6 +3,7 @@ package fr.eni.ihm;
 import java.io.IOException;
 import java.util.List;
 
+import fr.eni.bll.BLLException;
 import fr.eni.bll.CategorieManager;
 import fr.eni.bll.EnchereManager;
 import fr.eni.bo.Categorie;
@@ -19,34 +20,72 @@ public class EncheresServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
 		EnchereManager enchereManager = EnchereManager.getInstance();
 		CategorieManager categorieManager = CategorieManager.getInstance();
-		List<Categorie> categories = categorieManager.selectionnerToutesLesCategories();
-		request.setAttribute("categories", categories);
+		List<Categorie> categories = null;
+		try {
+			categories = categorieManager.selectionnerToutesLesCategories();
+			request.setAttribute("categories", categories);
+		} catch (BLLException e) {
+			request.setAttribute("error", e.getMessage());
+			doGet(request, response);
+			e.printStackTrace();
+			return;
+		}
 
+		String filtre = request.getParameter("string_filter");
+		String noCategorieStr = request.getParameter("categorie");
 
 		List<Enchere> encheres = null;
 		request.setAttribute("encheres", null);
+		// si barre de recherche non null et libelle "tous les articles"
+		if (filtre != null && noCategorieStr.equals("1")) {
+			try {
+				encheres = enchereManager.selectionnerParNom(filtre);
+				request.setAttribute("encheres", encheres);
+				request.getRequestDispatcher("/WEB-INF/pages/encheres.jsp").forward(request, response);
+				return;
+			} catch (BLLException e) {
+				request.setAttribute("error", e.getMessage());
+				doGet(request, response);
+				e.printStackTrace();
+				return;
+			}
 
-		if (request.getParameter("string_filter") != null && request.getParameter("categorie").equals("1")) {
-			encheres = enchereManager.selectionnerParNom(request.getParameter("string_filter"));
-			request.setAttribute("encheres", encheres);
-			request.getRequestDispatcher("/WEB-INF/pages/encheres.jsp").forward(request, response);
-			return;
 		}
-			
-		if ( request.getParameter("categorie")!= null && !request.getParameter("categorie").equals("1")) {
-			int noCategorie = Integer.parseInt(request.getParameter("categorie"));
-			encheres = enchereManager.encheresParCategorie(noCategorie);
-			request.setAttribute("encheres", encheres);
-			
-			request.getRequestDispatcher("/WEB-INF/pages/encheres.jsp").forward(request, response);
-			return;
-		}
-		encheres = enchereManager.tousLesArticles();
-		request.setAttribute("encheres", encheres);
 
-	
+		// si libelle actif
+		if (noCategorieStr != null && !noCategorieStr.equals("1")) {
+			try {
+				int noCategorie = Integer.parseInt(noCategorieStr);
+				encheres = enchereManager.enchereParFiltreEtCatégorie(filtre, noCategorie);
+				request.setAttribute("encheres", encheres);
+				request.getRequestDispatcher("/WEB-INF/pages/encheres.jsp").forward(request, response);
+				return;
+			} catch (BLLException e) {
+				request.setAttribute("error", e.getMessage());
+				doGet(request, response);
+				e.printStackTrace();
+				return;
+			}
+
+		}
+
+		// si barre de recherche null et libelle "tous les articles"
+		if (filtre == null && (noCategorieStr == null || noCategorieStr.equals("1"))) {
+			try {
+				encheres = enchereManager.tousLesArticles();
+				request.setAttribute("encheres", encheres);
+			} catch (BLLException e) {
+				request.setAttribute("error", e.getMessage());
+				doGet(request, response);
+				e.printStackTrace();
+				return;
+			}
+
+		}
+
 		request.getRequestDispatcher("/WEB-INF/pages/encheres.jsp").forward(request, response);
 
 	}

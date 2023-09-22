@@ -1,6 +1,9 @@
 package fr.eni.dal.jdbc;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,11 +27,11 @@ public class UtilisateurJdbcDaoImpl implements UtilisateurDao {
 	public Utilisateur selectByPseudoMail(String query) throws DALException {
 		
 		try (Connection connection = ConnectionProvider.getConnection();
-				var stmt = connection.prepareStatement(SELECT_BY_PSEUDO_OR_MAIL)) {
+				PreparedStatement stmt = connection.prepareStatement(SELECT_BY_PSEUDO_OR_MAIL)) {
 
 			stmt.setString(1, query);
 			stmt.setString(2, query);
-			var rs = stmt.executeQuery();
+			ResultSet rs = stmt.executeQuery();
 
 			if (rs.next()) {
 				return new Utilisateur(rs.getInt("no_utilisateur"),rs.getString("pseudo"), rs.getString("nom"), rs.getString("prenom"),
@@ -50,7 +53,7 @@ public class UtilisateurJdbcDaoImpl implements UtilisateurDao {
 	@Override
 	public void insertUtilisateur(Utilisateur utilisateur) throws DALException {
 		try (Connection connection = ConnectionProvider.getConnection();
-				var stmt = connection.prepareStatement(INSERT, SQLServerStatement.RETURN_GENERATED_KEYS);) {
+				PreparedStatement stmt = connection.prepareStatement(INSERT, SQLServerStatement.RETURN_GENERATED_KEYS);) {
 
 			stmt.setString(1, utilisateur.getPseudo());
 			stmt.setString(2, utilisateur.getNom());
@@ -66,7 +69,7 @@ public class UtilisateurJdbcDaoImpl implements UtilisateurDao {
 
 			stmt.executeUpdate();
 
-			var genetatedKeys = stmt.getGeneratedKeys();
+			ResultSet genetatedKeys = stmt.getGeneratedKeys();
 
 			if (genetatedKeys.next())
 				utilisateur.setNoUtilisateur(genetatedKeys.getInt(1));
@@ -80,10 +83,10 @@ public class UtilisateurJdbcDaoImpl implements UtilisateurDao {
 	@Override
 	public Utilisateur selectByID(int id) throws DALException {
 		try (Connection connection = ConnectionProvider.getConnection();
-				var stmt = connection.prepareStatement(SELECT_BY_ID)) {
+				PreparedStatement stmt = connection.prepareStatement(SELECT_BY_ID)) {
 
 			stmt.setInt(1, id);
-			var rs = stmt.executeQuery();
+			ResultSet rs = stmt.executeQuery();
 
 			if (rs.next())
 				return new Utilisateur(rs.getInt("no_utilisateur"),rs.getString("pseudo"), rs.getString("nom"), rs.getString("prenom"),
@@ -102,7 +105,7 @@ public class UtilisateurJdbcDaoImpl implements UtilisateurDao {
 	@Override
 	public void update(Utilisateur utilisateur) throws DALException {
 		try (Connection connection = ConnectionProvider.getConnection();
-				var stmt = connection.prepareStatement(UPDATE);) {
+				PreparedStatement stmt = connection.prepareStatement(UPDATE);) {
 
 			stmt.setString(1, utilisateur.getNom());
 			stmt.setString(2, utilisateur.getPrenom());
@@ -114,41 +117,41 @@ public class UtilisateurJdbcDaoImpl implements UtilisateurDao {
 			stmt.setString(8, utilisateur.getMotDePasse());
 			stmt.setString(9, utilisateur.getPseudo());
 
-			var lignesAffectées = stmt.executeUpdate();
+			int lignesAffectées = stmt.executeUpdate();
 
 			if (lignesAffectées == 0)
 				throw new DALException("Echec de modification de l'utilisateur : " + utilisateur.toString());
 
 		} catch (Exception e) {
-			throw new DALException(e.toString());
+			throw new DALException("Erreur lors de la modification de l'utilisateur : " + utilisateur.toString());
 		}
 	}
 
 	@Override
 	public void delete(Utilisateur utilisateur) throws DALException {
 		try (Connection connection = ConnectionProvider.getConnection();
-				var stmt = connection.prepareStatement(DELETE)) {
+				PreparedStatement stmt = connection.prepareStatement(DELETE)) {
 
 			stmt.setString(1, utilisateur.getPseudo());
 
-			var lignesAffectées = stmt.executeUpdate();
+			int lignesAffectées = stmt.executeUpdate();
 
 			if (lignesAffectées == 0)
 				throw new DALException("Echec de modification de l'utilisateur : " + utilisateur.toString());
 
 		} catch (Exception e) {
-			throw new DALException(e.toString());
+			throw new DALException("Erreur lors de la suppression de l'utilisateur : "+utilisateur.toString());
 		}
 
 	}
 
 	@Override
 	public List<Utilisateur> selectAll() throws DALException {
-		try (Connection connection = ConnectionProvider.getConnection(); var stmt = connection.createStatement()) {
+		try (Connection connection = ConnectionProvider.getConnection(); Statement stmt = connection.createStatement()) {
 
 			List<Utilisateur> utilisateurs = new ArrayList<Utilisateur>();
 
-			var rs = stmt.executeQuery(SELECT_ALL);
+			ResultSet rs = stmt.executeQuery(SELECT_ALL);
 
 			while (rs.next()) {
 
@@ -159,7 +162,7 @@ public class UtilisateurJdbcDaoImpl implements UtilisateurDao {
 			}
 
 		} catch (Exception e) {
-			throw new DALException(e.toString());
+			throw new DALException("Erreur lors de la récupération de tous les utilisateurs");
 		}
 		return null;
 	}

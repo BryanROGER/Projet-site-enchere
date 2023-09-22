@@ -4,53 +4,50 @@ import java.util.List;
 
 import fr.eni.bo.Categorie;
 import fr.eni.dal.CategorieDao;
+import fr.eni.dal.DALException;
 import fr.eni.dal.FactoryDAO;
 
 public class CategorieManager {
 
 	private static CategorieManager instance;
-	
+
 	private CategorieManager() {
-		
+
 	}
-	
+
 	public static CategorieManager getInstance() {
-		if(instance == null)
+		if (instance == null)
 			instance = new CategorieManager();
 		return instance;
 	}
+
 	CategorieDao categorieDao = FactoryDAO.getCategorie();
-	
-	
-public void ajouterCategorie (Categorie categorie){
-		
-		categorieDao.insert(categorie);
-		
-	}
-	
-	public Categorie categorieById(int NoCategorie ) 
-	{
-		return categorieDao.getById(NoCategorie);
+
+	public Categorie categorieById(int NoCategorie) throws BLLException {
+		try {
+			return categorieDao.getById(NoCategorie);
+		} catch (DALException e) {
+			throw new BLLException(e.getMessage());
+
+		}
 	}
 
-	public List<Categorie> selectionnerToutesLesCategories()
-	{
-		return categorieDao.getAll();
-	}
-	
-	public void modifierCategorie(Categorie categorie) 
-	{
-			categorieDao.update(categorie);
-		}
-	
+	public List<Categorie> selectionnerToutesLesCategories() throws BLLException {
+		try {
+			return categorieDao.getAll();
+		} catch (DALException e) {
+			throw new BLLException(e.getMessage());
 
-	public void supprimerCategorie(int NoCategorie) 
-	{
-			categorieDao.delete(NoCategorie);
 		}
-	
-	public Categorie categorieByLibelle(String libelle) {
-		return categorieDao.selectByLibelle(libelle);
 	}
-	
+
+	public Categorie categorieByLibelle(String libelle) throws BLLException {
+		try {
+			return categorieDao.selectByLibelle(libelle);
+		} catch (DALException e) {
+			throw new BLLException(e.getMessage());
+
+		}
 	}
+
+}

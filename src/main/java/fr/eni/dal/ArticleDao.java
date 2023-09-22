@@ -3,21 +3,20 @@ package fr.eni.dal;
 import java.util.List;
 
 import fr.eni.bo.Article;
-import fr.eni.bo.Retrait;
 
 public interface ArticleDao {
 
-	public void insert(Article article);
+	public void insert(Article article) throws DALException ;
 	
-	public Article selectById(int id);
+	public Article selectById(int id) throws DALException ;
 	
-	public void update (Article article) ;
+	public void update (Article article) throws DALException ;
 	
-	public void delete (int id) ;
+	public void delete (int id) throws DALException ;
 	
-	List<Article> selectAll();
+	List<Article> selectAll() throws DALException ;
 	
-	public List<Article> filterByString(String filter);
+	
 }
 
 
