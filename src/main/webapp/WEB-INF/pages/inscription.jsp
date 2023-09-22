@@ -1,78 +1,133 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/fragments/header.jspf"%>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"> 
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
-<main class="row">
-	<div class="col">
-		<c:if test="${ ! empty error }">
+
+<main>
+
+<h1>Inscription</h1> 
+
+<form action="${pageContext.request.contextPath}/inscription"
+			method="post">
+			<c:if test="${ ! empty error }">
 			<div class="alert alert-danger">${ error }</div>
 		</c:if>
-		<div class="row text-center mt-4">
-			<h2>Inscription :</h2>
-		</div>
-		<form action="${pageContext.request.contextPath}/inscription"
-			method="post">
-			<div class="row mt-5">
-				<div class="col-4 offset-4"></div>
-				<div class="mb-3">
-					<label for="pseudo" class="form-label">Pseudo:</label> <input
-						type="text" class="form-control"
-						value="${utilisateur.getPseudo() }" name="pseudo">
-				</div>
-				<div class="mb-3">
-					<label for="nom" class="form-label">Nom:</label> <input type="text"
-						class="form-control" value="${ utilisateur.getNom() }" name="nom">
-				</div>
-				<div class="mb-3">
-					<label for="prenom" class="form-label">prenom</label> <input
-						type="text" class="form-control"
-						value="${ utilisateur.getPrenom() }" name="prenom">
-				</div>
-				<div class="mb-3">
-					<label for="email" class="form-label">Email :</label> <input
-						type="text" class="form-control"
-						value="${ utilisateur.getEmail() }" name="email">
-				</div>
-				<div class="mb-3">
-					<label for="telephone" class="form-label">Téléphone:</label> <input
-						type="text" class="form-control"
-						value="${ utilisateur.getTelephone() }" name="telephone">
-				</div>
-				<div class="mb-3">
-					<label for="rue" class="form-label">Rue :</label> <input
-						type="text" class="form-control" value="${ utilisateur.getRue() }"
-						name="rue">
-				</div>
-				<div class="mb-3">
-					<label for="cp" class="form-label">Code postal :</label> <input
-						type="text" class="form-control"
-						value="${ utilisateur.getCodePostal() }" name="code_postal">
-				</div>
-				<div class="mb-3">
-					<label for="ville" class="form-label">Ville :</label> <input
-						type="text" class="form-control"
-						value="${ utilisateur.getVille() }" name="ville">
-				</div>
-				<div class="mb-3">
-					<label for="mdp" class="form-label">Mot de passe :</label> <input
-						type="password" class="form-control" name="mot_de_passe">
-				</div>
-				<div class="mb-3">
-					<label for="confirmation" class="form-label">Confirmation
-						mot de passe :</label> <input type="password" class="form-control"
-						name="confirmation_mdp">
-				</div>
-			</div>
+  <div class="form-group row">
+    <label for="pseudo" class="col-2 col-form-label"><b>Pseudo : </b></label> 
+    <div class="col-10">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <div class="input-group-text">
+            <i class="fa fa-user-o"></i>
+          </div>
+        </div> 
+        <input id="pseudo" name="pseudo" placeholder="pseudo" type="text" required="required" value="${utilisateur.getPseudo() }" class="form-control">
+      </div>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-2 col-form-label" for="nom"><b>Nom :</b></label> 
+    <div class="col-10">
+      <input id="nom" name="nom" type="text" required="required" value="${ utilisateur.getNom() }" class="form-control">
+    </div>
+  </div>
+  
+  <div class="form-group row">
+    <label class="col-2 col-form-label" for="prenom"><b>Prénom :</b></label> 
+    <div class="col-10">
+    <input id="prenom" name="prenom" type="text" required="required" value="${ utilisateur.getPrenom() }" class="form-control">
+  </div>
+  </div>
+  <div class="form-group row">
+    <label for="email"  class="col-2 col-form-label"><b>Email :</b></label> 
+    <div class="col-10">
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <div class="input-group-text">
+          <i class="fa fa-address-book"></i>
+        </div>
+      </div> 
+      <input id="email" name="email" placeholder="example@eni.com" type="text" required="required" value="${ utilisateur.getEmail() }"class="form-control">
+    </div>
+  </div>
+ </div>
+  
+  
+  <div class="form-group row">
+    <label for="telephone" class="col-2 col-form-label"><b>Teléphone : </b></label> 
+    <div class="col-10">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <div class="input-group-text">
+            <i class="fa fa-phone"></i>
+          </div>
+        </div> 
+        <input id="telephone" name="telephone" type="number" aria-describedby="HelpBlock" required="required" value="${ utilisateur.getTelephone() } "class="form-control">
+      </div> 
+      <span id="HelpBlock" class="form-text text-muted">0605040302</span>
+    </div>
+  </div>
+ 
+ 
+ <div class="form-group row">
+    <label for="rue" class="col-2 col-form-label"><b>Adresse : </b></label> 
+    <div class="col-10">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <div class="input-group-text">
+            <i class="fa fa-home"></i>
+          </div>
+        </div> 
+        <input id="rue" name="rue" type="text" required="required" value="${ utilisateur.getRue() }" class="form-control">
+      </div>
+    </div>
+  </div> 
+  
+  <div class="form-group row">
+    <label for="ville" class="col-2 col-form-label"><b>Ville : </b></label> 
+    <div class="col-10">
+      <input id="ville" name="ville" type="text" required="required" value="${ utilisateur.getVille() }" class="form-control">
+    </div>
+  </div>
 
 
-			<button type="submit" class="btn btn-info float right">Valider</button>
-		</form>
-		<form action="${pageContext.request.contextPath}/encheres"
-			method="get">
-			<button type="submit" class="btn btn-danger float left">Annuler</button>
-
-		</form>
-	</div>
+ <div class="form-group row">
+    <label for="code_postal" class="col-2 col-form-label">Code postal</label> 
+    <div class="col-10">
+      <input id="code_postal" name="code_postal" type="text" required="required" value="${ utilisateur.getCodePostal() }" class="form-control">
+    </div>
+  </div>
+  
+  
+ 
+  <div class="form-group row">
+    <label for="mot_de_passe" class="col-2 col-form-label"> <b>Mot de passe : </b></label>
+    <div class="col-10"> 
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <div class="input-group-text">
+          <i class="fa fa-500px"></i>
+        </div>
+      </div> 
+      <input id="mot_de_passe" name="mot_de_passe" type="password" required="required" class="form-control">
+    </div>
+  </div>
+  </div>
+  <div class="form-group row">
+    <label for="confirmation" class="col-2 col-form-label">Confirmation du mot de passe</label> 
+    <div class="col-10"> 
+    <input id="confirmation_mdp" name="confirmation_mdp" type="password" required="required" class="form-control">
+  </div> 
+  </div>
+  <div class="form-group">
+  <div class="col-md-8">
+    <button id="inscription" type="submit" name="inscription" class="btn btn-success">S'inscrire</button>
+    <button id="annuler" type="reset" name="annuler" class="btn btn-danger">Annuler</button>
+  </div>
+</div>
+</form>
 </main>
 
 <%@ include file="/WEB-INF/fragments/footer.jspf"%>
