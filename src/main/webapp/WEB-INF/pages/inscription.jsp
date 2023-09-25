@@ -7,6 +7,8 @@
 
 <main>
 
+<div class="col-4 offset-4">
+
 <h1>Inscription</h1> 
 
 <form action="${pageContext.request.contextPath}/inscription"
@@ -94,7 +96,7 @@
 
 
  <div class="form-group row">
-    <label for="code_postal" class="col-2 col-form-label">Code postal</label> 
+    <label for="code_postal" class="col-2 col-form-label"><b>Code postal</b></label> 
     <div class="col-10">
       <input id="code_postal" name="code_postal" type="text" required="required" value="${ utilisateur.getCodePostal() }" class="form-control">
     </div>
@@ -116,7 +118,7 @@
   </div>
   </div>
   <div class="form-group row">
-    <label for="confirmation" class="col-2 col-form-label">Confirmation du mot de passe</label> 
+    <label for="confirmation" class="col-2 col-form-label"><b>Confirmation du mot de passe</b></label> 
     <div class="col-10"> 
     <input id="confirmation_mdp" name="confirmation_mdp" type="password" required="required" class="form-control">
   </div> 
@@ -127,7 +129,9 @@
     <button id="annuler" type="reset" name="annuler" class="btn btn-danger">Annuler</button>
   </div>
 </div>
+
 </form>
+</div>
 </main>
 
 <%@ include file="/WEB-INF/fragments/footer.jspf"%>

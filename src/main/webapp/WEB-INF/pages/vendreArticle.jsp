@@ -6,7 +6,7 @@
 <%@ include file="/WEB-INF/fragments/header.jspf"%>
 
 <main>
-
+<div class="col-4 offset-4">
 	<c:if test="${ ! empty error }">
 		<div class="alert alert-danger">${ error }</div>
 	</c:if>
@@ -99,12 +99,11 @@
 
 			<div class="d-none" id="submitSuccessMessage">
 				<div class="text-center mb-3">
-					<div class="fw-bolder">Form submission successful!</div>
+					<div class="fw-bolder">Article bien renseigné !</div>
 				</div>
 			</div>
 			<div class="d-none" id="submitErrorMessage">
-				<div class="text-center text-danger mb-3">Error sending
-					message!</div>
+				<div class="text-center text-danger mb-3">Erreur lors de la saisie article ! </div>
 			</div>
 			<div class="form-row">
 				<input type="submit"
@@ -115,6 +114,7 @@
 				</a>
 			</div>
 		</form>
+	</div>
 	</div>
 </main>
 <%@ include file="/WEB-INF/fragments/footer.jspf"%>
