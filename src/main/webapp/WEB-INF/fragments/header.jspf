@@ -54,7 +54,6 @@
         <li class="nav-item">
           <a class="nav-link" 		href="${ pageContext.request.contextPath }/vendre"> Vendre</a>
         </li>
-     
       </ul>
       <!-- Left links -->
     </div>
@@ -65,10 +64,9 @@
       
 		<c:if test="${ user == null }">
 		<li class="nav-item">
-		<a class="nav-link"href="${ pageContext.request.contextPath }/se-connecter">Connexion</a>
-		</li>
-		</c:if>
-     
+		<a class="nav-link" href="${ pageContext.request.contextPath }/se-connecter">Connexion</a>
+			</li>
+			</c:if>
      
      <c:if test="${ user != null }">
      <!-- Icon -->
@@ -83,8 +81,7 @@
           id="navbarDropdownMenuAvatar"
           role="button"
           data-mdb-toggle="dropdown"
-          aria-expanded="false"
-        >
+          aria-expanded="false">
           <img
             src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
             class="rounded-circle"
@@ -108,11 +105,13 @@
           </li>
           
         </ul>
+        
       </div>
+        </c:if>
     </div>
     <!-- Right elements -->
   </div>
-  </c:if>
+
   <!-- Container wrapper -->
 </nav>
 <div class=“container”>
