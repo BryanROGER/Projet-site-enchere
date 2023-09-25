@@ -31,9 +31,17 @@ inner join UTILISATEURS u on u.no_utilisateur = e.no_utilisateur where no_articl
 SELECT * FROM ARTICLES_VENDUS a 
 			inner join UTILISATEURS u on a.no_utilisateur= u.no_utilisateur
 			inner join CATEGORIES c on c.no_categorie = a.no_categorie
-			inner join ENCHERES e on e.no_article = a.no_article where (nom_article  LIKE '%ta%'  or description LIKE '%ta%') and c.no_categorie=2;
+			inner join ENCHERES e on e.no_article = a.no_article where (nom_article  LIKE '%%'  or description LIKE '%%') and c.no_categorie=2;
 
+SELECT * FROM ARTICLES_VENDUS a 
+			inner join UTILISATEURS u on a.no_utilisateur= u.no_utilisateur
+			inner join CATEGORIES c on c.no_categorie = a.no_categorie
+			inner join ENCHERES e on e.no_article = a.no_article where a.etat_vente = 1 and a.no_utilisateur=1 and (nom_article  LIKE '%%'  or description LIKE '%%');
 
+SELECT * FROM ARTICLES_VENDUS a
+inner join UTILISATEURS u on a.no_utilisateur= u.no_utilisateur
+inner join CATEGORIES c on c.no_categorie = a.no_categorie
+inner join ENCHERES e on e.no_article = a.no_article where a.etat_vente = 1 and e.no_utilisateur=1 and e.no_utilisateur!= a.no_utilisateur
 
 -- Insert data into CATEGORIES table
 INSERT INTO CATEGORIES (libelle)
@@ -59,15 +67,15 @@ INSERT INTO ARTICLES_VENDUS (nom_article, description, date_debut_encheres, date
 VALUES
     ('PC Gamer Alienware', 'Alienware B-370 Blue Edition', '2023-09-10', '2023-09-17', 100, 0, 1, 2,0),
     ('Table en pin', 'Table en pin massif', '2023-09-20', '2023-09-30', 150, 0, 1, 3,0),
-    ('Iphone 12', 'Edition Pro Max 128go couleur bleue', '2023-09-21', '2023-09-30', 75, 0, 1, 4,0),
-    ('Chemise Carlos', 'La chemise authentique de Carlos', '2023-09-23', '2023-09-30', 200, 0, 2, 2,0),
-    ('Trophés de Dimitri Payet', 'Grande collection des trophés du joueur de foot', '2023-09-23', '2023-09-30', 120, 0, 2, 3,0),
-	('Honor view 20', 'Un téléphone', '2023-09-10', '2023-09-17', 100, 0, 2, 4,0),
-    ('Commode chene', 'en bois massif', '2023-09-20', '2023-09-30', 150, 0, 2, 5,0),
-    ('Carte mère TaSoeur', 'Attention au Nord', '2023-09-21', '2023-09-30', 75, 0, 3, 2,0),
-    ('Air Jordan 7', 'Pourquoi avoir une maison quand on peut avoir des chaussures', '2023-09-23', '2023-09-30', 200, 0, 3, 5,0),
-    ('Ballon Nkunku 2019', 'Magnifique pénalty raté', '2023-09-23', '2023-09-30', 120, 0, 3, 4,0),
-	('Développeur Web Adel', 'Bon assistant pour vos taches de développement', '2023-09-10', '2023-09-17', 100, 0, 3, 3,0);
+    ('Iphone 12', 'Edition Pro Max 128go couleur bleue', '2023-09-21', '2023-09-30', 75, 0, 1, 2,0),
+    ('Chemise Carlos', 'La chemise authentique de Carlos', '2023-09-23', '2023-09-30', 200, 0, 2, 4,0),
+    ('Trophés de Dimitri Payet', 'Grande collection des trophés du joueur de foot', '2023-09-23', '2023-09-30', 120, 0, 2, 5,0),
+	('Honor view 20', 'Un téléphone', '2023-09-10', '2023-09-17', 100, 0, 2, 2,0),
+    ('Commode chene', 'en bois massif', '2023-09-20', '2023-09-30', 150, 0, 2, 3,0),
+    ('Carte mère TaSoeur', 'Vous êtes des porcs', '2023-09-21', '2023-09-30', 75, 0, 2, 2,0),
+    ('Air Jordan 7', 'Pourquoi avoir une maison quand on peut avoir des chaussures', '2023-09-23', '2023-09-30', 200, 0, 3, 4,0),
+    ('Ballon Nkunku 2019', 'Magnifique pénalty raté', '2023-09-23', '2023-09-30', 120, 0, 3, 5,0),
+	('Développeur Web Adel', 'Bon assistant pour vos taches de développement', '2023-09-10', '2023-09-17', 100, 0, 3, 2,0);
    
          -- Insert data into RETRAITS table
 INSERT INTO RETRAITS (no_article, rue, code_postal, ville)
@@ -89,17 +97,17 @@ VALUES
 -- Insert data into ENCHERES table
 INSERT INTO ENCHERES (no_utilisateur, no_article, date_enchere, montant_enchere)
 VALUES
-    (1, 1, '10-09-2023 14:30:00', 100),
+    (2, 1, '10-09-2023 14:30:00', 200),
     (1, 2, '20-09-2023 10:15:00', 150),
-    (1, 3, '24-09-2023 16:45:00', 50),
-    (2, 4, '26-09-2023 14:30:00', 120),
-    (2, 5, '27-09-2023 10:15:00', 75),
-    (2, 6, '24-09-2023 16:45:00', 90),
-    (2, 7, '26-09-2023 14:30:00', 110),
-    (3, 8, '27-09-2023 10:15:00', 200),
-    (3, 9, '24-09-2023 16:45:00', 70),
-    (3, 10, '26-09-2023 14:30:00', 130),
-    (3, 11, '27-09-2023 10:15:00', 180);
+    (3, 3, '24-09-2023 16:45:00', 75),
+    (2, 4, '26-09-2023 14:30:00', 200),
+    (2, 5, '27-09-2023 10:15:00', 120),
+    (1, 6, '24-09-2023 16:45:00', 600),
+    (1, 7, '26-09-2023 14:30:00', 310),
+    (2, 8, '27-09-2023 10:15:00', 210),
+    (3, 9, '24-09-2023 16:45:00', 200),
+    (3, 10, '26-09-2023 14:30:00', 120),
+    (2, 11, '27-09-2023 10:15:00', 530);
 
 UPDATE ARTICLES_VENDUS
 SET etat_vente = CASE

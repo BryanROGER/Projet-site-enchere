@@ -19,7 +19,7 @@ public class UtilisateurJdbcDaoImpl implements UtilisateurDao {
 	private static final String INSERT = "INSERT INTO UTILISATEURS (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) "
 			+ "VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 	private static final String SELECT_BY_ID = "SELECT * FROM utilisateurs WHERE no_utilisateur = ?";
-	private static final String UPDATE = "UPDATE utilisateurs SET nom=?, prenom=?, email=?, telephone=?, rue=?, code_postal=?, ville=?, mot_de_passe=? WHERE pseudo = ?";
+	private static final String UPDATE = "UPDATE utilisateurs SET nom=?, prenom=?, email=?, telephone=?, rue=?, code_postal=?, ville=?, mot_de_passe=?, credit=? WHERE pseudo = ?";
 	private static final String DELETE = "DELETE FROM utilisateurs WHERE pseudo = ?";
 	private static final String SELECT_ALL = "SELECT * FROM utilisateurs";
 
@@ -115,7 +115,8 @@ public class UtilisateurJdbcDaoImpl implements UtilisateurDao {
 			stmt.setString(6, utilisateur.getCodePostal());
 			stmt.setString(7, utilisateur.getVille());
 			stmt.setString(8, utilisateur.getMotDePasse());
-			stmt.setString(9, utilisateur.getPseudo());
+			stmt.setInt(9, utilisateur.getCredit());
+			stmt.setString(10, utilisateur.getPseudo());
 
 			int lignesAffectées = stmt.executeUpdate();
 

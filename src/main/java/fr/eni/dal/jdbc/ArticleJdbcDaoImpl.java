@@ -80,7 +80,7 @@ public class ArticleJdbcDaoImpl implements ArticleDao {
 
 				article = new Article(rs.getInt("no_article"), rs.getString("nom_article"), rs.getString("description"),
 						rs.getDate("date_debut_encheres").toLocalDate(), rs.getDate("date_fin_encheres").toLocalDate(),
-						rs.getInt("prix_initial"), rs.getInt("prix_vente"), utilisateur, categorie);
+						rs.getInt("prix_initial"), rs.getInt("prix_vente"), utilisateur, categorie,rs.getInt("etat_vente"));
 
 				Retrait retrait = new Retrait(article, rs.getString("rue"), rs.getString("code_postal"),
 						rs.getString("ville"));

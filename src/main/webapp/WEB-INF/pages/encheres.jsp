@@ -28,43 +28,42 @@
 
 		<div>
 			<div>
-			
-			<label> <input type="radio" name="typeTransaction"
-					value="achat" id="achat" onclick="gererCasesACocher()">
+
+				<label> <input type="radio" name="typeTransaction"
+					value="achats" id="achat" onclick="gererCasesACocher()">
 					Achat
 				</label> <label> <input type="radio" name="typeTransaction"
-					value="vente" id="vente" onclick="gererCasesACocher()">
+					value="ventes" id="vente" onclick="gererCasesACocher()">
 					Vente
-				</label><br>
-			
-				 <label for="encheresOuvertes"> <input
-					type="checkbox" id="encheresOuvertes" value="encheresOuvertes" disabled> Enchères
+				</label><br> <label for="encheresOuvertes"> <input
+					type="checkbox" id="encheresOuvertes" name="achat"
+					value="encheresOuvertes" disabled
+					onclick="toggleCheckboxes('encheresOuvertes')"> Enchères
 					Ouvertes
-				</label>
-				<label for="mesVentesEnCours"> <input
-					type="checkbox" id="mesVentesEnCours" value="mesVentesEnCours" disabled> Mes Ventes
-					en Cours
-				</label> <br>
-				
-				<label for="mesEncheresEnCours"> <input
-					type="checkbox" id="mesEncheresEnCours" value="mesEncheresEnCours" disabled> Mes
+				</label> <label for="mesVentesEnCours"> <input type="checkbox"
+					id="mesVentesEnCours" name="vente" value="mesVentesEnCours"
+					disabled onclick="toggleCheckboxes('mesVentesEnCours')">
+					Mes Ventes en Cours
+				</label> <br> <label for="mesEncheresEnCours"> <input
+					type="checkbox" id="mesEncheresEnCours" name="achat"
+					value="mesEncheresEnCours" disabled
+					onclick="toggleCheckboxes('mesEncheresEnCours')"> Mes
 					Enchères en Cours
-				</label> 
-					<label for="ventesNonDebutees"> <input
-					type="checkbox" id="ventesNonDebutees" value="ventesNonDebutees" disabled> Ventes Non
-					Débutées
-				</label> <br>
-				
-				<label for="mesEncheresRemportees"> <input
-					type="checkbox" id="mesEncheresRemportees" value="mesEncheresRemportees" disabled> Mes
+				</label> <label for="ventesNonDebutees"> <input type="checkbox"
+					id="ventesNonDebutees" name="vente" value="ventesNonDebutees"
+					disabled onclick="toggleCheckboxes('ventesNonDebutees')">
+					Ventes Non Débutées
+				</label> <br> <label for="mesEncheresRemportees"> <input
+					type="checkbox" id="mesEncheresRemportees" name="achat"
+					value="mesEncheresRemportees" disabled
+					onclick="toggleCheckboxes('mesEncheresRemportees')"> Mes
 					Enchères Remportées
-				</label> 
-					
-				<label for="ventesTerminees"> <input
-					type="checkbox" id="ventesTerminees" value="ventesTerminees" disabled> Ventes
+				</label> <label for="ventesTerminees"> <input type="checkbox"
+					id="ventesTerminees" name="vente" value="ventesTerminees" disabled
+					onclick="toggleCheckboxes('ventesTerminees')"> Ventes
 					Terminées
-				</label><br>
-			
+				</label> <br>
+
 			</div>
 
 		</div>
@@ -134,6 +133,19 @@
 				ventesTermineesCheckbox.disabled = true;
 			}
 		}
+
+		function toggleCheckboxes(clickedCheckboxId) {
+			  const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+			  
+			  checkboxes.forEach(checkbox => {
+			    if (checkbox.id !== clickedCheckboxId) {
+			      checkbox.checked = false;
+			    }
+			  });
+			}
+		
+		
+		
 	</script>
 
 </main>

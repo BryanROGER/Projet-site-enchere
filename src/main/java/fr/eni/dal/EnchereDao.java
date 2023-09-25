@@ -21,6 +21,19 @@ public interface EnchereDao {
 	public void update(Enchere enchere)throws DALException;
 	
 	public List<Enchere> selectByNameAndCategorie(String query, int noCategorie) throws DALException;
+
+	List<Enchere> selectMesVentes(int noUtilisateur, int etatVente, String query) throws DALException;
+
+	public List<Enchere> selectEnchereEnCours(String Query) throws DALException;
+
+	List<Enchere> selectMesVentesAvecCategorie(int noUtilisateur, int etatVente, String query, int categorie) throws DALException;
+
+	List<Enchere> selectMesAchats(int noUtilisateur, int etatVente, String filtre) throws DALException;
+
+	List<Enchere> selectMesAchatsParCategorie(int noUtilisateur, int etatVente, String query, int noCategorie)
+			throws DALException;
+
+	List<Enchere> selectEnchereEnCoursParCategorie(String query, int noCategorie) throws DALException;
 	
 
 }

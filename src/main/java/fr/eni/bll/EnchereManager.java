@@ -90,5 +90,53 @@ public class EnchereManager {
 			throw new BLLException(e.getMessage());
 		}
 	}
+	
+	public List<Enchere> mesVentes(int noUtilisateur, int etatVente, String query) throws BLLException{
+		try {
+			return enchereDao.selectMesVentes(noUtilisateur, etatVente, query);
+		} catch (DALException e) {
+			throw new BLLException(e.getMessage());
+		}
+	}
+	
+	public List<Enchere> mesAchats (int noUtilisateur, int etatVente, String query) throws BLLException{
+		try {
+			return enchereDao.selectMesAchats(noUtilisateur, etatVente,query);
+		} catch (DALException e) {
+			throw new BLLException(e.getMessage());
+		}
+	}
+	
+	public List<Enchere> encheresEnCours (String query) throws BLLException{
+		try {
+			return enchereDao.selectEnchereEnCours(query);
+		} catch (DALException e) {
+			throw new BLLException(e.getMessage());
+		}
+	}
+	
+	public List<Enchere> mesVentesParCategorie(int noUtilisateur, int etatVente, String query, int noCategorie) throws BLLException{
+		try {
+			return enchereDao.selectMesVentesAvecCategorie(noUtilisateur, etatVente, query, noCategorie);
+		} catch (DALException e) {
+			throw new BLLException(e.getMessage());
+		}
+	}
+	
+	public List<Enchere> mesAchatsParCategorie(int noUtilisateur, int etatVente, String query, int noCategorie) throws BLLException{
+		try {
+			return enchereDao.selectMesAchatsParCategorie(noUtilisateur, etatVente, query, noCategorie);
+		} catch (DALException e) {
+			throw new BLLException(e.getMessage());
+		}
+	}
+	
+	public List<Enchere> encheresEnCoursParCategorie (String query, int noCategorie) throws BLLException{
+		try {
+			return enchereDao.selectEnchereEnCoursParCategorie(query, noCategorie);
+		} catch (DALException e) {
+			throw new BLLException(e.getMessage());
+		}
+	}
 
 }

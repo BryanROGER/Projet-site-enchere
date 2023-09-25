@@ -38,6 +38,26 @@ public class EnchereJdbcDaoImpl implements EnchereDao {
 			+ "			inner join UTILISATEURS u on a.no_utilisateur= u.no_utilisateur\r\n"
 			+ "			inner join CATEGORIES c on c.no_categorie = a.no_categorie\r\n"
 			+ "			inner join ENCHERES e on e.no_article = a.no_article where (nom_article  LIKE ?  or description LIKE ? ) and c.no_categorie=?";
+	private static final String SELECT_MES_VENTES = "SELECT * FROM ARTICLES_VENDUS a \r\n"
+			+ "			inner join UTILISATEURS u on a.no_utilisateur= u.no_utilisateur\r\n"
+			+ "			inner join CATEGORIES c on c.no_categorie = a.no_categorie\r\n"
+			+ "			inner join ENCHERES e on e.no_article = a.no_article where a.etat_vente = ? and a.no_utilisateur=? and (nom_article  LIKE ?  or description LIKE ?)";
+	private static final String SELECT_MES_ACHATS = "SELECT * FROM ARTICLES_VENDUS a\r\n"
+			+ "inner join UTILISATEURS u on a.no_utilisateur= u.no_utilisateur\r\n"
+			+ "inner join CATEGORIES c on c.no_categorie = a.no_categorie\r\n"
+			+ "inner join ENCHERES e on e.no_article = a.no_article where a.etat_vente = ? and e.no_utilisateur=? and e.no_utilisateur!= a.no_utilisateur and (nom_article  LIKE ?  or description LIKE ?)";
+	private static final String SELECT_ENCHERE_EN_COURS = "SELECT * FROM ARTICLES_VENDUS a\r\n"
+			+ "inner join UTILISATEURS u on a.no_utilisateur= u.no_utilisateur\r\n"
+			+ "inner join CATEGORIES c on c.no_categorie = a.no_categorie\r\n"
+			+ "inner join ENCHERES e on e.no_article = a.no_article where a.etat_vente = 1 and (nom_article  LIKE ?  or description LIKE ?)";
+	private static final String SELECT_MES_VENTES_AVEC_CATEGORIE = "SELECT * FROM ARTICLES_VENDUS a \r\n"
+			+ "			inner join UTILISATEURS u on a.no_utilisateur= u.no_utilisateur\r\n"
+			+ "			inner join CATEGORIES c on c.no_categorie = a.no_categorie\r\n"
+			+ "			inner join ENCHERES e on e.no_article = a.no_article where a.etat_vente = ? and a.no_utilisateur=? and (nom_article  LIKE ?  or description LIKE ?) and categorie=?";
+	private static final String SELECT_MES_ACHATS_PAR_CATEGORIE = "SELECT * FROM ARTICLES_VENDUS a\r\n"
+			+ "inner join UTILISATEURS u on a.no_utilisateur= u.no_utilisateur\r\n"
+			+ "inner join CATEGORIES c on c.no_categorie = a.no_categorie\r\n"
+			+ "inner join ENCHERES e on e.no_article = a.no_article where a.etat_vente = ? and e.no_utilisateur=? and e.no_utilisateur!= a.no_utilisateur and (nom_article  LIKE ?  or description LIKE ?) and categorie =?";
 
 	@Override
 	public List<Enchere> selectAll() throws DALException {
@@ -58,7 +78,7 @@ public class EnchereJdbcDaoImpl implements EnchereDao {
 				Article article = new Article(rs.getInt("no_article"), rs.getString("nom_article"),
 						rs.getString("description"), rs.getDate("date_debut_encheres").toLocalDate(),
 						rs.getDate("date_fin_encheres").toLocalDate(), rs.getInt("prix_initial"),
-						rs.getInt("prix_vente"), utilisateur, categorie);
+						rs.getInt("prix_vente"), utilisateur, categorie,rs.getInt("etat_vente"));
 
 				encheres.add(new Enchere(utilisateur, article, rs.getDate("date_enchere").toLocalDate(),
 						rs.getInt("montant_enchere")));
@@ -116,7 +136,7 @@ public class EnchereJdbcDaoImpl implements EnchereDao {
 				Article article = new Article(rs.getInt("no_article"), rs.getString("nom_article"),
 						rs.getString("description"), rs.getDate("date_debut_encheres").toLocalDate(),
 						rs.getDate("date_fin_encheres").toLocalDate(), rs.getInt("prix_initial"),
-						rs.getInt("prix_vente"), utilisateur, categorie);
+						rs.getInt("prix_vente"), utilisateur, categorie,rs.getInt("etat_vente"));
 
 				encheres.add(new Enchere(utilisateur, article, rs.getDate("date_enchere").toLocalDate(),
 						rs.getInt("montant_enchere")));
@@ -152,7 +172,7 @@ public class EnchereJdbcDaoImpl implements EnchereDao {
 				Article article = new Article(rs.getInt("no_article"), rs.getString("nom_article"),
 						rs.getString("description"), rs.getDate("date_debut_encheres").toLocalDate(),
 						rs.getDate("date_fin_encheres").toLocalDate(), rs.getInt("prix_initial"),
-						rs.getInt("prix_vente"), utilisateur, categorie);
+						rs.getInt("prix_vente"), utilisateur, categorie,rs.getInt("etat_vente"));
 
 				encheres.add(new Enchere(utilisateur, article, rs.getDate("date_enchere").toLocalDate(),
 						rs.getInt("montant_enchere")));
@@ -186,7 +206,7 @@ public class EnchereJdbcDaoImpl implements EnchereDao {
 						rs.getString("email"), rs.getString("telephone"), rs.getString("rue"),
 						rs.getString("code_postal"), rs.getString("ville"), rs.getString("mot_de_passe"),
 						rs.getInt("credit"), rs.getBoolean("administrateur"));
-
+				
 				enchere = (new Enchere(utilisateur, article, rs.getDate("date_enchere").toLocalDate(),
 						rs.getInt("montant_enchere")));
 
@@ -241,7 +261,7 @@ public class EnchereJdbcDaoImpl implements EnchereDao {
 				Article article = new Article(rs.getInt("no_article"), rs.getString("nom_article"),
 						rs.getString("description"), rs.getDate("date_debut_encheres").toLocalDate(),
 						rs.getDate("date_fin_encheres").toLocalDate(), rs.getInt("prix_initial"),
-						rs.getInt("prix_vente"), utilisateur, categorie);
+						rs.getInt("prix_vente"), utilisateur, categorie,rs.getInt("etat_vente"));
 
 				encheres.add(new Enchere(utilisateur, article, rs.getDate("date_enchere").toLocalDate(),
 						rs.getInt("montant_enchere")));
@@ -256,5 +276,264 @@ public class EnchereJdbcDaoImpl implements EnchereDao {
 
 
 		}
+		
 	}
+	
+	
+	
+	@Override
+	public List<Enchere> selectMesVentes(int noUtilisateur, int etatVente, String query) throws DALException {
+		try (Connection connection = ConnectionProvider.getConnection();
+				PreparedStatement stmt = connection.prepareStatement(SELECT_MES_VENTES)) {
+			
+			List<Enchere> encheres = new ArrayList<Enchere>();
+
+			
+			stmt.setInt(1, etatVente );
+
+			stmt.setInt(2, noUtilisateur);
+			stmt.setString(3, "%"+query+"%");
+			stmt.setString(4, "%"+query+"%");
+			ResultSet rs = stmt.executeQuery();
+			
+			while (rs.next()) {
+				Utilisateur utilisateur = new Utilisateur(rs.getInt("no_utilisateur"), rs.getString("pseudo"),
+						rs.getString("nom"), rs.getString("prenom"), rs.getString("email"), rs.getString("telephone"),
+						rs.getString("rue"), rs.getString("code_postal"), rs.getString("ville"),
+						rs.getString("mot_de_passe"), rs.getInt("credit"), rs.getBoolean("administrateur"));
+
+				Categorie categorie = new Categorie(rs.getInt("no_categorie"), rs.getString("libelle"));
+
+				Article article = new Article(rs.getInt("no_article"), rs.getString("nom_article"),
+						rs.getString("description"), rs.getDate("date_debut_encheres").toLocalDate(),
+						rs.getDate("date_fin_encheres").toLocalDate(), rs.getInt("prix_initial"),
+						rs.getInt("prix_vente"), utilisateur, categorie,rs.getInt("etat_vente"));
+				
+				Enchere enchere = new Enchere(utilisateur, article, rs.getDate("date_enchere").toLocalDate(),
+						rs.getInt("montant_enchere"));
+				
+				
+				
+				encheres.add(enchere);
+				
+			}
+
+			return encheres;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DALException("Erreur lors de la récupération des enchères (vente) par état de vente ");
+
+		}
+
+	}
+
+
+	@Override
+	public List<Enchere> selectMesAchats(int noUtilisateur, int etatVente, String query) throws DALException {
+		try (Connection connection = ConnectionProvider.getConnection();
+				PreparedStatement stmt = connection.prepareStatement(SELECT_MES_ACHATS)) {
+
+			List<Enchere> encheres = new ArrayList<Enchere>();
+
+			stmt.setInt(1, etatVente );
+			stmt.setInt(2, noUtilisateur);
+			stmt.setString(3, "%"+query+"%");
+			stmt.setString(4, "%"+query+"%");
+			
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				Utilisateur utilisateur = new Utilisateur(rs.getInt("no_utilisateur"), rs.getString("pseudo"),
+						rs.getString("nom"), rs.getString("prenom"), rs.getString("email"), rs.getString("telephone"),
+						rs.getString("rue"), rs.getString("code_postal"), rs.getString("ville"),
+						rs.getString("mot_de_passe"), rs.getInt("credit"), rs.getBoolean("administrateur"));
+
+				Categorie categorie = new Categorie(rs.getInt("no_categorie"), rs.getString("libelle"));
+
+				Article article = new Article(rs.getInt("no_article"), rs.getString("nom_article"),
+						rs.getString("description"), rs.getDate("date_debut_encheres").toLocalDate(),
+						rs.getDate("date_fin_encheres").toLocalDate(), rs.getInt("prix_initial"),
+						rs.getInt("prix_vente"), utilisateur, categorie,rs.getInt("etat_vente"));
+
+				encheres.add(new Enchere(utilisateur, article, rs.getDate("date_enchere").toLocalDate(),
+						rs.getInt("montant_enchere")));
+			}
+
+			return encheres;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DALException("Erreur lors de la récupération des enchères (achat) par état de vente ");
+
+		}
+	}
+	
+	@Override
+	public List<Enchere> selectMesAchatsParCategorie(int noUtilisateur, int etatVente, String query, int noCategorie) throws DALException {
+		try (Connection connection = ConnectionProvider.getConnection();
+				PreparedStatement stmt = connection.prepareStatement(SELECT_MES_ACHATS_PAR_CATEGORIE)) {
+
+			List<Enchere> encheres = new ArrayList<Enchere>();
+
+			stmt.setInt(1, etatVente );
+			stmt.setInt(2, noUtilisateur);
+			stmt.setString(3, "%"+query+"%");
+			stmt.setString(4, "%"+query+"%");
+			stmt.setInt(5, noCategorie);
+			
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				Utilisateur utilisateur = new Utilisateur(rs.getInt("no_utilisateur"), rs.getString("pseudo"),
+						rs.getString("nom"), rs.getString("prenom"), rs.getString("email"), rs.getString("telephone"),
+						rs.getString("rue"), rs.getString("code_postal"), rs.getString("ville"),
+						rs.getString("mot_de_passe"), rs.getInt("credit"), rs.getBoolean("administrateur"));
+
+				Categorie categorie = new Categorie(rs.getInt("no_categorie"), rs.getString("libelle"));
+
+				Article article = new Article(rs.getInt("no_article"), rs.getString("nom_article"),
+						rs.getString("description"), rs.getDate("date_debut_encheres").toLocalDate(),
+						rs.getDate("date_fin_encheres").toLocalDate(), rs.getInt("prix_initial"),
+						rs.getInt("prix_vente"), utilisateur, categorie,rs.getInt("etat_vente"));
+
+				encheres.add(new Enchere(utilisateur, article, rs.getDate("date_enchere").toLocalDate(),
+						rs.getInt("montant_enchere")));
+			}
+
+			return encheres;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DALException("Erreur lors de la récupération des enchères (achat) par état de vente ");
+
+		}
+	}
+	
+	@Override
+	public List<Enchere> selectEnchereEnCours(String query) throws DALException {
+		try (Connection connection = ConnectionProvider.getConnection();
+				
+				
+			PreparedStatement stmt = connection.prepareStatement(SELECT_ENCHERE_EN_COURS)) {
+			stmt.setString(1, "%"+query+"%");
+			stmt.setString(2, "%"+query+"%");
+
+			List<Enchere> encheres = new ArrayList<Enchere>();
+
+			
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				Utilisateur utilisateur = new Utilisateur(rs.getInt("no_utilisateur"), rs.getString("pseudo"),
+						rs.getString("nom"), rs.getString("prenom"), rs.getString("email"), rs.getString("telephone"),
+						rs.getString("rue"), rs.getString("code_postal"), rs.getString("ville"),
+						rs.getString("mot_de_passe"), rs.getInt("credit"), rs.getBoolean("administrateur"));
+
+				Categorie categorie = new Categorie(rs.getInt("no_categorie"), rs.getString("libelle"));
+
+				Article article = new Article(rs.getInt("no_article"), rs.getString("nom_article"),
+						rs.getString("description"), rs.getDate("date_debut_encheres").toLocalDate(),
+						rs.getDate("date_fin_encheres").toLocalDate(), rs.getInt("prix_initial"),
+						rs.getInt("prix_vente"), utilisateur, categorie,rs.getInt("etat_vente"));
+
+				encheres.add(new Enchere(utilisateur, article, rs.getDate("date_enchere").toLocalDate(),
+						rs.getInt("montant_enchere")));
+			}
+
+			return encheres;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DALException("Erreur lors de la récupération des enchères (achat) par état de vente ");
+
+		}
+	}
+	
+	@Override
+	public List<Enchere> selectMesVentesAvecCategorie(int noUtilisateur, int etatVente, String query, int noCategorie) throws DALException {
+		try (Connection connection = ConnectionProvider.getConnection();
+				PreparedStatement stmt = connection.prepareStatement(SELECT_MES_VENTES_AVEC_CATEGORIE)) {
+			
+			List<Enchere> encheres = new ArrayList<Enchere>();
+
+			
+			stmt.setInt(1, etatVente );
+
+			stmt.setInt(2, noUtilisateur);
+			stmt.setString(3, "%"+query+"%");
+			stmt.setString(4, "%"+query+"%");
+			stmt.setInt(5, noCategorie);
+			ResultSet rs = stmt.executeQuery();
+			
+			while (rs.next()) {
+				Utilisateur utilisateur = new Utilisateur(rs.getInt("no_utilisateur"), rs.getString("pseudo"),
+						rs.getString("nom"), rs.getString("prenom"), rs.getString("email"), rs.getString("telephone"),
+						rs.getString("rue"), rs.getString("code_postal"), rs.getString("ville"),
+						rs.getString("mot_de_passe"), rs.getInt("credit"), rs.getBoolean("administrateur"));
+
+				Categorie categorie = new Categorie(rs.getInt("no_categorie"), rs.getString("libelle"));
+
+				Article article = new Article(rs.getInt("no_article"), rs.getString("nom_article"),
+						rs.getString("description"), rs.getDate("date_debut_encheres").toLocalDate(),
+						rs.getDate("date_fin_encheres").toLocalDate(), rs.getInt("prix_initial"),
+						rs.getInt("prix_vente"), utilisateur, categorie,rs.getInt("etat_vente"));
+				
+				Enchere enchere = new Enchere(utilisateur, article, rs.getDate("date_enchere").toLocalDate(),
+						rs.getInt("montant_enchere"));
+				
+				
+				
+				encheres.add(enchere);
+				
+			}
+
+			return encheres;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DALException("Erreur lors de la récupération des enchères (vente) par état de vente ");
+
+		}
+
+	}
+	
+	@Override
+	public List<Enchere> selectEnchereEnCoursParCategorie(String query,int noCategorie) throws DALException {
+		try (Connection connection = ConnectionProvider.getConnection();
+				
+				
+			PreparedStatement stmt = connection.prepareStatement(SELECT_ENCHERE_EN_COURS)) {
+			stmt.setString(1, "%"+query+"%");
+			stmt.setString(2, "%"+query+"%");
+			stmt.setInt(3, noCategorie);
+
+			List<Enchere> encheres = new ArrayList<Enchere>();
+
+			
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				Utilisateur utilisateur = new Utilisateur(rs.getInt("no_utilisateur"), rs.getString("pseudo"),
+						rs.getString("nom"), rs.getString("prenom"), rs.getString("email"), rs.getString("telephone"),
+						rs.getString("rue"), rs.getString("code_postal"), rs.getString("ville"),
+						rs.getString("mot_de_passe"), rs.getInt("credit"), rs.getBoolean("administrateur"));
+
+				Categorie categorie = new Categorie(rs.getInt("no_categorie"), rs.getString("libelle"));
+
+				Article article = new Article(rs.getInt("no_article"), rs.getString("nom_article"),
+						rs.getString("description"), rs.getDate("date_debut_encheres").toLocalDate(),
+						rs.getDate("date_fin_encheres").toLocalDate(), rs.getInt("prix_initial"),
+						rs.getInt("prix_vente"), utilisateur, categorie,rs.getInt("etat_vente"));
+
+				encheres.add(new Enchere(utilisateur, article, rs.getDate("date_enchere").toLocalDate(),
+						rs.getInt("montant_enchere")));
+			}
+
+			return encheres;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DALException("Erreur lors de la récupération des enchères (achat) par état de vente ");
+
+		}
+	}
+	
+	
 }

@@ -25,6 +25,20 @@ public class Article {
 	// constructeurs
 
 	public Article(int noArticle, String nomArticle, String description, LocalDate dateDebutEncheres,
+			LocalDate dateFinEncheres, int miseAPrix, int prixVente, Utilisateur vendeur, Categorie categorieArticle, int etatVente) {
+		super();
+		this.noArticle = noArticle;
+		this.nomArticle = nomArticle;
+		this.description = description;
+		this.dateDebutEncheres = dateDebutEncheres;
+		this.dateFinEncheres = dateFinEncheres;
+		this.miseAPrix = miseAPrix;
+		this.prixVente = prixVente;
+		this.vendeur = vendeur;
+		this.categorieArticle = categorieArticle;
+		this.etatVente = etatVente;
+	}
+	public Article(int noArticle, String nomArticle, String description, LocalDate dateDebutEncheres,
 			LocalDate dateFinEncheres, int miseAPrix, int prixVente, Utilisateur vendeur, Categorie categorieArticle) {
 		super();
 		this.noArticle = noArticle;
@@ -63,6 +77,19 @@ public class Article {
 		this.vendeur = vendeur;
 		this.categorieArticle = categorie;
 		this.lieuRetrait = retrait;
+	}
+	
+	public Article(String nomArticle, String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres,
+			int miseAPrix, Utilisateur vendeur,  Categorie categorie, int etatVente) {
+		super();
+		this.nomArticle = nomArticle;
+		this.description = description;
+		this.dateDebutEncheres = dateDebutEncheres;
+		this.dateFinEncheres = dateFinEncheres;
+		this.miseAPrix = miseAPrix;
+		this.vendeur = vendeur;
+		this.categorieArticle = categorie;
+		this.etatVente = etatVente;
 	}
 
 
