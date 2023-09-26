@@ -20,8 +20,7 @@
 			<select name="categorie" class="form-select" id="categories"
 				aria-label="Catégories">
 				<c:forEach items="${categories }" var="categorie">
-					<c:if
-						test="${categorie.getLibelle() eq enchere.getArticle().getCategorieArticle().getLibelle() }">
+					<c:if test="${categorie.getLibelle() eq enchere.getArticle().getCategorieArticle().getLibelle() }">
 						<option value="${categorie.getLibelle() }" selected="selected">${categorie.getLibelle() }</option>
 					</c:if>
 					<c:if
@@ -85,8 +84,9 @@
 
 
 		<button type="submit">Enregistrer les modifications</button>
-		<a href="${pageContext.request.contextPath}/encheres">Annuler</a>
-
+		<a href="${pageContext.request.contextPath}/encheres">
+		<button type="reset"> Annuler</button>
+		</a>
 	</form>
 
 </main>

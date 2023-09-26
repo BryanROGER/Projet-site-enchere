@@ -9,9 +9,9 @@
 
 <main>
 
-	<h1>Mon profil</h1>
+	<h2>Mon profil</h2>
 
-
+<div class="w-50">
 
 	<form action="${pageContext.request.contextPath}/mon-profil"
 		method="post">
@@ -129,6 +129,9 @@
 			</div>
 		</div>
 	</form>
+	</div>
 </main>
+
+
 
 <%@ include file="/WEB-INF/fragments/footer.jspf"%>

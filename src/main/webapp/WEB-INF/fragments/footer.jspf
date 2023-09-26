@@ -9,9 +9,11 @@
         <p class="d-flex justify-content-center align-items-center">
           <span class="me-3">Inscrivez-vous gratuitement !</span>
     
-          <button type="button" class="btn btn-outline-light btn-rounded">
-         <a href="${pageContext.request.contextPath}/inscription"> S'inscire</a>
-          </button>
+          
+         <a href="${pageContext.request.contextPath}/inscription"> 
+         <button type="button" class="btn btn-outline-light btn-rounded"> S'inscrire     </button>
+          </a>
+      
         </p>
       </section>
       <!-- Section: CTA -->

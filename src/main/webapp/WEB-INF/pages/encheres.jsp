@@ -28,6 +28,8 @@
 
 				</select>
 			</div>
+			
+			<c:if test="${user!=null }">
 			<div>
 				<div>
 
@@ -85,9 +87,11 @@
 					</div>
 				</div>
 			</div>
+			</c:if>
 			<button type="submit" class="btn btn-default">Rechercher</button>
 		</form>
 	</div>
+	
 	<div class="card-group">
 		<div class="row">
 			<c:forEach items="${encheres }" var="enchere">
@@ -117,8 +121,9 @@
 							btn-outline-dark">En savoir plus</a>
 					</div>
 				</div>
+					</c:forEach>
 		</div>
-		</c:forEach>
+	
 	</div>
 	
 

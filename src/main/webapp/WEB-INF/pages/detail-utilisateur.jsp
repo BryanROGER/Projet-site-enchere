@@ -3,75 +3,90 @@
 <%@ include file="/WEB-INF/fragments/header.jspf"%>
 
 <main>
-	<h2 class="mb-md-5 text-center">Mon profil</h2>
-	<div class="form-group-md row"> 
-		<label class="col-form-label col-2 col-md-1" for="pseudo">Pseudo
-			<i class="text-danger">*</i>
-		</label>
-		</div>
-		<div class="col-md-4 offset-1 offset-md-0 col-9 mb-2 mb-md-0">
+
+	<h2> Détails sur le vendeur</h2>
+<div class="w-50">
+		<div class="row my-3">
+				<div class="col-md-6">
+					<div class="form-floating">
 			<input required type="text" class="form-control" name="pseudo"
 				readonly="readonly" value="${utilisateur.getPseudo() }" id="pseudo">
-		</div>
-		<label class="col-form-label col-2 offset-md-1 col-md-1" for="nom">Nom
-			<i class="text-danger">*</i>
+		<label for="pseudo">Pseudo
+		
 		</label>
-		<div class="col-md-4 offset-1 offset-md-0 col-9 mb-2 mb-md-0">
-			<input required type="text" class="form-control" name="nom"
-				readonly="readonly" value="${ utilisateur.getNom() }" id="nom">
 		</div>
-		<div class="form-group-md-md row">
-			<label class="col-form-label col-2 col-md-1" for="prenom">Prénom
-				<i class="text-danger">*</i>
+		</div>
+			<div class="col-md-6">
+					<div class="form-floating">
+					<input required type="text" class="form-control" name="mail"
+					id="mail" readonly="readonly" value="${ utilisateur.getEmail() }">	
+			<label for="mail">Email
+				
 			</label>
-			<div class="col-md-4 offset-1 offset-md-0 col-9 mb-2 mb-md-0">
-				<input required type="text" class="form-control" name="prenom"
+			</div>
+			</div>
+			</div>
+			
+	<div class="row my-3">
+				<div class="col-md-6">
+					<div class="form-floating">
+					<input required type="text" class="form-control" name="nom"
+				readonly="readonly" value="${ utilisateur.getNom() }" id="nom">
+		<label for="nom"> Nom
+	
+		</label>
+	</div>	
+		</div>
+			<div class="col-md-6">
+					<div class="form-floating">
+					<input required type="text" class="form-control" name="prenom"
 					readonly="readonly" value="${ utilisateur.getPrenom() }"
 					id="prenom">
-			</div>
-			<label class="col-form-label col-2 offset-md-1 col-md-1" for="mail">Email
-				<i class="text-danger">*</i>
+			<label for="prenom">Prénom
+			
 			</label>
-			<div class="col-md-4 offset-1 offset-md-0 col-9 mb-2 mb-md-0">
-				<input required type="text" class="form-control" name="mail"
-					id="mail" readonly="readonly" value="${ utilisateur.getEmail() }">
+		</div>
+		</div>
 			</div>
-			<div class="form-group-md row">
-				<label class="col-form-label col-2 col-md-1" for="telephone">Téléphone
-					<i class="text-danger">*</i>
-				</label>
-				<div class="col-md-4 offset-1 offset-md-0 col-9 mb-2 mb-md-0">
+		
+			<div class="row my-3">
+				<div class="col-md-6">
+					<div class="form-floating">
 					<input required type="text" class="form-control" name="telephone"
 						readonly="readonly" value="${ utilisateur.getTelephone() }"
 						id="telephone">
+				<label for="telephone">Téléphone
+					</label>
 				</div>
-				<label class="col-form-label col-2 offset-md-1 col-md-1"
-					for="street">Rue <i class="text-danger">*</i></label>
-				<div class="col-md-4 offset-1 offset-md-0 col-9 mb-2 mb-md-0">
+				</div>
+				<div class="col-md-6">
+					<div class="form-floating">
 					<input required type="text" class="form-control" name="rue"
 						id="rue" readonly="readonly" value="${ utilisateur.getRue() }"
 						id="rue">
+				<label for="rue">Adresse </label>
+		</div>
+		</div>
 				</div>
-				<div class="form-group-md row">
-					<label class="col-form-label col-2 col-md-1" for="cp">Code
-						Postal <i class="text-danger">*</i>
-					</label>
-					<div class="col-md-4 offset-1 offset-md-0 col-9 mb-2 mb-md-0">
+				<div class="row my-3">
+				<div class="col-md-6">
+					<div class="form-floating">
 						<input required type="text" class="form-control" name="cp"
 							readonly="readonly" value="${ utilisateur.getCodePostal() }"
 							id="cp">
+					<label for="cp">Code	Postal 
+					</label>
 					</div>
-					<label class="col-form-label col-2 offset-md-1 col-md-1"
-						for="ville">Ville <i class="text-danger">*</i></label>
-					<div class="col-md-4 offset-1 offset-md-0 col-9 mb-2 mb-md-0">
-						<input required type="text" class="form-control" name="ville"
+					</div>
+					<div class="col-md-6">
+					<div class="form-floating">
+					<input required type="text" class="form-control" name="ville"
 							readonly="readonly" value="${ utilisateur.getVille() }"
 							id="ville">
-
-					</div>
-
+					<label for="ville">Ville </label>
 				</div>
 			</div>
+		</div>
 		</div>
 </main>
 
