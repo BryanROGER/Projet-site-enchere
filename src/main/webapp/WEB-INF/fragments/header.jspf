@@ -7,6 +7,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
+	href="${ pageContext.request.contextPath }/assets/css/style.css">
+<link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
 	integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -19,12 +21,14 @@
 	<link rel="stylesheet" href="${ pageContext.request.contextPath }/assets/css/mdb.min.css" />
 <script src="${ pageContext.request.contextPath }/assets/js/mdb.min.js"></script>
 	
-<link rel="stylesheet"
-	href="${ pageContext.request.contextPath }/assets/style.css">
+
 <title>ENI-encheres</title>
 </head>
+
+
+
 <!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-light" >
   <!-- Container wrapper -->
   <div class="container-fluid">
     <!-- Toggle button -->
@@ -63,10 +67,11 @@
     <div class="d-flex align-items-center">
       
 		<c:if test="${ user == null }">
-		<li class="nav-item">
+		
 		<a class="nav-link" href="${ pageContext.request.contextPath }/se-connecter">Connexion</a>
-			</li>
-			</c:if>
+		</c:if>
+			
+			
      
      <c:if test="${ user != null }">
      <!-- Icon -->
@@ -114,5 +119,4 @@
 
   <!-- Container wrapper -->
 </nav>
-<div class=“container”>
 <!-- Navbar -->

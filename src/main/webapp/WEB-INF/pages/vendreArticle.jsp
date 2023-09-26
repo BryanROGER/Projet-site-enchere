@@ -6,16 +6,17 @@
 <%@ include file="/WEB-INF/fragments/header.jspf"%>
 
 <main>
+	<h2 style="text-align: center"> Vendre un article</h2>
 <div class="col-4 offset-4">
 	<c:if test="${ ! empty error }">
 		<div class="alert alert-danger">${ error }</div>
 	</c:if>
-	<h2>Vendre un article</h2>
+
 	<div class="container px-5 my-5">
 		<form id="contactForm"
 			action="${pageContext.request.contextPath}/vendre" method="post">
 			<div class="form-floating mb-3">
-				<input class="form-control" id="article" name="nom" type="text"
+				<input class="form-control" id="article" name="nom" type="text" 
 					placeholder="Article" data-sb-validations="required" /> <label
 					for="article">Article</label>
 				<div class="invalid-feedback" data-sb-feedback="article:required">Le
@@ -30,7 +31,7 @@
 					data-sb-feedback="description:required">Veuillez saisir une
 					description de l'article</div>
 			</div>
-
+			
 			<div class="form-floating mb-3">
 				<select name="categorie" class="form-select" id="categories" aria-label="Catégories">
 					<c:forEach items="${categories }" var="categorie">
@@ -72,7 +73,7 @@
 
 
 			<!-- Retrait-->
-			<h2>Point de retrait :</h2>
+			<h2 style="text-align: center">Point de retrait :</h2>
 			<div class="form-floating mb-3">
 				<input class="form-control" id="rue" name="rue" type="text"
 					placeholder="Adresse : " value="${user.getRue() }"

@@ -1,2 +1,17 @@
 @charset "UTF-8";
 
+.bg-light {
+    background-color: #0a4275;
+    }
+
+#container {
+   display:grid;
+   grid-template-rows:auto 1fr auto;
+   grid-template-columns:100%;
+
+   /* fallback height */
+   min-height:100vh;
+
+   /* new small viewport height for modern browsers */
+   min-height:100svh;
+}

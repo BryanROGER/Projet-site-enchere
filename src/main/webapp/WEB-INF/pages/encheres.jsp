@@ -4,7 +4,7 @@
 <%@ include file="/WEB-INF/fragments/header.jspf"%>
 <main>
 
-	<h2 class>Liste des enchères</h2>
+	<h2>Liste des enchères</h2>
 
 	<div class="w-25 p-3">
 		<form action="${ pageContext.request.contextPath }/encheres"
@@ -27,7 +27,7 @@
 				</select>
 				<div>
 					<div>
-						< <label> <input type="radio" name="typeTransaction"
+						<label> <input type="radio" name="typeTransaction"
 							value="achats" id="achat" onclick="gererCasesACocher()">
 
 							Achat
@@ -111,7 +111,7 @@
 							href="${pageContext.request.contextPath}/detail-vente?noArticle=${enchere.getArticle().getNoArticle()}"
 							class="btn
 							btn-outline-dark">En savoir plus</a>
-
+</div>
 					</div>
 			</c:forEach>
 		</div>
