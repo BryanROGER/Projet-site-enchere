@@ -24,9 +24,9 @@ public class ArticleJdbcDaoImpl implements ArticleDao {
 			+ "inner join CATEGORIES c on c.no_categorie = a.no_categorie\r\n"
 			+ " inner join RETRAITS e on e.no_article = a.no_article where a.no_article = ?";
 
-	private static final String UPDATE = "update ARTICLES set nom_article = ?, description = ?,"
+	private static final String UPDATE = "update ARTICLES_VENDUS set nom_article = ?, description = ?,"
 			+ "							 date_debut_encheres=?, date_fin_encheres= ?, prix_initial= ?, prix_vente= ?, "
-			+ "							 no_utilisateur= ?, no_categorie=?, where no_article= ? ";
+			+ "							 no_utilisateur= ?, no_categorie=? where no_article= ? ";
 	private static final String DELETE = "delete ARTICLES where no_article = ?";
 	private static final String SELECT_ALL = "select * from ARTICLES_VENDUS a\r\n"
 			+ "inner join UTILISATEURS u on a.no_utilisateur= u.no_utilisateur\r\n"
@@ -82,10 +82,12 @@ public class ArticleJdbcDaoImpl implements ArticleDao {
 						rs.getDate("date_debut_encheres").toLocalDate(), rs.getDate("date_fin_encheres").toLocalDate(),
 						rs.getInt("prix_initial"), rs.getInt("prix_vente"), utilisateur, categorie,rs.getInt("etat_vente"));
 
-				Retrait retrait = new Retrait(article, rs.getString("rue"), rs.getString("code_postal"),
-						rs.getString("ville"));
+				Retrait retrait = new Retrait(article, rs.getString(26), rs.getString(27),
+						rs.getString(28));
+				
 
 				article.setLieuRetrait(retrait);
+				
 
 			}
 			return article;
@@ -142,12 +144,12 @@ public class ArticleJdbcDaoImpl implements ArticleDao {
 			statement.setInt(6, article.getPrixVente());
 			statement.setInt(7, article.getVendeur().getNoUtilisateur());
 			statement.setInt(8, article.getCategorieArticle().getNoCategorie());
-			statement.setNull(9, Types.INTEGER);
-			statement.setInt(10, article.getNoArticle());
+			statement.setInt(9, article.getNoArticle());
 
 			statement.executeUpdate();
 
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new DALException("Erreur lors de la modification de l'article : " + article.toString());
 
 		}

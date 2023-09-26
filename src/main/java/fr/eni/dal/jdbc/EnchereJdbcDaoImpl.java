@@ -11,6 +11,7 @@ import java.util.List;
 import fr.eni.bo.Article;
 import fr.eni.bo.Categorie;
 import fr.eni.bo.Enchere;
+import fr.eni.bo.Retrait;
 import fr.eni.bo.Utilisateur;
 import fr.eni.dal.DALException;
 import fr.eni.dal.EnchereDao;
@@ -19,7 +20,7 @@ public class EnchereJdbcDaoImpl implements EnchereDao {
 
 	private static final String SELECT_ALL = "select * from ARTICLES_VENDUS a\r\n"
 			+ "inner join UTILISATEURS u on a.no_utilisateur= u.no_utilisateur\r\n"
-			+ "inner join CATEGORIES c on c.no_categorie = a.no_categorie inner join ENCHERES e on e.no_article = a.no_article";
+			+ "inner join CATEGORIES c on c.no_categorie = a.no_categorie inner join ENCHERES e on e.no_article = a.no_article inner join retraits r on r.no_article = a.no_article";
 	private static final String INSERT = "INSERT INTO ENCHERES (no_utilisateur, no_article, date_enchere, montant_enchere) VALUES (?, ?, ?, ?)";
 
 	private static final String SELECT_BY_NAME = "SELECT * FROM ARTICLES_VENDUS a \r\n"
@@ -53,11 +54,15 @@ public class EnchereJdbcDaoImpl implements EnchereDao {
 	private static final String SELECT_MES_VENTES_AVEC_CATEGORIE = "SELECT * FROM ARTICLES_VENDUS a \r\n"
 			+ "			inner join UTILISATEURS u on a.no_utilisateur= u.no_utilisateur\r\n"
 			+ "			inner join CATEGORIES c on c.no_categorie = a.no_categorie\r\n"
-			+ "			inner join ENCHERES e on e.no_article = a.no_article where a.etat_vente = ? and a.no_utilisateur=? and (nom_article  LIKE ?  or description LIKE ?) and categorie=?";
+			+ "			inner join ENCHERES e on e.no_article = a.no_article where a.etat_vente = ? and a.no_utilisateur=? and (nom_article  LIKE ?  or description LIKE ?) and c.no_categorie=?";
 	private static final String SELECT_MES_ACHATS_PAR_CATEGORIE = "SELECT * FROM ARTICLES_VENDUS a\r\n"
 			+ "inner join UTILISATEURS u on a.no_utilisateur= u.no_utilisateur\r\n"
 			+ "inner join CATEGORIES c on c.no_categorie = a.no_categorie\r\n"
 			+ "inner join ENCHERES e on e.no_article = a.no_article where a.etat_vente = ? and e.no_utilisateur=? and e.no_utilisateur!= a.no_utilisateur and (nom_article  LIKE ?  or description LIKE ?) and categorie =?";
+	private static final String SELECT_ENCHERE_EN_COURS_PAR_CATEGORIE = "SELECT * FROM ARTICLES_VENDUS a\r\n"
+			+ "inner join UTILISATEURS u on a.no_utilisateur= u.no_utilisateur\r\n"
+			+ "inner join CATEGORIES c on c.no_categorie = a.no_categorie\r\n"
+			+ "inner join ENCHERES e on e.no_article = a.no_article where a.etat_vente = 1 and (nom_article  LIKE ?  or description LIKE ?) and no_categorie = ?";
 
 	@Override
 	public List<Enchere> selectAll() throws DALException {
@@ -74,11 +79,13 @@ public class EnchereJdbcDaoImpl implements EnchereDao {
 						rs.getString("mot_de_passe"), rs.getInt("credit"), rs.getBoolean("administrateur"));
 
 				Categorie categorie = new Categorie(rs.getInt("no_categorie"), rs.getString("libelle"));
+				
+				Retrait retrait = new Retrait(rs.getString(29), rs.getString(30), rs.getString(31));
 
 				Article article = new Article(rs.getInt("no_article"), rs.getString("nom_article"),
 						rs.getString("description"), rs.getDate("date_debut_encheres").toLocalDate(),
 						rs.getDate("date_fin_encheres").toLocalDate(), rs.getInt("prix_initial"),
-						rs.getInt("prix_vente"), utilisateur, categorie,rs.getInt("etat_vente"));
+						rs.getInt("prix_vente"), utilisateur, categorie,rs.getInt("etat_vente"),retrait);
 
 				encheres.add(new Enchere(utilisateur, article, rs.getDate("date_enchere").toLocalDate(),
 						rs.getInt("montant_enchere")));
@@ -500,7 +507,7 @@ public class EnchereJdbcDaoImpl implements EnchereDao {
 		try (Connection connection = ConnectionProvider.getConnection();
 				
 				
-			PreparedStatement stmt = connection.prepareStatement(SELECT_ENCHERE_EN_COURS)) {
+			PreparedStatement stmt = connection.prepareStatement(SELECT_ENCHERE_EN_COURS_PAR_CATEGORIE)) {
 			stmt.setString(1, "%"+query+"%");
 			stmt.setString(2, "%"+query+"%");
 			stmt.setInt(3, noCategorie);

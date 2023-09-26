@@ -3,6 +3,9 @@ package fr.eni.bo;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.eni.bll.ArticleManager;
+import fr.eni.bll.BLLException;
+
 public class Retrait {
 	
 	//Attributs
@@ -24,6 +27,14 @@ public class Retrait {
 		this.rue = rue;
 		this.codePostal = codePostal;
 		this.ville = ville;
+	}
+	
+	public Retrait(int noArticle, String rue, String codePostal, String ville) throws BLLException {
+		this.rue = rue;
+		this.codePostal = codePostal;
+		this.ville = ville;
+		var articleManager = ArticleManager.getInstance();
+		this.article = articleManager.rechercherUnArticle(noArticle);
 	}
 
 

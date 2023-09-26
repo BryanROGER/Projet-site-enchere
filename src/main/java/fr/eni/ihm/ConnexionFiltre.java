@@ -30,6 +30,7 @@ import jakarta.servlet.http.HttpSession;
 public class ConnexionFiltre  implements Filter {
 	
 	public void init(FilterConfig config) throws ServletException {
+
     }
 	
 	public void destroy() {
@@ -40,7 +41,7 @@ public class ConnexionFiltre  implements Filter {
 			throws IOException, ServletException {
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
-        
+     
        
         if (isUserLoggedIn(httpRequest)) {
             chain.doFilter(request, response);

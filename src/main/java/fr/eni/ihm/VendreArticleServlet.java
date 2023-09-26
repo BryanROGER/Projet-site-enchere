@@ -113,7 +113,7 @@ public class VendreArticleServlet extends HttpServlet {
 		// insert enchere
 		
 		try {
-			Enchere enchere = new Enchere(utilisateur, article, finEnchere);
+			Enchere enchere = new Enchere(utilisateur, article, finEnchere,article.getMiseAPrix());
 			var enchereManager = EnchereManager.getInstance();
 			enchereManager.ajouterEnchere(enchere);
 			

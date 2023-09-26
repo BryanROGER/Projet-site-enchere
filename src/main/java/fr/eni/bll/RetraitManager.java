@@ -1,5 +1,6 @@
 package fr.eni.bll;
 
+import fr.eni.bo.Article;
 import fr.eni.bo.Retrait;
 import fr.eni.dal.DALException;
 import fr.eni.dal.FactoryDAO;
@@ -33,25 +34,42 @@ public class RetraitManager {
 		}
 	}
 
+	public Retrait retraitParArticle(Article article) throws BLLException {
+		try {
+			return retraitDao.selectByArticle(article);
+		} catch (DALException e) {
+			throw new BLLException(e.getMessage());
+		}
+	}
+
+	public void miseAJourRetrait(Retrait retrait) throws BLLException {
+		try {
+			isValid(retrait);
+			retraitDao.update(retrait);
+		} catch (DALException e) {
+			throw new BLLException(e.getMessage());
+		}
+	}
+
 	// validation
 
 	public void isValid(Retrait retrait) throws BLLException {
-		//vérification des champs libres
-		if(retrait.getRue().isBlank())
+		// vérification des champs libres
+		if (retrait.getRue().isBlank())
 			throw new BLLException("La rue ne peut pas être vide!");
-		if(retrait.getVille().isBlank())
+		if (retrait.getVille().isBlank())
 			throw new BLLException("La ville ne peut pas être vide!");
-		if(retrait.getCodePostal().isBlank())
+		if (retrait.getCodePostal().isBlank())
 			throw new BLLException("Le code postal ne peut pas être vide!");
-		
-		//vérification de la taille des champs
-		if(retrait.getRue().length() > 80)
+
+		// vérification de la taille des champs
+		if (retrait.getRue().length() > 80)
 			throw new BLLException("La rue ne peut pas dépasser 80 caractères!");
-		if(retrait.getCodePostal().length()!= 5)
+		if (retrait.getCodePostal().length() != 5)
 			throw new BLLException("Le code postal doit être égale à 5 caractères!");
-		if(retrait.getVille().length() > 80)
+		if (retrait.getVille().length() > 80)
 			throw new BLLException("La ville ne peut pas dépasser 80 caractères!");
-		
+
 	}
 
 }

@@ -40,6 +40,15 @@ public class ArticleManager {
 			throw new BLLException(e.getMessage());
 		}
 	}
+	
+	public void miseAJourArticle(Article article) throws BLLException {
+		try {
+			isValidArticle(article);
+			articleDao.update(article);
+		} catch (DALException e) {
+			throw new BLLException(e.getMessage());
+		}
+	}
 
 	// vérification
 

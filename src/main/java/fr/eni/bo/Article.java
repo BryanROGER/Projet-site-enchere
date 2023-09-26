@@ -25,6 +25,22 @@ public class Article {
 	// constructeurs
 
 	public Article(int noArticle, String nomArticle, String description, LocalDate dateDebutEncheres,
+			LocalDate dateFinEncheres, int miseAPrix, int prixVente, Utilisateur vendeur, Categorie categorieArticle, int etatVente, Retrait retrait) {
+		super();
+		this.noArticle = noArticle;
+		this.nomArticle = nomArticle;
+		this.description = description;
+		this.dateDebutEncheres = dateDebutEncheres;
+		this.dateFinEncheres = dateFinEncheres;
+		this.miseAPrix = miseAPrix;
+		this.prixVente = prixVente;
+		this.vendeur = vendeur;
+		this.categorieArticle = categorieArticle;
+		this.etatVente = etatVente;
+		this.lieuRetrait = retrait;
+	}
+	
+	public Article(int noArticle, String nomArticle, String description, LocalDate dateDebutEncheres,
 			LocalDate dateFinEncheres, int miseAPrix, int prixVente, Utilisateur vendeur, Categorie categorieArticle, int etatVente) {
 		super();
 		this.noArticle = noArticle;
@@ -38,6 +54,7 @@ public class Article {
 		this.categorieArticle = categorieArticle;
 		this.etatVente = etatVente;
 	}
+	
 	public Article(int noArticle, String nomArticle, String description, LocalDate dateDebutEncheres,
 			LocalDate dateFinEncheres, int miseAPrix, int prixVente, Utilisateur vendeur, Categorie categorieArticle) {
 		super();
@@ -63,6 +80,17 @@ public class Article {
 		this.dateFinEncheres = dateFinEncheres;
 		this.miseAPrix = miseAPrix;
 		this.vendeur = vendeur;
+		this.categorieArticle = categorie;
+	}
+	
+	public Article(String nomArticle, String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres,
+			int miseAPrix,  Categorie categorie) {
+		super();
+		this.nomArticle = nomArticle;
+		this.description = description;
+		this.dateDebutEncheres = dateDebutEncheres;
+		this.dateFinEncheres = dateFinEncheres;
+		this.miseAPrix = miseAPrix;
 		this.categorieArticle = categorie;
 	}
 	
@@ -211,5 +239,7 @@ public class Article {
 	public void setLieuRetrait(Retrait lieuRetrait) {
 		this.lieuRetrait = lieuRetrait;
 	}
+	
+	
 
 }
