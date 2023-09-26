@@ -26,9 +26,9 @@ public class ProfilServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		UtilisateurManager utilisateurManager = UtilisateurManager.getInstance();
-		
+		String motDePasse = request.getParameter("mot_de_passe");
 		String pseudo = request.getParameter("pseudo");
-		Utilisateur utilisateur;
+		Utilisateur utilisateur = null;
 		try {
 			utilisateur = utilisateurManager.unUtilisateurParPseudoOuMail(pseudo);
 		} catch (BLLException e) {
@@ -37,6 +37,7 @@ public class ProfilServlet extends HttpServlet {
 		}
 		var session = request.getSession();
 		String choix = request.getParameter("bouton");
+		System.out.println("bouton");
 		
 		if(choix.equals("maj")) {
 			String nom = request.getParameter("nom");
@@ -46,7 +47,7 @@ public class ProfilServlet extends HttpServlet {
 			String rue = request.getParameter("rue");
 			String codePostal = request.getParameter("code_postal");
 			String ville = request.getParameter("ville");
-			String motDePasse = request.getParameter("mot_de_passe");
+			
 			String nouveauMDP = request.getParameter("nouveau_mdp");
 			String confirmationMDP = request.getParameter("confirmation_mdp");
 			
@@ -69,7 +70,7 @@ public class ProfilServlet extends HttpServlet {
 					
 				} else {
 					request.setAttribute("error","Le mot de passe n'est pas le bon");
-					request.getRequestDispatcher("/WEB-INF/pages/mon-profil.jsp").forward(request, response);		
+					doGet(request, response);
 					return;
 					}
 					
@@ -87,6 +88,12 @@ public class ProfilServlet extends HttpServlet {
 		
 		if(choix.equals("suppr")) {
 			try {
+				if(!utilisateur.getMotDePasse().equals(motDePasse)) {
+					request.setAttribute("error","Le mot de passe n'est pas le bon");
+					doGet(request, response);
+					return;
+				}
+					
 				utilisateur = utilisateurManager.unUtilisateurParPseudoOuMail(pseudo);
 				utilisateurManager.supprimerCompteUtilisateur(utilisateur);
 			} catch (BLLException e) {

@@ -113,7 +113,7 @@
 				<div class="col-md-6">
 				<div class="form-floating">
 					<input id="confirmation_mdp" name="confirmation_mdp" type="password"
-					required="required" class="form-control">
+					 class="form-control">
 			<label for="confirmation_mdp" class="form-label">Confirmation
 				du mot de passe</label>
 			
@@ -122,10 +122,10 @@
 		</div>
 		<div class="d-flex justify-content-center">
 			<div class="col-md-8">
-				<button id="inscription" type="submit" name="inscription"
+				<button id="inscription" type="submit" name="bouton" value="maj"
 					class="btn btn-success">Enregistrer</button>
-				<button id="annuler" type="reset" name="annuler"
-					class="btn btn-danger">Supprimer mon compte</button>
+				<button id="annuler" type="submit" name="bouton" value="suppr"
+					class="btn btn-danger" onclick="return confirm('Voulez-vous vraiment supprimer votre compte ? Cette action sera définitive')">Supprimer mon compte</button>
 			</div>
 		</div>
 	</form>

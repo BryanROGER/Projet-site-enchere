@@ -49,6 +49,15 @@ main{
 	
 }
 
+#pageConnexion{
+	
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center; 
+	height: 73vh
+}
+
 form{
 	margin-right: 10%;
 	margin-left: 10%;
