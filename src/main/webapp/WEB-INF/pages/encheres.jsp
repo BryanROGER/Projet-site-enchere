@@ -4,7 +4,9 @@
 <%@ include file="/WEB-INF/fragments/header.jspf"%>
 <main>
 
-	<h2 >Liste des enchères</h2>
+
+	<h2>Liste des enchères</h2>
+
 
 	<div class="w-25 p-3">
 		<form action="${ pageContext.request.contextPath }/encheres"
@@ -23,63 +25,65 @@
 						<option value="${categorie.getNoCategorie() }">${categorie.getLibelle()}</option>
 
 					</c:forEach>
-			
-			</select>
+
+				</select>
 			</div>
 			<div>
 				<div>
-					<label> <input type="radio" name="typeTransaction"
-						value="achats" id="achat" onclick="gererCasesACocher()">
 
-						Achat
+					<div>
+						<label> <input type="radio" name="typeTransaction"
+							value="achats" id="achat" onclick="gererCasesACocher()">
 
-					</label> <label> <input type="radio" name="typeTransaction"
-						value="ventes" id="vente" onclick="gererCasesACocher()">
+							Achat
 
-						Vente
+						</label> <label> <input type="radio" name="typeTransaction"
+							value="ventes" id="vente" onclick="gererCasesACocher()">
 
-					</label><br> <label for="encheresOuvertes"> <input
-						type="checkbox" id="encheresOuvertes" name="achat"
-						value="encheresOuvertes" disabled
-						onclick="toggleCheckboxes('encheresOuvertes')"> Enchères
+							Vente
 
-						Ouvertes
+						</label><br> <label for="encheresOuvertes"> <input
+							type="checkbox" id="encheresOuvertes" name="achat"
+							value="encheresOuvertes" disabled
+							onclick="toggleCheckboxes('encheresOuvertes')"> Enchères
 
-					</label> <label for="mesVentesEnCours"> <input type="checkbox"
-						id="mesVentesEnCours" name="vente" value="mesVentesEnCours"
-						disabled onclick="toggleCheckboxes('mesVentesEnCours')">
+							Ouvertes
 
-						Mes Ventes en Cours
+						</label> <label for="mesVentesEnCours"> <input type="checkbox"
+							id="mesVentesEnCours" name="vente" value="mesVentesEnCours"
+							disabled onclick="toggleCheckboxes('mesVentesEnCours')">
 
-					</label> <br> <label for="mesEncheresEnCours"> <input
-						type="checkbox" id="mesEncheresEnCours" name="achat"
-						value="mesEncheresEnCours" disabled
-						onclick="toggleCheckboxes('mesEncheresEnCours')"> Mes
+							Mes Ventes en Cours
 
-						Enchères en Cours
+						</label> <br> <label for="mesEncheresEnCours"> <input
+							type="checkbox" id="mesEncheresEnCours" name="achat"
+							value="mesEncheresEnCours" disabled
+							onclick="toggleCheckboxes('mesEncheresEnCours')"> Mes
 
-					</label> <label for="ventesNonDebutees"> <input type="checkbox"
-						id="ventesNonDebutees" name="vente" value="ventesNonDebutees"
-						disabled onclick="toggleCheckboxes('ventesNonDebutees')">
+							Enchères en Cours
 
-						Ventes Non Débutées
+						</label> <label for="ventesNonDebutees"> <input type="checkbox"
+							id="ventesNonDebutees" name="vente" value="ventesNonDebutees"
+							disabled onclick="toggleCheckboxes('ventesNonDebutees')">
 
-					</label> <br> <label for="mesEncheresRemportees"> <input
-						type="checkbox" id="mesEncheresRemportees" name="achat"
-						value="mesEncheresRemportees" disabled
-						onclick="toggleCheckboxes('mesEncheresRemportees')"> Mes
+							Ventes Non Débutées
 
-						Enchères Remportées
+						</label> <br> <label for="mesEncheresRemportees"> <input
+							type="checkbox" id="mesEncheresRemportees" name="achat"
+							value="mesEncheresRemportees" disabled
+							onclick="toggleCheckboxes('mesEncheresRemportees')"> Mes
 
-					</label> <label for="ventesTerminees"> <input type="checkbox"
-						id="ventesTerminees" name="vente" value="ventesTerminees" disabled
-						onclick="toggleCheckboxes('ventesTerminees')"> Ventes
-						Terminées
+							Enchères Remportées
 
-					</label> <br>
+						</label> <label for="ventesTerminees"> <input type="checkbox"
+							id="ventesTerminees" name="vente" value="ventesTerminees"
+							disabled onclick="toggleCheckboxes('ventesTerminees')">
+							Ventes Terminées
 
+						</label> <br>
+
+					</div>
 				</div>
-
 			</div>
 			<button type="submit" class="btn btn-default">Rechercher</button>
 		</form>
@@ -95,8 +99,7 @@
 
 						</h5>
 
-						<p class="card-text">Prix :
-							${enchere.getMontantEnchere() }</p>
+						<p class="card-text">Prix : ${enchere.getMontantEnchere() }</p>
 
 						<p class="card-text">Fin de l'enchère :
 							${enchere.getArticle().getDateFinEncheres() }</p>
@@ -112,12 +115,12 @@
 							href="${pageContext.request.contextPath}/detail-vente?noArticle=${enchere.getArticle().getNoArticle()}"
 							class="btn
 							btn-outline-dark">En savoir plus</a>
-
 					</div>
 				</div>
-			</c:forEach>
 		</div>
+		</c:forEach>
 	</div>
+	
 
 
 

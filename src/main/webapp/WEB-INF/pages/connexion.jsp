@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/fragments/header.jspf"%>
-<main>
 <body>
+<main>
 <c:if test="${ ! empty error }">
 		<div class="alert alert-danger">${ error }</div>
 	</c:if>
@@ -13,14 +13,14 @@
 		<form action="${pageContext.request.contextPath}/se-connecter"
 			method="post">
   <!-- Email input -->
-  <div class="form-outline mb-4">
-    <input type="text" id="utilisateur"  name="utilisateur" class="form-control" />
+  <div class="form-floating mb-4">
+    <input type="text" id="utilisateur" placeholder="ex.toto" name="utilisateur" class="form-control" />
     <label class="form-label" for="utilisateur">Pseudo ou email</label>
   </div>
 
   <!-- Password input -->
-  <div class="form-outline mb-4">
-    <input type="password" id="mot_de_passe" name="mot_de_passe" class="form-control" />
+  <div class="form-floating mb-4">
+    <input type="password" id="mot_de_passe" name="mot_de_passe" placeholder="Password" class="form-control" />
     <label class="form-label" for="mot_de_passe">Mot de passe</label>
   </div>
 
@@ -45,9 +45,11 @@
 
   <!-- Register buttons -->
   <div class="text-center">
-    <p>Pas encore membre ? <a href="${pageContext.request.contextPath}/inscription">S'inscire</a></p>
+    <p>Pas encore membre ? <a href="${pageContext.request.contextPath}/inscription">S'inscrire</a></p>
   </div>
 </form>
+
 </main>
+
 
 <%@ include file="/WEB-INF/fragments/footer.jspf"%>
