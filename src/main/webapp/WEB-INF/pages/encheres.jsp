@@ -95,7 +95,7 @@
 	<div class="card-group">
 		<div class="row">
 			<c:forEach items="${encheres }" var="enchere">
-				<div class="card" style="width: 18rem;">
+				<div class="card mr-2" style="width: 18rem;">
 					<div class="card-body">
 						<h5 class="card-title">
 							<a

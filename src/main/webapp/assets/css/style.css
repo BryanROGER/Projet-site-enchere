@@ -1,5 +1,6 @@
 @charset "UTF-8";
 
+
 #darkBlue{
 	color: #1651A4;
 }
@@ -58,6 +59,13 @@ body{
 	
 	font-family: sans-serif;
 	
+}
+.w-50 { 
+    width: 50%!important;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
 }
 
 .ecartHP{

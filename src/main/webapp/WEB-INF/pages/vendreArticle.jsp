@@ -108,10 +108,10 @@
 			</div>
 			<div class="form-row">
 				<input type="submit"
-					class="btn btn-lg btn-block btn-success offset-1 col-4 offset-md-4 col-md-2">
+					class="btn btn-block btn-success">
 				<a href="${pageContext.request.contextPath}/encheres"
 					class="offset-1 col-4 offset-md-1 col-md-2">
-					<button type="button" class="btn btn-lg btn-block btn-danger">Annuler</button>
+					<button type="reset" class="btn btn-block btn-danger">Annuler</button>
 				</a>
 			</div>
 		</form>
