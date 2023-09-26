@@ -1,7 +1,12 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+
 
 	<section class="">
+	
   <!-- Footer -->
   <footer class="text-center text-white" style="background-color: #0a4275;">
+  <c:if test="${user == null }">
     <!-- Grid container -->
     <div class="container p-4 pb-0">
       <!-- Section: CTA -->
@@ -17,11 +22,11 @@
       <!-- Section: CTA -->
     </div>
     <!-- Grid container -->
-
+	</c:if>
     <!-- Copyright -->
     <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-      © 2023 Copyright:
-      <a class="text-white" >ENI-Enchères (utilisation de MDBOOTSTRAP)</a> 
+      Â© 2023 Copyright:
+      <a class="text-white" >ENI-EnchÃ¨res (utilisation de MDBOOTSTRAP)</a> 
     </div>
     <!-- Copyright -->
   </footer>

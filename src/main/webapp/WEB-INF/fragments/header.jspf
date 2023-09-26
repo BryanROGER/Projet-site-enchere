@@ -19,6 +19,7 @@
 	crossorigin="anonymous">
 	
 	<link rel="stylesheet" href="${ pageContext.request.contextPath }/assets/css/mdb.min.css" />
+	<link rel="stylesheet" href="${ pageContext.request.contextPath }/assets/css/style.css" />
 <script src="${ pageContext.request.contextPath }/assets/js/mdb.min.js"></script>
 	
 
@@ -28,7 +29,7 @@
 
 
 <!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light" >
+<nav class="navbar navbar-expand-lg navbar-light pr-10" id="grey"  >
   <!-- Container wrapper -->
   <div class="container-fluid">
     <!-- Toggle button -->
@@ -47,16 +48,18 @@
     <!-- Collapsible wrapper -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <!-- Navbar brand -->
-      <a class="navbar-brand mt-2 mt-lg-0" href="${ pageContext.request.contextPath }/encheres">
+      
+      <a class="navbar-brand mt-2 mt-lg-0" href="${ pageContext.request.contextPath }/encheres" id="darkBlue">
        ENI-enchères
       </a>
+      
       <!-- Left links -->
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      <ul class="navbar-nav mb-2 mb-lg-0 ml-10 ">
         <li class="nav-item">
-          <a class="nav-link" href="${ pageContext.request.contextPath }/encheres">Encheres</a>
+          <a class="nav-link" href="${ pageContext.request.contextPath }/encheres" id="blue">Encheres</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" 		href="${ pageContext.request.contextPath }/vendre"> Vendre</a>
+        <li class="nav-item ml-10">
+          <a class="nav-link" 		href="${ pageContext.request.contextPath }/vendre" id="blue"> Vendre</a>
         </li>
       </ul>
       <!-- Left links -->
@@ -68,14 +71,14 @@
       
 		<c:if test="${ user == null }">
 		
-		<a class="nav-link" href="${ pageContext.request.contextPath }/se-connecter">Connexion</a>
+		<a class="nav-link" href="${ pageContext.request.contextPath }/se-connecter" id="darkBlue">Connexion</a>
 		</c:if>
 			
 			
      
      <c:if test="${ user != null }">
      <!-- Icon -->
-      <a class="text-reset me-3" href="#">
+      <a class="text-reset me-3" href="#" id="blue">
        <i class="fa-brands fa-bitcoin"></i>${user.getCredit() }
       </a>
       <!-- Avatar -->
@@ -101,12 +104,12 @@
         >
         	
           <li>
-            <a class="dropdown-item" href="${ pageContext.request.contextPath }/mon-profil">Mon
+            <a class="dropdown-item" href="${ pageContext.request.contextPath }/mon-profil" id="blue">Mon
 										Profil</a>
           </li>
           <li>
             <a class="dropdown-item" onclick="return confirm('Voulez-vous vraiment vous déconnecter ?')"
-									href="${ pageContext.request.contextPath }/deconnexion">Deconnexion</a>
+									href="${ pageContext.request.contextPath }/deconnexion" id="blue">Deconnexion</a>
           </li>
           
         </ul>

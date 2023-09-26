@@ -120,7 +120,7 @@
 			</div>
 			</div>
 		</div>
-		<div class="form-group">
+		<div class="d-flex justify-content-center">
 			<div class="col-md-8">
 				<button id="inscription" type="submit" name="inscription"
 					class="btn btn-success">Enregistrer</button>
