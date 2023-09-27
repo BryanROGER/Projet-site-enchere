@@ -8,15 +8,19 @@
 	<h2>Liste des enchères</h2>
 
 
-	<div class="w-25 p-3">
+
+	
 		<form action="${ pageContext.request.contextPath }/encheres"
 			method="get">
 
-			<div class="form-group">
+			<div class="form-group"> 
+			<div class="col-xs-4">
 				<label for="string_filter">Rechercher un article :</label> <input
 					name="string_filter" type="text" class="form-control"
 					placeholder="Recherche par mots-clés" value="${stringFilter}">
+					</div>
 			</div>
+			<div class="col-xs-4">
 			<div class="form-group">
 				<label for="categories">Rechercher une catégorie</label> <select
 					name="categorie" id="categories" class="col mt-2 form-control">
@@ -27,6 +31,7 @@
 					</c:forEach>
 
 				</select>
+			</div>
 			</div>
 			
 			<c:if test="${user!=null }">
@@ -88,44 +93,45 @@
 				</div>
 			</div>
 			</c:if>
-			<button type="submit" class="btn btn-default">Rechercher</button>
-		</form>
-	</div>
+			<button type="submit" class="btn btn-outline-info">Rechercher</button>
 	
-	<div class="card-group">
-		<div class="row">
+		</form>
+
+	
+			<div class="row row-cols-1 row-cols-md-3">
 			<c:forEach items="${encheres }" var="enchere">
-				<div class="card mr-2" style="width: 18rem;">
+			<div class="col mb-4">
+				<div class="card" style="width: 25rem;">
 					<div class="card-body">
-						<h5 class="card-title">
+						<h5 class="card-title" style="text-align:center">
 							<a
 								href="${pageContext.request.contextPath}/detail-vente?noArticle=${enchere.getArticle().getNoArticle()}">${enchere.getArticle().getNomArticle() }</a>
 
 						</h5>
 
-						<p class="card-text">Prix : ${enchere.getMontantEnchere() }</p>
+						<p class="card-text" style="text-align:center">Prix : ${enchere.getMontantEnchere() }</p>
 
-						<p class="card-text">Fin de l'enchère :
+						<p class="card-text" style="text-align:center">Fin de l'enchère :
 							${enchere.getArticle().getDateFinEncheres() }</p>
 
-						<p class="card-text">
+						<p class="card-text" style="text-align:center">
 
 							Vendeur : <a
 								href="${pageContext.request.contextPath}/profil?id=${enchere.getArticle().getVendeur().getNoUtilisateur() }">${enchere.getArticle().getVendeur().getPseudo() }</a>
 
 						</p>
-
+						<div class="justify-content-center">
 						<a
-							href="${pageContext.request.contextPath}/detail-vente?noArticle=${enchere.getArticle().getNoArticle()}"
-							class="btn
-							btn-outline-dark">En savoir plus</a>
+							href="${pageContext.request.contextPath}/detail-vente?noArticle=${enchere.getArticle().getNoArticle()}">
+							<button class="btn btn-outline-dark"> En savoir plus</button>
+							</a>
+					</div>
 					</div>
 				</div>
+				</div>
 					</c:forEach>
-		</div>
-	
+		
 	</div>
-	
 
 
 
