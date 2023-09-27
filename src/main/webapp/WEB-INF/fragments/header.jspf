@@ -143,7 +143,7 @@
 						<!-- Icon -->
 
 						<a class="text-reset me-3" href="#" id="txtBlue"> <i
-							class="fa-brands fa-bitcoin"></i>${user.getCredit() }
+							class="fa-brands fa-bitcoin"></i> ${user.getCredit() }
 
 						</a>
 

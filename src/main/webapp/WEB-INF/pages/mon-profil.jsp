@@ -118,6 +118,15 @@
 					</div>
 				</div>
 			</div>
+			
+			<div class="row my-3">
+				<div class="col-md-6">
+					<div class="form-floating">
+					<input id="cred"class="form-control" type="text" readonly="readonly" value="${user.getCredit() }">
+					<label for="cred" class="form-label"> Crédits</label>
+					</div>
+					</div>
+					</div>
 			<div class="d-flex justify-content-center">
 			<div class="col-8 d-flex justify-content-around">
 

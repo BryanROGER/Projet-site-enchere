@@ -121,7 +121,7 @@
 		
 		
 			
-				<div class="md-4 card mt-2" style="width: 25rem;">
+				<div class="card border-secondary mt-2 " style="width: 25rem;">
 					<div class="card-body">
 						<h5 class="card-title" style="text-align: center">
 							<a
