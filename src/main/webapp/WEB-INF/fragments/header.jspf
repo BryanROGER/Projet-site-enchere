@@ -34,7 +34,6 @@
 
 
 
-<script src="${ pageContext.request.contextPath }/assets/js/mdb.min.js"></script>
 
 <link rel="stylesheet"
 	href="${ pageContext.request.contextPath }/assets/css/style.css" />

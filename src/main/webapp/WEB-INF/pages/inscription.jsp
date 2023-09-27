@@ -7,11 +7,11 @@
 
 	<div class="container h-100">
 		<div class="row h-100 justify-content-center align-items-center">
-			<div class="col-10 col-md-8 col-lg-6">
+			<div class="d-flex flex-column">
 				<h1>Inscription</h1>
-
+			<div class="d-flex justify-content-center my-4">
 				<form action="${pageContext.request.contextPath}/inscription"
-					method="post">
+					method="post" id="form">
 					<c:if test="${ ! empty error }">
 						<div class="alert alert-danger">${ error }</div>
 					</c:if>
@@ -82,8 +82,8 @@
 								passe :</b></label> <input id="confirmation_mdp" name="confirmation_mdp"
 							type="password" required="required" class="form-control">
 					</div>
-<div class="d-flex justify-content-center">
-				<div class="col-md-8">
+					<div class="d-flex justify-content-center mt-2">
+						<div class="col-4 d-flex justify-content-around">
 				
 							<button id="inscription" type="submit" name="inscription"
 								class="btn btn-success">S'inscrire</button>
@@ -93,6 +93,7 @@
 					</div>
 
 				</form>
+				</div>
 				</div>
 				</div>
 				
