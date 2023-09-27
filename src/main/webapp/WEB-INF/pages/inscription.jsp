@@ -87,8 +87,9 @@
 				
 							<button id="inscription" type="submit" name="inscription"
 								class="btn btn-success">S'inscrire</button>
-							<button id="annuler" type="reset" name="annuler"
-								class="btn btn-danger">Annuler</button>
+								<a href="${pageContext.request.contextPath}/encheres">
+							<button type="button" class="btn btn-danger">Annuler</button>
+								</a>
 						</div>
 					</div>
 
