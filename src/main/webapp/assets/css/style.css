@@ -66,7 +66,10 @@ main {
 
 }
 
-
+#achatVente  label{
+	margin-top: 1vh;
+	display: block; 
+}
 
 #pageConnexion {
 
@@ -95,17 +98,21 @@ form {
 	margin-left: 10vh;
 }
 
+#margginEncheres{
+	margin-right: 0vh;
+	margin-left: 0vh;
+}
 
 
 body {
-	background-color: lightpink;
+	background-color: #F0E0FF      ;
 	font-family: sans-serif;
 
 
 }
 
 .body {
-	background-color: lightpink;
+	background-color: #F0E0FF      ;
 	font-family: sans-serif;
 
 }
