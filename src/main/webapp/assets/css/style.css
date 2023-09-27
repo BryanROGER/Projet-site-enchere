@@ -28,7 +28,7 @@
 }
 
 #footerAdapteInscription {
-	min-height: 70vh;
+	min-height: 71.3vh;
 }
 
 h2 {
@@ -55,20 +55,21 @@ h1 {
 
 #footerAdapte {
 
-	min-height: 73vh;
+	min-height: 73.5vh;
 
 }
 
 main {
 	margin: 3vh 10vh 3vh 10vh;
 
-	/*	background-color: lightpink;*/
-
-	min-height: 82vh;
+	min-height: 81.4vh;
 
 }
 
-
+#achatVente  label{
+	margin-top: 1vh;
+	display: block; 
+}
 
 #pageConnexion {
 
@@ -76,33 +77,52 @@ main {
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	height: 73vh
+	height: 73.5vh
 }
 
 form {
+	min-width: 80vh;
 	margin-right: 10vh;
 	margin-left: 10vh;
 }
 
+#form {
+	min-width: 80vh;
+	margin-right: 50vh;
+	margin-left: 50vh;
+}
+
+#formConnexion {
+	min-width: 60vh;
+	margin-right: 10vh;
+	margin-left: 10vh;
+}
+
+#margginEncheres{
+	margin-right: 0vh;
+	margin-left: 0vh;
+}
+
+
 body {
+
 	background-color: #FCF0EC;
+
+
 	font-family: sans-serif;
+
 
 }
 
 .body {
+
 	background-color:#FCF0EC;
+
 	font-family: sans-serif;
 
 }
 
-.w-50 {
-	width: 50% !important;
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-}
+
 
 .ecartHP {
 	margin-top: 5vh;

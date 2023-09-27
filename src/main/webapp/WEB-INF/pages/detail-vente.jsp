@@ -2,10 +2,12 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/fragments/header.jspf"%>
 
-<main>
+<main class="d-flex flex-column justify-content-center">
 	<c:if test="${ ! empty error }">
 		<div class="alert alert-danger">${ error }</div>
 	</c:if>
+	
+	<h2>Détail vente</h2>
 
 	<c:if test="${enchere.getArticle().getEtatVente()==1 }">
 		<h2>Détail vente</h2>
@@ -16,9 +18,9 @@
 	</c:if>
 	<c:if
 		test="${enchere.getArticle().getEtatVente()==2 && user.getNoUtilisateur()!=enchere.getUtilisateur().getNoUtilisateur() }">
-		<h2>${ enchere.getUtilisateur().getNom()}a remporté l'enchère</h2>
+		<h2>${ enchere.getUtilisateur().getPseudo()} a remporté l'enchère</h2>
 	</c:if>
-	<div class="w-50">
+	<div class="d-flex justify-content-center">
 		<div class="container px-5 my-5">
 			<div class="form-floating mb-3">
 				<input class="form-control" type="text" readonly="readonly"

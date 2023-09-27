@@ -1,13 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/fragments/header.jspf"%>
+<<<<<<< HEAD
+
+=======
+>>>>>>> 5db92bbdbe89671e32547cdb866e44b9d538350d
 
 
 <main>
 
+
+
 	<h2>Mon profil</h2>
 
-	<div class="w-50">
+	<div class="d-flex justify-content-center">
 
 
 		<form action="${pageContext.request.contextPath}/mon-profil"
@@ -116,7 +122,8 @@
 					</div>
 				</div>
 			</div>
-			<div class="d-flex justify-content-around">
+			<div class="d-flex justify-content-center">
+			<div class="col-8 d-flex justify-content-around">
 
 				<div>
 					<button id="inscription" type="submit" name="bouton" value="maj"
@@ -128,6 +135,7 @@
 						onclick="return confirm('Voulez-vous vraiment supprimer votre compte ? Cette action sera définitive')">Supprimer le compte</button>
 				</div>
 
+			</div>
 			</div>
 		</form>
 	</div>

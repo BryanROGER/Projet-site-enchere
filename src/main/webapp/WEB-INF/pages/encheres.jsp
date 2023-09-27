@@ -8,129 +8,150 @@
 	<h2>Liste des enchères</h2>
 
 
+	<div>
+		<div class="card">
+			<div class="card-body">
+				<form action="${ pageContext.request.contextPath }/encheres"
+					method="get" id="margginEncheres">
+					<div class="d-flex justify-content-around">
+						<div class="col-md-5">
+							<div class="form-group">
+								<div class="col-xs-4">
+									<label for="string_filter">Rechercher un article :</label> <input
+										name="string_filter" type="text" class="form-control"
+										placeholder="Recherche par mots-clés" value="${stringFilter}">
+								</div>
+							</div>
+							<div class="col-xs-4">
+								<div class="form-group">
+									<label for="categories" class="mt-2">Rechercher une
+										catégorie</label> <select name="categorie" id="categories"
+										class="col form-control">
+										<c:forEach items="${categories}" var="categorie">
 
-	
-		<form action="${ pageContext.request.contextPath }/encheres"
-			method="get">
+											<option value="${categorie.getNoCategorie() }">${categorie.getLibelle()}</option>
 
-			<div class="form-group"> 
-			<div class="col-xs-4">
-				<label for="string_filter">Rechercher un article :</label> <input
-					name="string_filter" type="text" class="form-control"
-					placeholder="Recherche par mots-clés" value="${stringFilter}">
-					</div>
+										</c:forEach>
+
+									</select>
+								</div>
+							</div>
+							<button type="submit" class="btn btn-outline-info mt-4">Rechercher</button>
+						</div>
+
+						<div class="col-md-6 mt-2">
+							<c:if test="${user!=null }">
+								<div>
+									<div class="d-flex justify-content-around ">
+
+										<div class="col-md-5 d-flex flex-column">
+											<label> <input type="radio" name="typeTransaction"
+												value="achats" id="achat" onclick="gererCasesACocher()">
+												Achat
+											</label>
+											<div id="achatVente">
+												<label for="encheresOuvertes"> <input
+													type="checkbox" id="encheresOuvertes" name="achat"
+													value="encheresOuvertes" disabled
+													onclick="toggleCheckboxes('encheresOuvertes')">
+													Enchères Ouvertes
+												</label> <label for="mesEncheresEnCours"> <input
+													type="checkbox" id="mesEncheresEnCours" name="achat"
+													value="mesEncheresEnCours" disabled
+													onclick="toggleCheckboxes('mesEncheresEnCours')">
+													Mes Enchères en Cours
+												</label> <label for="mesEncheresRemportees"> <input
+													type="checkbox" id="mesEncheresRemportees" name="achat"
+													value="mesEncheresRemportees" disabled
+													onclick="toggleCheckboxes('mesEncheresRemportees')">
+													Mes Enchères Remportées
+
+												</label>
+
+											</div>
+
+
+
+										</div>
+										<div class="col-md-5">
+
+											<label> <input type="radio" name="typeTransaction"
+												value="ventes" id="vente" onclick="gererCasesACocher()">
+												Vente
+											</label>
+											<div id="achatVente">
+												<label for="mesVentesEnCours"> <input
+													type="checkbox" id="mesVentesEnCours" name="vente"
+													value="mesVentesEnCours" disabled
+													onclick="toggleCheckboxes('mesVentesEnCours')"> Mes
+													Ventes en Cours
+												</label> <label for="ventesNonDebutees"> <input
+													type="checkbox" id="ventesNonDebutees" name="vente"
+													value="ventesNonDebutees" disabled
+													onclick="toggleCheckboxes('ventesNonDebutees')">
+
+													Ventes Non Débutées
+
+												</label> <label for="ventesTerminees"> <input
+													type="checkbox" id="ventesTerminees" name="vente"
+													value="ventesTerminees" disabled
+													onclick="toggleCheckboxes('ventesTerminees')">
+													Ventes Terminées
+
+												</label>
+											</div>
+										</div>
+
+									</div>
+								</div>
+
+							</c:if>
+
+							
+						</div>
+						</div>
+				</form>
 			</div>
-			<div class="col-xs-4">
-			<div class="form-group">
-				<label for="categories">Rechercher une catégorie</label> <select
-					name="categorie" id="categories" class="col mt-2 form-control">
-					<c:forEach items="${categories}" var="categorie">
+		</div>
+	</div>
 
-						<option value="${categorie.getNoCategorie() }">${categorie.getLibelle()}</option>
-
-					</c:forEach>
-
-				</select>
-			</div>
-			</div>
+	<div class="mt-3 ">
+	<div class="d-flex col-12 flex-wrap justify-content-evenly "> 
+		<c:forEach items="${encheres }" var="enchere">
+		
+		
 			
-			<c:if test="${user!=null }">
-			<div>
-				<div>
-
-					<div>
-						<label> <input type="radio" name="typeTransaction"
-							value="achats" id="achat" onclick="gererCasesACocher()">
-
-							Achat
-
-						</label> <label> <input type="radio" name="typeTransaction"
-							value="ventes" id="vente" onclick="gererCasesACocher()">
-
-							Vente
-
-						</label><br> <label for="encheresOuvertes"> <input
-							type="checkbox" id="encheresOuvertes" name="achat"
-							value="encheresOuvertes" disabled
-							onclick="toggleCheckboxes('encheresOuvertes')"> Enchères
-
-							Ouvertes
-
-						</label> <label for="mesVentesEnCours"> <input type="checkbox"
-							id="mesVentesEnCours" name="vente" value="mesVentesEnCours"
-							disabled onclick="toggleCheckboxes('mesVentesEnCours')">
-
-							Mes Ventes en Cours
-
-						</label> <br> <label for="mesEncheresEnCours"> <input
-							type="checkbox" id="mesEncheresEnCours" name="achat"
-							value="mesEncheresEnCours" disabled
-							onclick="toggleCheckboxes('mesEncheresEnCours')"> Mes
-
-							Enchères en Cours
-
-						</label> <label for="ventesNonDebutees"> <input type="checkbox"
-							id="ventesNonDebutees" name="vente" value="ventesNonDebutees"
-							disabled onclick="toggleCheckboxes('ventesNonDebutees')">
-
-							Ventes Non Débutées
-
-						</label> <br> <label for="mesEncheresRemportees"> <input
-							type="checkbox" id="mesEncheresRemportees" name="achat"
-							value="mesEncheresRemportees" disabled
-							onclick="toggleCheckboxes('mesEncheresRemportees')"> Mes
-
-							Enchères Remportées
-
-						</label> <label for="ventesTerminees"> <input type="checkbox"
-							id="ventesTerminees" name="vente" value="ventesTerminees"
-							disabled onclick="toggleCheckboxes('ventesTerminees')">
-							Ventes Terminées
-
-						</label> <br>
-
-					</div>
-				</div>
-			</div>
-			</c:if>
-			<button type="submit" class="btn btn-outline-info">Rechercher</button>
-	
-		</form>
-
-	
-			<div class="row row-cols-1 row-cols-md-3">
-			<c:forEach items="${encheres }" var="enchere">
-			<div class="col mb-4">
-				<div class="card" style="width: 25rem;">
+				<div class="md-4 card mt-2" style="width: 25rem;">
 					<div class="card-body">
-						<h5 class="card-title" style="text-align:center">
+						<h5 class="card-title" style="text-align: center">
 							<a
 								href="${pageContext.request.contextPath}/detail-vente?noArticle=${enchere.getArticle().getNoArticle()}">${enchere.getArticle().getNomArticle() }</a>
 
 						</h5>
 
-						<p class="card-text" style="text-align:center">Prix : ${enchere.getMontantEnchere() }</p>
+						<p class="card-text" style="text-align: center">Prix :
+							${enchere.getMontantEnchere() }</p>
 
-						<p class="card-text" style="text-align:center">Fin de l'enchère :
-							${enchere.getArticle().getDateFinEncheres() }</p>
+						<p class="card-text" style="text-align: center">Fin de
+							l'enchère : ${enchere.getArticle().getDateFinEncheres() }</p>
 
-						<p class="card-text" style="text-align:center">
+						<p class="card-text" style="text-align: center">
 
 							Vendeur : <a
 								href="${pageContext.request.contextPath}/profil?id=${enchere.getArticle().getVendeur().getNoUtilisateur() }">${enchere.getArticle().getVendeur().getPseudo() }</a>
 
 						</p>
-						<div class="justify-content-center">
-						<a
-							href="${pageContext.request.contextPath}/detail-vente?noArticle=${enchere.getArticle().getNoArticle()}">
-							<button class="btn btn-outline-dark"> En savoir plus</button>
+						<div class="d-flex justify-content-center">
+							<a
+								href="${pageContext.request.contextPath}/detail-vente?noArticle=${enchere.getArticle().getNoArticle()}">
+								<button class="btn btn-outline-dark">En savoir plus</button>
 							</a>
-					</div>
+						</div>
 					</div>
 				</div>
-				</div>
-					</c:forEach>
-		
+			
+		</c:forEach>
+	</div>
 	</div>
 
 
