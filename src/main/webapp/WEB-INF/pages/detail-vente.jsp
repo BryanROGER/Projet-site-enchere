@@ -86,14 +86,16 @@
 					<form 
 						action="${ pageContext.request.contextPath }/detail-vente?noArticle=${enchere.getArticle().getNoArticle()}"
 						method="post">
+						<label> Ma proposition :</label>
 						<input type="number" name="prix_enchere" id="mPrix"
 							step="1" min="${enchere.getArticle().getMiseAPrix() }"
 							max="10000" required> 
-						<label>Ma proposition :</label>
+							<div class="justify-content: right">
 						<button type="submit" class="btn btn-info">Enchérir</button>
+						</div>
 					</form>
-				</div>
-				</div>
+			</div>
+			</div>
 			</c:if>
 </div>
 						

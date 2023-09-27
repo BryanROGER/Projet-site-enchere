@@ -29,9 +29,9 @@
 			<div class="row my-3">
 				<div class="col-md-12">
 					<div class="form-floating">
-						<textarea class="form-control" id="description"
-							placeholder="Description" style="height: 5rem;"
-							data-sb-validations="required" name="description"></textarea>
+						<input class="form-control" id="description"
+							placeholder="Description" type="text" style="height: 5rem;"
+							data-sb-validations="required" name="description"></input>
 						<label for="description">Description</label>
 						<div class="invalid-feedback"
 							data-sb-feedback="description:required">Veuillez saisir une
