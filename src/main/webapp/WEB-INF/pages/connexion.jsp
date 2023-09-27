@@ -18,7 +18,7 @@
 					<div>
 
 						<form action="${pageContext.request.contextPath}/se-connecter"
-							method="post">
+							method="post" id="formConnexion">
 							<!-- Email input -->
 							<div class="form-floating mb-4">
 								<input type="text" id="utilisateur" placeholder="ex.toto"

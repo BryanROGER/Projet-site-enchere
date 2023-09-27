@@ -32,10 +32,12 @@
 <link rel="stylesheet"
 	href="${ pageContext.request.contextPath }/assets/css/mdb.min.css" />
 
-<link rel="stylesheet"
-	href="${ pageContext.request.contextPath }/assets/css/style.css" />
+
 
 <script src="${ pageContext.request.contextPath }/assets/js/mdb.min.js"></script>
+
+<link rel="stylesheet"
+	href="${ pageContext.request.contextPath }/assets/css/style.css" />
 
 
 
@@ -46,7 +48,7 @@
 </head>
 <body class="body">
 
-<header>
+	<header>
 
 
 
@@ -54,145 +56,145 @@
 
 
 
-	<!-- Navbar -->
+		<!-- Navbar -->
 
-	<nav class="navbar navbar-expand-lg navbar-light pr-10" id="white">
+		<nav class="navbar navbar-expand-lg navbar-light pr-10" id="white">
 
-		<!-- Container wrapper -->
+			<!-- Container wrapper -->
 
-		<div class="container-fluid">
+			<div class="container-fluid">
 
-			<!-- Toggle button -->
+				<!-- Toggle button -->
 
-			<button class="navbar-toggler" type="button"
-				data-mdb-toggle="collapse" data-mdb-target="#navbarSupportedContent"
-				aria-controls="navbarSupportedContent" aria-expanded="false"
-				aria-label="Toggle navigation">
+				<button class="navbar-toggler" type="button"
+					data-mdb-toggle="collapse"
+					data-mdb-target="#navbarSupportedContent"
+					aria-controls="navbarSupportedContent" aria-expanded="false"
+					aria-label="Toggle navigation">
 
-				<i class="fas fa-bars"></i>
+					<i class="fas fa-bars"></i>
 
-			</button>
-
-
-
-			<!-- Collapsible wrapper -->
-
-			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-
-				<!-- Navbar brand -->
+				</button>
 
 
 
-				<a class="navbar-brand mt-2 mt-lg-0"
-					href="${ pageContext.request.contextPath }/encheres" id="txtWhite">
+				<!-- Collapsible wrapper -->
 
-					ENI-enchères </a>
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-
-
-				<!-- Left links -->
-
-				<ul class="navbar-nav mb-2 mb-lg-0 ml-10 ">
-
-					<li class="nav-item"><a class="nav-link"
-						href="${ pageContext.request.contextPath }/encheres" id="txtBlue">Enchères</a>
-
-					</li>
-
-					<li class="nav-item ml-10"><a class="nav-link"
-						href="${ pageContext.request.contextPath }/vendre" id="txtBlue">
-							Vendre</a></li>
-
-				</ul>
-
-				<!-- Left links -->
-
-			</div>
-
-			<!-- Collapsible wrapper -->
+					<!-- Navbar brand -->
 
 
 
-			<!-- Right elements -->
+					<a class="navbar-brand mt-2 mt-lg-0"
+						href="${ pageContext.request.contextPath }/encheres" id="txtWhite">
 
-			<div class="d-flex align-items-center">
-
-
-
-				<c:if test="${ user == null }">
+						ENI-enchères </a>
 
 
 
-					<a class="nav-link pr-5"
-						href="${ pageContext.request.contextPath }/se-connecter"
-						id="txtBlue">Connexion</a>
+					<!-- Left links -->
 
-				</c:if>
+					<ul class="navbar-nav mb-2 mb-lg-0 ml-10 ">
+
+						<li class="nav-item"><a class="nav-link"
+							href="${ pageContext.request.contextPath }/encheres" id="txtBlue">Enchères</a>
+
+						</li>
+
+						<li class="nav-item ml-10"><a class="nav-link"
+							href="${ pageContext.request.contextPath }/vendre" id="txtBlue">
+								Vendre</a></li>
+
+					</ul>
+
+					<!-- Left links -->
+
+				</div>
+
+				<!-- Collapsible wrapper -->
 
 
 
+				<!-- Right elements -->
+
+				<div class="d-flex align-items-center">
+
+
+
+					<c:if test="${ user == null }">
+
+
+
+						<a class="nav-link pr-5"
+							href="${ pageContext.request.contextPath }/se-connecter"
+							id="txtBlue">Connexion</a>
+
+					</c:if>
 
 
 
 
-				<c:if test="${ user != null }">
 
-					<!-- Icon -->
 
-					<a class="text-reset me-3" href="#" id="txtBlue"> <i
-						class="fa-brands fa-bitcoin"></i>${user.getCredit() }
 
-					</a>
+					<c:if test="${ user != null }">
 
-					<!-- Avatar -->
+						<!-- Icon -->
 
-					<div class="dropdown">
-
-						<a class="dropdown-toggle d-flex align-items-center hidden-arrow"
-							href="#" id="navbarDropdownMenuAvatar" role="button"
-							data-mdb-toggle="dropdown" aria-expanded="false"> <img
-							src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
-							class="rounded-circle" height="25"
-							alt="Black and White Portrait of a Man" loading="lazy" />
+						<a class="text-reset me-3" href="#" id="txtBlue"> <i
+							class="fa-brands fa-bitcoin"></i>${user.getCredit() }
 
 						</a>
 
-						<ul class="dropdown-menu dropdown-menu-end"
-							aria-labelledby="navbarDropdownMenuAvatar">
+						<!-- Avatar -->
+
+						<div class="dropdown">
+
+							<a class="dropdown-toggle d-flex align-items-center hidden-arrow"
+								href="#" id="navbarDropdownMenuAvatar" role="button"
+								data-mdb-toggle="dropdown" aria-expanded="false"> <img
+								src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
+								class="rounded-circle" height="25"
+								alt="Black and White Portrait of a Man" loading="lazy" />
+
+							</a>
+
+							<ul class="dropdown-menu dropdown-menu-end"
+								aria-labelledby="navbarDropdownMenuAvatar">
 
 
 
-							<li><a class="dropdown-item"
-								href="${ pageContext.request.contextPath }/mon-profil" id="blue">Mon
+								<li><a class="dropdown-item"
+									href="${ pageContext.request.contextPath }/mon-profil"
+									id="blue">Mon Profil</a></li>
 
-									Profil</a></li>
-
-							<li><a class="dropdown-item"
-								onclick="return confirm('Voulez-vous vraiment vous déconnecter ?')"
-								href="${ pageContext.request.contextPath }/deconnexion"
-								id="blue">Deconnexion</a></li>
-
-
-
-						</ul>
+								<li><a class="dropdown-item"
+									onclick="return confirm('Voulez-vous vraiment vous déconnecter ?')"
+									href="${ pageContext.request.contextPath }/deconnexion"
+									id="blue">Deconnexion</a></li>
 
 
 
-					</div>
+							</ul>
 
-				</c:if>
+
+
+						</div>
+
+					</c:if>
+
+				</div>
+
+				<!-- Right elements -->
 
 			</div>
 
-			<!-- Right elements -->
-
-		</div>
 
 
+			<!-- Container wrapper -->
 
-		<!-- Container wrapper -->
+		</nav>
 
-	</nav>
-
-	<!-- Navbar -->
-</header>
+		<!-- Navbar -->
+	</header>

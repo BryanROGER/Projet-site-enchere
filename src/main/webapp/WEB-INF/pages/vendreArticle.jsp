@@ -6,9 +6,9 @@
 <%@ include file="/WEB-INF/fragments/header.jspf"%>
 
 <main>
-	<h2>Vendre un article</h2>
+	<h1>Vendre un article</h1>
 
-	<div class="w-50">
+	<div class="d-flex justify-content-center">
 		<c:if test="${ ! empty error }">
 			<div class="alert alert-danger">${ error }</div>
 		</c:if>
@@ -132,21 +132,15 @@
 				</div>
 			</div>
 
-			<div class="d-none" id="submitSuccessMessage">
-				<div class="text-center mb-3">
-					<div class="fw-bolder">Article bien renseigné !</div>
-				</div>
-			</div>
-			<div class="d-none" id="submitErrorMessage">
-				<div class="text-center text-danger mb-3">Erreur lors de la
-					saisie article !</div>
-			</div>
-			<div class="d-flex justify-content-center">
-				<div class="col-md-4">
+			<div class=" d-flex justify-content-center">
+				
+				<div class="col-4 d-flex justify-content-around">
+
 					<a href="${pageContext.request.contextPath}/encheres">
 						<button type="submit" class="btn btn-success">Vendre</button>
 					</a>
 					<button type="reset" class="btn btn-danger">Annuler</button>
+
 				</div>
 			</div>
 		</form>

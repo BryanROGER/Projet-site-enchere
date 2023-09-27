@@ -1,17 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/fragments/header.jspf"%>
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
 
 
 <main>
 
+
+
 	<h2>Mon profil</h2>
 
-	<div class="w-50">
+	<div class="d-flex justify-content-center">
 
 
 		<form action="${pageContext.request.contextPath}/mon-profil"
@@ -120,7 +119,8 @@
 					</div>
 				</div>
 			</div>
-			<div class="d-flex justify-content-around">
+			<div class="d-flex justify-content-center">
+			<div class="col-8 d-flex justify-content-around">
 
 				<div>
 					<button id="inscription" type="submit" name="bouton" value="maj"
@@ -132,6 +132,7 @@
 						onclick="return confirm('Voulez-vous vraiment supprimer votre compte ? Cette action sera définitive')">Supprimer le compte</button>
 				</div>
 
+			</div>
 			</div>
 		</form>
 	</div>

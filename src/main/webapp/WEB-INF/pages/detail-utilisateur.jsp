@@ -2,10 +2,12 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/fragments/header.jspf"%>
 
-<main>
+<main class="d-flex flex-column justify-content-center">
 
 	<h2> Détails sur le vendeur</h2>
-<div class="w-50">
+<div class="d-flex justify-content-center flex-column my-5">
+
+<div class="col-8 offset-2">
 		<div class="row my-3">
 				<div class="col-md-6">
 					<div class="form-floating">
@@ -88,6 +90,8 @@
 			</div>
 		</div>
 		</div>
+		</div>
+		
 </main>
 
 
