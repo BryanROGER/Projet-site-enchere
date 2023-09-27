@@ -13,6 +13,7 @@
 
 	<div class="w-50">
 
+
 		<form action="${pageContext.request.contextPath}/mon-profil"
 			method="post">
 			<c:if test="${ ! empty error }">
@@ -25,6 +26,7 @@
 							value="${user.getPseudo() }" required="required"
 							readonly="readonly" /> <label for="pseudo" class="form-label">Pseudo</label>
 					</div>
+
 				</div>
 			</div>
 			<div class="row my-3">
