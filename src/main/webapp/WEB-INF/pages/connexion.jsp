@@ -1,13 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/fragments/header.jspf"%>
-<body>
+
 	<main id="footerAdapte">
 		<div id="pageConnexion">
-		<div style="width:auto;">
+			<div style="width:auto;">
 			<c:if test="${ ! empty error }">
 				<div class="alert alert-danger">${ error }</div>
 			</c:if>
+			</div>
+			<div>
+			<h2>Connexion</h2>
 			</div>
 			<div >
 				<div class="row">

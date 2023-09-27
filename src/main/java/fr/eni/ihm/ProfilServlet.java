@@ -37,7 +37,6 @@ public class ProfilServlet extends HttpServlet {
 		}
 		var session = request.getSession();
 		String choix = request.getParameter("bouton");
-		System.out.println("bouton");
 		
 		if(choix.equals("maj")) {
 			String nom = request.getParameter("nom");

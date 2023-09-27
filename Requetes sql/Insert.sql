@@ -36,7 +36,7 @@ SELECT * FROM ARTICLES_VENDUS a
 SELECT * FROM ARTICLES_VENDUS a 
 			inner join UTILISATEURS u on a.no_utilisateur= u.no_utilisateur
 			inner join CATEGORIES c on c.no_categorie = a.no_categorie
-			inner join ENCHERES e on e.no_article = a.no_article where a.etat_vente = 1 and a.no_utilisateur=1 and (nom_article  LIKE '%%'  or description LIKE '%%');
+			inner join ENCHERES e on e.no_article = a.no_article where a.etat_vente = 1 and a.no_utilisateur=1 and (nom_article  LIKE '%x%'  or description LIKE '%x%') and c.no_categorie;
 
 SELECT * FROM ARTICLES_VENDUS a
 inner join UTILISATEURS u on a.no_utilisateur= u.no_utilisateur
@@ -44,9 +44,11 @@ inner join CATEGORIES c on c.no_categorie = a.no_categorie
 inner join ENCHERES e on e.no_article = a.no_article where a.etat_vente = 1 and e.no_utilisateur=1 and e.no_utilisateur!= a.no_utilisateur
 
 
-select a.no_article,nom_article,description,date_debut_encheres,date_fin_encheres,prix_initial,u.no_utilisateur,etat_vente,pseudo,nom,prenom,email,telephone, u.rue as Urue,u.code_postal as Ucode_postal, u.ville as Uville, mot_de_passe,credit, c.no_categorie,libelle,date_enchere,montant_enchere, r.rue as Rrue,r.code_postal as Rcode_postal,r.ville as Rville  from ARTICLES_VENDUS a
-inner join UTILISATEURS u on a.no_utilisateur= u.no_utilisateur
-inner join CATEGORIES c on c.no_categorie = a.no_categorie inner join ENCHERES e on e.no_article = a.no_article inner join retraits r on r.no_article = a.no_article
+SELECT * FROM ARTICLES_VENDUS a 
+			inner join UTILISATEURS u on a.no_utilisateur= u.no_utilisateur
+			inner join CATEGORIES c on c.no_categorie = a.no_categorie
+			inner join RETRAITS e on e.no_article = a.no_article
+			 where a.no_article = 1
 
 -- Insert data into CATEGORIES table
 INSERT INTO CATEGORIES (libelle)
