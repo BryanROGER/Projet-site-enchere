@@ -7,7 +7,6 @@
 		<div class="alert alert-danger">${ error }</div>
 	</c:if>
 	
-	<h2>Détail vente</h2>
 
 	<c:if test="${enchere.getArticle().getEtatVente()==1 }">
 		<h2>Détail vente</h2>
@@ -20,6 +19,9 @@
 		test="${enchere.getArticle().getEtatVente()==2 && user.getNoUtilisateur()!=enchere.getUtilisateur().getNoUtilisateur() }">
 		<h2>${ enchere.getUtilisateur().getPseudo()} a remporté l'enchère</h2>
 	</c:if>
+	
+	<form action="${ pageContext.request.contextPath }/detail-vente?noArticle=${enchere.getArticle().getNoArticle()}"
+						method="post">
 	<div class="d-flex justify-content-center">
 		<div class="container px-5 my-5">
 			<div class="form-floating mb-3">
@@ -81,26 +83,23 @@
 						</c:if>
 						</div>
 						</div>
-							<c:if
-				test="${user.getNoUtilisateur() != enchere.getArticle().getVendeur().getNoUtilisateur() && enchere.getArticle().getEtatVente()==1 }">
+							<c:if test="${user.getNoUtilisateur() != enchere.getArticle().getVendeur().getNoUtilisateur() && enchere.getArticle().getEtatVente()==1 }">
 				<div class="col-md-6">
 					<div class="form-floating">
-					<form 
-						action="${ pageContext.request.contextPath }/detail-vente?noArticle=${enchere.getArticle().getNoArticle()}"
-						method="post">
-						<label> Ma proposition :</label>
-						<input type="number" name="prix_enchere" id="mPrix"
+					
+							<input class="form-control" type="number" name="prix_enchere" id="mPrix"
 							step="1" min="${enchere.getArticle().getMiseAPrix() }"
 							max="10000" required> 
-							<div class="justify-content: right">
-						<button type="submit" class="btn btn-info">Enchérir</button>
-						</div>
-					</form>
+						
+						<label> Ma proposition :</label>
+					
+		
+					
 			</div>
 			</div>
 			</c:if>
-</div>
-						
+			</div>
+			
 			<div class="row my-3">
 				<div class="col-md-6">
 					<div class="form-floating">
@@ -110,6 +109,14 @@
 						<label>Vendeur :</label>
 					</div>
 				</div>
+					<c:if test="${user.getNoUtilisateur() != enchere.getArticle().getVendeur().getNoUtilisateur() && enchere.getArticle().getEtatVente()==1 }">
+				<div class="col-md-6">
+					<div class="form-floating">
+				<button type="submit" class="btn btn-info btn-lg btn-block">Enchérir</button>
+				</div>
+				</div>
+				</c:if>
+	
 				<c:if
 					test="${enchere.getArticle().getEtatVente()==2 && user.getNoUtilisateur()==enchere.getUtilisateur().getNoUtilisateur() }">
 					<div class="col-md-6">
@@ -157,6 +164,8 @@
 			</c:if>
 			</div>
 			</div>
+			
+			</form>
 </main>
 
 

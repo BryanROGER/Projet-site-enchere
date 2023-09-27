@@ -1,10 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/fragments/header.jspf"%>
-<<<<<<< HEAD
-
-=======
->>>>>>> 5db92bbdbe89671e32547cdb866e44b9d538350d
 
 
 <main>
