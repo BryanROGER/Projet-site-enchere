@@ -57,7 +57,6 @@ public class ModifierArticleServlet extends HttpServlet {
 			CategorieManager categorieManager = CategorieManager.getInstance();
 			List<Categorie> categories;
 			categories = categorieManager.selectionnerToutesLesCategories();
-			categories.remove(0);// on enlève le libelle "tous les articles"
 			request.setAttribute("categories", categories);
 
 		} catch (BLLException e) {

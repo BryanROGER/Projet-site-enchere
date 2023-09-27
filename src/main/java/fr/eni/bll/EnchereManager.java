@@ -45,14 +45,7 @@ public class EnchereManager {
 		}
 	}
 
-	public List<Enchere> selectionnerParNom(String query) throws BLLException {
-		try {
-			return enchereDao.selectByName(query);
-		} catch (DALException e) {
-			throw new BLLException(e.getMessage());
-
-		}
-	}
+	
 
 	public List<Enchere> encheresParCategorie(int noCategorie) throws BLLException {
 		try {
@@ -83,57 +76,34 @@ public class EnchereManager {
 		}
 	}
 
-	public List<Enchere> enchereParFiltreEtCatégorie(String query, int noArticle) throws BLLException {
+	public List<Enchere> enchereParFiltreEtCatégorie(String query, String libelle) throws BLLException {
 		try {
-			return enchereDao.selectByNameAndCategorie(query, noArticle);
+			return enchereDao.selectByNameAndCategorie(query, libelle);
 		} catch (DALException e) {
 			throw new BLLException(e.getMessage());
 		}
 	}
 	
-	public List<Enchere> mesVentes(int noUtilisateur, int etatVente, String query) throws BLLException{
+	
+	public List<Enchere> mesVentesParCategorie(int noUtilisateur, int etatVente, String query, String libelle) throws BLLException{
 		try {
-			return enchereDao.selectMesVentes(noUtilisateur, etatVente, query);
+			return enchereDao.selectMesVentesAvecCategorie(noUtilisateur, etatVente, query, libelle);
 		} catch (DALException e) {
 			throw new BLLException(e.getMessage());
 		}
 	}
 	
-	public List<Enchere> mesAchats (int noUtilisateur, int etatVente, String query) throws BLLException{
+	public List<Enchere> mesAchatsParCategorie(int noUtilisateur, int etatVente, String query, String libelle) throws BLLException{
 		try {
-			return enchereDao.selectMesAchats(noUtilisateur, etatVente,query);
+			return enchereDao.selectMesAchatsParCategorie(noUtilisateur, etatVente, query, libelle);
 		} catch (DALException e) {
 			throw new BLLException(e.getMessage());
 		}
 	}
 	
-	public List<Enchere> encheresEnCours (String query) throws BLLException{
+	public List<Enchere> encheresEnCoursParCategorie (String query, String libelle) throws BLLException{
 		try {
-			return enchereDao.selectEnchereEnCours(query);
-		} catch (DALException e) {
-			throw new BLLException(e.getMessage());
-		}
-	}
-	
-	public List<Enchere> mesVentesParCategorie(int noUtilisateur, int etatVente, String query, int noCategorie) throws BLLException{
-		try {
-			return enchereDao.selectMesVentesAvecCategorie(noUtilisateur, etatVente, query, noCategorie);
-		} catch (DALException e) {
-			throw new BLLException(e.getMessage());
-		}
-	}
-	
-	public List<Enchere> mesAchatsParCategorie(int noUtilisateur, int etatVente, String query, int noCategorie) throws BLLException{
-		try {
-			return enchereDao.selectMesAchatsParCategorie(noUtilisateur, etatVente, query, noCategorie);
-		} catch (DALException e) {
-			throw new BLLException(e.getMessage());
-		}
-	}
-	
-	public List<Enchere> encheresEnCoursParCategorie (String query, int noCategorie) throws BLLException{
-		try {
-			return enchereDao.selectEnchereEnCoursParCategorie(query, noCategorie);
+			return enchereDao.selectEnchereEnCoursParCategorie(query, libelle);
 		} catch (DALException e) {
 			throw new BLLException(e.getMessage());
 		}

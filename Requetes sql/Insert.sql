@@ -28,32 +28,19 @@ inner join RETRAITS e on e.no_article = a.no_article where a.no_article = 1;
 select * from encheres e
 inner join UTILISATEURS u on u.no_utilisateur = e.no_utilisateur where no_article = 7
 
-SELECT * FROM ARTICLES_VENDUS a 
-			inner join UTILISATEURS u on a.no_utilisateur= u.no_utilisateur
-			inner join CATEGORIES c on c.no_categorie = a.no_categorie
-			inner join ENCHERES e on e.no_article = a.no_article where (nom_article  LIKE '%%'  or description LIKE '%%') and c.no_categorie=2;
-
-SELECT * FROM ARTICLES_VENDUS a 
-			inner join UTILISATEURS u on a.no_utilisateur= u.no_utilisateur
-			inner join CATEGORIES c on c.no_categorie = a.no_categorie
-			inner join ENCHERES e on e.no_article = a.no_article where a.etat_vente = 1 and a.no_utilisateur=1 and (nom_article  LIKE '%x%'  or description LIKE '%x%') and c.no_categorie;
+SELECT * FROM ARTICLES_VENDUS a
+inner join UTILISATEURS u on a.no_utilisateur= u.no_utilisateur
+inner join CATEGORIES c on c.no_categorie = a.no_categorie
+inner join ENCHERES e on e.no_article = a.no_article where a.etat_vente = 0 and (nom_article  LIKE '%%'  or description LIKE '%%') and c.libelle like '%%'
 
 SELECT * FROM ARTICLES_VENDUS a
 inner join UTILISATEURS u on a.no_utilisateur= u.no_utilisateur
 inner join CATEGORIES c on c.no_categorie = a.no_categorie
-inner join ENCHERES e on e.no_article = a.no_article where a.etat_vente = 1 and e.no_utilisateur=1 and e.no_utilisateur!= a.no_utilisateur
-
-
-SELECT * FROM ARTICLES_VENDUS a 
-			inner join UTILISATEURS u on a.no_utilisateur= u.no_utilisateur
-			inner join CATEGORIES c on c.no_categorie = a.no_categorie
-			inner join RETRAITS e on e.no_article = a.no_article
-			 where a.no_article = 1
+inner join ENCHERES e on e.no_article = a.no_article where a.etat_vente = 0 and a.no_utilisateur=1 and (nom_article  LIKE '%%'  or description LIKE '%%') and c.libelle like '%%'
 
 -- Insert data into CATEGORIES table
 INSERT INTO CATEGORIES (libelle)
 VALUES
-   ('Tous les articles'),
     ('Informatique'),
     ('Ammeublement'),
     ('Vêtement'),
@@ -72,17 +59,18 @@ VALUES
 -- Insert data into ARTICLES_VENDUS table
 INSERT INTO ARTICLES_VENDUS (nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie,etat_vente)
 VALUES
-    ('PC Gamer Alienware', 'Alienware B-370 Blue Edition', '2023-09-10', '2023-09-17', 100, 0, 1, 2,0),
-    ('Table en pin', 'Table en pin massif', '2023-09-20', '2023-09-30', 150, 0, 1, 3,0),
-    ('Iphone 12', 'Edition Pro Max 128go couleur bleue', '2023-09-21', '2023-09-30', 75, 0, 1, 2,0),
-    ('Chemise Carlos', 'La chemise authentique de Carlos', '2023-09-23', '2023-09-30', 200, 0, 2, 4,0),
-    ('Trophés de Dimitri Payet', 'Grande collection des trophés du joueur de foot', '2023-09-23', '2023-09-30', 120, 0, 2, 5,0),
-	('Honor view 20', 'Un téléphone', '2023-09-10', '2023-09-17', 100, 0, 2, 2,0),
-    ('Commode chene', 'en bois massif', '2023-09-20', '2023-09-30', 150, 0, 2, 3,0),
-    ('Carte mère TaSoeur', 'Vous êtes des porcs', '2023-09-21', '2023-09-30', 75, 0, 2, 2,0),
-    ('Air Jordan 7', 'Pourquoi avoir une maison quand on peut avoir des chaussures', '2023-09-23', '2023-09-30', 200, 0, 3, 4,0),
-    ('Ballon Nkunku 2019', 'Magnifique pénalty raté', '2023-09-23', '2023-09-30', 120, 0, 3, 5,0),
-	('Développeur Web Adel', 'Bon assistant pour vos taches de développement', '2023-09-10', '2023-09-17', 100, 0, 3, 2,0);
+    ('PC Gamer Alienware', 'Alienware B-370 Blue Edition', '2023-09-10', '2023-09-17', 100, 0, 1, 1,0),
+    ('Table en pin', 'Table en pin massif', '2023-09-20', '2023-09-30', 150, 0, 1, 2,0),
+    ('Iphone 12', 'Edition Pro Max 128go couleur bleue', '2023-09-21', '2023-09-30', 75, 0, 1, 1,0),
+    ('Chemise Carlos', 'La chemise authentique de Carlos', '2023-09-23', '2023-09-30', 200, 0, 2, 3,0),
+    ('Trophés de Dimitri Payet', 'Grande collection des trophés du joueur de foot. Taille de la collection : 0', '2023-09-23', '2023-09-30', 120, 0, 2, 4,0),
+	('Honor view 20', 'Un téléphone', '2023-09-10', '2023-09-17', 100, 0, 2, 1,0),
+    ('Commode chene', 'en bois massif', '2023-09-20', '2023-09-30', 150, 0, 2, 2,0),
+    ('Carte mère TaSoeur', 'Vous êtes des porcs', '2023-09-21', '2023-09-30', 75, 0, 2, 1,0),
+    ('Air Jordan 7', 'Pourquoi avoir une maison quand on peut avoir des chaussures', '2023-09-23', '2023-09-30', 200, 0, 3, 3,0),
+    ('Ballon Nkunku 2019', 'Magnifique pénalty raté', '2023-09-23', '2023-09-30', 120, 0, 3, 4,0),
+	('Développeur Web Adel', 'Super assistant pour vos taches de développement', '2023-09-10', '2023-09-17', 100, 0, 3, 1,0),
+	('Slip de Bibendum', 'Pas de garantie sans trace de pneu ...', '2023-10-10', '2023-10-17', 150, 0, 3, 1,0);
    
          -- Insert data into RETRAITS table
 INSERT INTO RETRAITS (no_article, rue, code_postal, ville)
@@ -97,7 +85,8 @@ VALUES
     (8, '26 Quai de la Tournelle', '75005', 'Paris'),
     (9, '10 Rue de la Gare', '69003', 'Lyon'),
     (10, '18 Avenue de la Mer', '13008', 'Marseille'),
-    (11, '5 Boulevard des Capucines', '75002', 'Paris');
+    (11, '5 Boulevard des Capucines', '75002', 'Paris'),
+	(12, 'Campus de Villejean', '35000', 'Rennes II la rouge');
 
 
 
@@ -114,7 +103,8 @@ VALUES
     (2, 8, '27-09-2023 10:15:00', 210),
     (3, 9, '24-09-2023 16:45:00', 200),
     (3, 10, '26-09-2023 14:30:00', 120),
-    (2, 11, '27-09-2023 10:15:00', 530);
+    (2, 11, '27-09-2023 10:15:00', 530),
+	(1, 12, '17-10-2023 00:00:00', 530);
 
 UPDATE ARTICLES_VENDUS
 SET etat_vente = CASE

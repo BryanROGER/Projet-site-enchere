@@ -27,9 +27,10 @@
 									<label for="categories" class="mt-2">Rechercher une
 										catégorie</label> <select name="categorie" id="categories"
 										class="col form-control">
+										<option value="">Tous les articles</option>
 										<c:forEach items="${categories}" var="categorie">
 
-											<option value="${categorie.getNoCategorie() }">${categorie.getLibelle()}</option>
+											<option value="${categorie.getLibelle() }">${categorie.getLibelle()}</option>
 
 										</c:forEach>
 

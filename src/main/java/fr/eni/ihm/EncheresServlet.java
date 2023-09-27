@@ -6,6 +6,7 @@ import java.util.List;
 import fr.eni.bll.BLLException;
 import fr.eni.bll.CategorieManager;
 import fr.eni.bll.EnchereManager;
+import fr.eni.bo.Article;
 import fr.eni.bo.Categorie;
 import fr.eni.bo.Enchere;
 import fr.eni.bo.Utilisateur;
@@ -22,8 +23,7 @@ public class EncheresServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		EnchereManager enchereManager = EnchereManager.getInstance();
-		var session = request.getSession();
+		// récupération des catégories pour les transmettre à la vue
 		CategorieManager categorieManager = CategorieManager.getInstance();
 		List<Categorie> categories = null;
 		try {
@@ -36,167 +36,94 @@ public class EncheresServlet extends HttpServlet {
 			return;
 		}
 
-		String filtre = request.getParameter("string_filter");
-		String noCategorieStr = request.getParameter("categorie");
+		// récupération des paramètres et vérification si null
+		String filtre = request.getParameter("string_filter") == null ? "" : request.getParameter("string_filter");
+		String libelleCategorie = request.getParameter("categorie") == null ? "" : request.getParameter("categorie");
 
+		// création d'une arraylist enchere, on vide la valeur dans la requête par
+		// securité
+		EnchereManager enchereManager = EnchereManager.getInstance();
 		List<Enchere> encheres = null;
 		request.setAttribute("encheres", null);
 
-		// si barre de recherche non null et libelle "tous les articles"
-		if (filtre != null && !filtre.isBlank() && noCategorieStr.equals("1")) {
-			try {
-				encheres = enchereManager.selectionnerParNom(filtre);
-				request.setAttribute("encheres", encheres);
-				request.getRequestDispatcher("/WEB-INF/pages/encheres.jsp").forward(request, response);
-				return;
-			} catch (BLLException e) {
-				request.setAttribute("error", e.getMessage());
-				doGet(request, response);
-				e.printStackTrace();
-				return;
-			}
-
-		}
-
-		// si libelle actif
-		if (noCategorieStr != null && !noCategorieStr.equals("1")) {
-			int noCategorie = Integer.parseInt(noCategorieStr);
-			try {
-
-				encheres = enchereManager.enchereParFiltreEtCatégorie(filtre, noCategorie);
-				request.setAttribute("encheres", encheres);
-				request.getRequestDispatcher("/WEB-INF/pages/encheres.jsp").forward(request, response);
-				return;
-			} catch (BLLException e) {
-				request.setAttribute("error", e.getMessage());
-				doGet(request, response);
-				e.printStackTrace();
-				return;
-			}
-
-		}
-
-		if (filtre == null)
-			filtre = "";
-
-		int noCategorie = 1;
-		if (noCategorieStr != null)
-			noCategorie = Integer.parseInt(noCategorieStr);
-
+		// si radio bouton vente
 		String venteChecked = request.getParameter("vente");
-
+		var session = request.getSession();
 		if (venteChecked != null) {
 			session = request.getSession();
 			var user = (Utilisateur) session.getAttribute("user");
 
-			switch (venteChecked) {
-			case "mesVentesEnCours":
-				try {
-					if (noCategorieStr.equals("1")) {// toutes les catégories
-						encheres = enchereManager.mesVentes(user.getNoUtilisateur(), 1, filtre); // 1 = etat vente
-																									// en cours
+			try {
+				switch (venteChecked) {
+				case "mesVentesEnCours":
+					encheres = enchereManager.mesVentesParCategorie(user.getNoUtilisateur(), Article.EN_COURS, filtre,
+							libelleCategorie);
+					break;
 
-					} else {
-						enchereManager.mesVentesParCategorie(user.getNoUtilisateur(), 1, filtre, noCategorie);
-					}
+				case "ventesNonDebutees":
+					encheres = enchereManager.mesVentesParCategorie(user.getNoUtilisateur(), Article.NON_DEBUTEE,
+							filtre, libelleCategorie);
+					break;
 
-				} catch (BLLException e) {
-					e.printStackTrace();
+				case "ventesTerminees":
+					encheres = enchereManager.mesVentesParCategorie(user.getNoUtilisateur(), Article.TERMINEE, filtre,
+							libelleCategorie);
+					break;
 				}
-				break;
-			case "ventesNonDebutees":
-				try {
-
-					if (noCategorieStr.equals("1")) {// toutes les catégories
-						encheres = enchereManager.mesVentes(user.getNoUtilisateur(), 0, filtre); // 0 = etat vente
-																									// non débutées
-
-					} else {
-						enchereManager.mesVentesParCategorie(user.getNoUtilisateur(), 0, filtre, noCategorie);
-					}
-
-				} catch (BLLException e) {
-					e.printStackTrace();
-				}
-				break;
-
-			case "ventesTerminees":
-				try {
-					if (noCategorieStr.equals("1")) {// toutes les catégories
-						encheres = enchereManager.mesVentes(user.getNoUtilisateur(), 2, filtre); // 2 = etat vente
-																									// terminées
-
-					} else {
-						enchereManager.mesVentesParCategorie(user.getNoUtilisateur(), 2, filtre, noCategorie);
-					}
-
-				} catch (BLLException e) {
-					e.printStackTrace();
-				}
-				break;
-			default:
-
+			} catch (BLLException e) {
+				e.printStackTrace();
 			}
 		}
 
+		// si radio bouton achat
 		String achatChecked = request.getParameter("achat");
 
 		if (achatChecked != null) {
 
 			var user = (Utilisateur) session.getAttribute("user");
 
-			switch (achatChecked) {
-			case "encheresOuvertes":
-				try {
-					if (noCategorieStr.equals("1")) {// toutes les catégories
-						enchereManager.mesVentesParCategorie(user.getNoUtilisateur(), 1, filtre, noCategorie);
-					} else {
-						enchereManager.encheresEnCoursParCategorie(achatChecked, noCategorie);
-					}
-					encheres = enchereManager.encheresEnCours(filtre);
-					request.setAttribute("encheres", encheres);
-				} catch (BLLException e) {
-					e.printStackTrace();
+			try {
+				switch (achatChecked) {
+				case "encheresOuvertes":
+					encheres = enchereManager.encheresEnCoursParCategorie(filtre, libelleCategorie);
+					break;
+					
+				case "mesEncheresEnCours":
+					encheres = enchereManager.mesAchatsParCategorie(user.getNoUtilisateur(), Article.EN_COURS, filtre,
+							libelleCategorie);
+					break;
+
+				case "mesEncheresRemportees":
+					encheres = enchereManager.mesAchatsParCategorie(user.getNoUtilisateur(), Article.TERMINEE, filtre,
+							libelleCategorie);
+					break;
+
 				}
-				break;
-			case "mesEncheresEnCours":
-				try {
-					if (noCategorieStr.equals("1")) {// toutes les catégories
-						encheres = enchereManager.mesAchats(user.getNoUtilisateur(), 1, filtre); // 1 = enchères en
-																									// cours
-
-					} else {
-						enchereManager.mesVentesParCategorie(user.getNoUtilisateur(), 1, filtre, noCategorie);
-					}
-
-				} catch (BLLException e) {
-					e.printStackTrace();
-				}
-				break;
-
-			case "mesEncheresRemportees":
-				try {
-					if (noCategorieStr.equals("1")) {// toutes les catégories
-						encheres = enchereManager.mesAchats(user.getNoUtilisateur(), 2, filtre); // 1 = enchères en
-																									// cours
-
-					} else {
-						enchereManager.mesVentesParCategorie(user.getNoUtilisateur(), 2, filtre, noCategorie);
-					}
-
-				} catch (BLLException e) {
-					e.printStackTrace();
-				}
-				break;
-			default:
-
+			} catch (BLLException e) {
+				e.printStackTrace();
 			}
 		}
 
-		if (encheres != null)
+		if (encheres != null) {
 			request.setAttribute("encheres", encheres);
-		else {
-			// si barre de recherche null et libelle "tous les articles"
+			request.getRequestDispatcher("/WEB-INF/pages/encheres.jsp").forward(request, response);
+			return;
+		} else if ((libelleCategorie.isBlank() != filtre.isBlank()) || !libelleCategorie.isBlank()) { // récupération si barre de recherche ou catégorie non vide
+
+			try {
+				encheres = enchereManager.enchereParFiltreEtCatégorie(filtre, libelleCategorie);
+				request.setAttribute("encheres", encheres);
+				request.getRequestDispatcher("/WEB-INF/pages/encheres.jsp").forward(request, response);
+				return;
+			} catch (BLLException e) {
+				request.setAttribute("error", e.getMessage());
+				doGet(request, response);
+				e.printStackTrace();
+				return;
+			}
+
+		} else {
+			// si tous les champs null
 
 			try {
 				encheres = enchereManager.tousLesArticles();

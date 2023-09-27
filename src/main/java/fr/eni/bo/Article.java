@@ -6,6 +6,11 @@ import java.util.List;
 
 public class Article {
 
+	// Attributs statics
+	public static final int NON_DEBUTEE = 0;
+	public static final int EN_COURS = 1;
+	public static final int TERMINEE = 2;
+
 	// Attributs
 	private int noArticle;
 	private String nomArticle;
@@ -25,7 +30,8 @@ public class Article {
 	// constructeurs
 
 	public Article(int noArticle, String nomArticle, String description, LocalDate dateDebutEncheres,
-			LocalDate dateFinEncheres, int miseAPrix, int prixVente, Utilisateur vendeur, Categorie categorieArticle, int etatVente, Retrait retrait) {
+			LocalDate dateFinEncheres, int miseAPrix, int prixVente, Utilisateur vendeur, Categorie categorieArticle,
+			int etatVente, Retrait retrait) {
 		super();
 		this.noArticle = noArticle;
 		this.nomArticle = nomArticle;
@@ -39,9 +45,10 @@ public class Article {
 		this.etatVente = etatVente;
 		this.lieuRetrait = retrait;
 	}
-	
+
 	public Article(int noArticle, String nomArticle, String description, LocalDate dateDebutEncheres,
-			LocalDate dateFinEncheres, int miseAPrix, int prixVente, Utilisateur vendeur, Categorie categorieArticle, int etatVente) {
+			LocalDate dateFinEncheres, int miseAPrix, int prixVente, Utilisateur vendeur, Categorie categorieArticle,
+			int etatVente) {
 		super();
 		this.noArticle = noArticle;
 		this.nomArticle = nomArticle;
@@ -54,7 +61,7 @@ public class Article {
 		this.categorieArticle = categorieArticle;
 		this.etatVente = etatVente;
 	}
-	
+
 	public Article(int noArticle, String nomArticle, String description, LocalDate dateDebutEncheres,
 			LocalDate dateFinEncheres, int miseAPrix, int prixVente, Utilisateur vendeur, Categorie categorieArticle) {
 		super();
@@ -68,11 +75,9 @@ public class Article {
 		this.vendeur = vendeur;
 		this.categorieArticle = categorieArticle;
 	}
-	
-	
 
 	public Article(String nomArticle, String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres,
-			int miseAPrix, Utilisateur vendeur,  Categorie categorie) {
+			int miseAPrix, Utilisateur vendeur, Categorie categorie) {
 		super();
 		this.nomArticle = nomArticle;
 		this.description = description;
@@ -82,9 +87,9 @@ public class Article {
 		this.vendeur = vendeur;
 		this.categorieArticle = categorie;
 	}
-	
+
 	public Article(String nomArticle, String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres,
-			int miseAPrix,  Categorie categorie) {
+			int miseAPrix, Categorie categorie) {
 		super();
 		this.nomArticle = nomArticle;
 		this.description = description;
@@ -93,9 +98,9 @@ public class Article {
 		this.miseAPrix = miseAPrix;
 		this.categorieArticle = categorie;
 	}
-	
+
 	public Article(String nomArticle, String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres,
-			int miseAPrix, Utilisateur vendeur,  Categorie categorie,Retrait retrait) {
+			int miseAPrix, Utilisateur vendeur, Categorie categorie, Retrait retrait) {
 		super();
 		this.nomArticle = nomArticle;
 		this.description = description;
@@ -106,9 +111,9 @@ public class Article {
 		this.categorieArticle = categorie;
 		this.lieuRetrait = retrait;
 	}
-	
+
 	public Article(String nomArticle, String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres,
-			int miseAPrix, Utilisateur vendeur,  Categorie categorie, int etatVente) {
+			int miseAPrix, Utilisateur vendeur, Categorie categorie, int etatVente) {
 		super();
 		this.nomArticle = nomArticle;
 		this.description = description;
@@ -119,8 +124,6 @@ public class Article {
 		this.categorieArticle = categorie;
 		this.etatVente = etatVente;
 	}
-
-
 
 	public Article() {
 		// TODO Auto-generated constructor stub
@@ -134,7 +137,6 @@ public class Article {
 	}
 
 	// Getter et Setter
-
 
 	public int getNoArticle() {
 		return noArticle;
@@ -239,7 +241,5 @@ public class Article {
 	public void setLieuRetrait(Retrait lieuRetrait) {
 		this.lieuRetrait = lieuRetrait;
 	}
-	
-	
 
 }
