@@ -8,6 +8,8 @@ delete from UTILISATEURS;
 delete from ENCHERES;
 delete from RETRAITS;
 
+delete from UTILISATEURS where no_utilisateur=5;
+
 select * from UTILISATEURS;
 select * from ARTICLES_VENDUS;
 select * from CATEGORIES;
@@ -51,7 +53,8 @@ INSERT INTO UTILISATEURS (pseudo, nom, prenom, email, telephone, rue, code_posta
 VALUES
     ('user1', 'Smith', 'John', 'user1@example.com', '1234567890', '123 Main St', '12345', 'New York', '123456789', 1000, 0),
     ('user2', 'Johnson', 'Alice', 'user2@example.com', '9876543210', '456 Elm St', '54321', 'Los Angeles', '123456789', 1500, 1),
-    ('user3', 'Davis', 'David', 'user3@example.com', '0606060606', '789 Oak St', '67890', 'Chicago', '123456789', 800, 0);
+    ('user3', 'Davis', 'David', 'user3@example.com', '0606060606', '789 Oak St', '67890', 'Chicago', '123456789', 800, 0),
+	('Fripless', 'Davis', 'David', 'userdqsd3@example.com', '0606060606', '789 Oak St', '67890', 'Chicago', '123456789', 800, 0);
 
 	
 
@@ -70,7 +73,7 @@ VALUES
     ('Air Jordan 7', 'Pourquoi avoir une maison quand on peut avoir des chaussures', '2023-09-23', '2023-09-30', 200, 0, 3, 3,0),
     ('Ballon Nkunku 2019', 'Magnifique pénalty raté', '2023-09-23', '2023-09-30', 120, 0, 3, 4,0),
 	('Développeur Web Adel', 'Super assistant pour vos taches de développement', '2023-09-10', '2023-09-17', 100, 0, 3, 1,0),
-	('Slip de Bibendum', 'Pas de garantie sans trace de pneu ...', '2023-10-10', '2023-10-17', 150, 0, 3, 1,0);
+	('Slip de Bibendum', 'Pas de garantie sans trace de pneu ...', '2023-10-10', '2023-10-17', 150, 0, 1, 3,0);
    
          -- Insert data into RETRAITS table
 INSERT INTO RETRAITS (no_article, rue, code_postal, ville)

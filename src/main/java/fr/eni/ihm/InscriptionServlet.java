@@ -47,6 +47,7 @@ public class InscriptionServlet extends HttpServlet {
 				utilisateur = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville,
 						motDePasse);
 				utilisateurManager.ajouterUtilisateur(utilisateur);
+				utilisateur = utilisateurManager.unUtilisateurParPseudoOuMail(pseudo);
 
 			} else {
 				request.setAttribute("error", "Le mot de passe et la confirmation ne sont pas identiques");

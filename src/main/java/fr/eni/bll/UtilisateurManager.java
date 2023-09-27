@@ -84,6 +84,7 @@ public class UtilisateurManager {
 			isUtilisateurValide(utilisateur);
 			utilisateurDao.delete(utilisateur);
 		} catch (DALException e) {
+			e.printStackTrace();
 			throw new BLLException("echec de la suppression de l'utilisateur : " + utilisateur.toString());
 
 		}

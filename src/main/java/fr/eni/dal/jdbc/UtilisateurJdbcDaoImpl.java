@@ -141,6 +141,7 @@ public class UtilisateurJdbcDaoImpl implements UtilisateurDao {
 				throw new DALException("Echec de modification de l'utilisateur : " + utilisateur.toString());
 
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new DALException("Erreur lors de la suppression de l'utilisateur : "+utilisateur.toString());
 		}
 

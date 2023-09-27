@@ -143,6 +143,19 @@ public class ModifierArticleServlet extends HttpServlet {
 			e.printStackTrace();
 			return;
 		}
+		
+		try {
+			var enchereManager = EnchereManager.getInstance();
+			var enchere = enchereManager.enchereParArticle(article);
+			enchere.setMontantEnchere(miseAPrix);
+			enchereManager.updateEnchere(enchere);
+		} catch (BLLException e) {
+			request.setAttribute("error", e.getMessage());
+			doGet(request, response);
+			e.printStackTrace();
+			return;
+		}
+				
 
 		response.sendRedirect(request.getContextPath() + "/encheres");
 
