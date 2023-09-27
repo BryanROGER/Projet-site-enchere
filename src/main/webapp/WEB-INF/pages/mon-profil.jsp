@@ -45,16 +45,15 @@
 			</div>
 		</div>
 		<div class="row my-3">
-			<div class="col-md-12">
+			<div class="col-md-6">
 				<div class="form-floating">
 					<input id="email" name="email" type="text" required="required"
 						value="${user.getEmail() }" class="form-control"> <label
 						for="email" class="form-label">Email</label>
 				</div>
 			</div>
-		</div>
-		<div class="row my-3">
-			<div class="col-md-12">
+	
+			<div class="col-md-6">
 				<div class="form-floating">
 					<input id="telephone" name="telephone" type="text"
 						required="required" value="${user.getTelephone() }"
