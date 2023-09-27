@@ -25,9 +25,9 @@
 					value="${enchere.getArticle().getNomArticle() }" /> <label>Article</label>
 			</div>
 			<div class="form-floating mb-3">
-				<textarea class="form-control" style="height: 5rem;"
+				<input type="text" class="form-control" style="height: 5rem;"
 					value="${enchere.getArticle().getDescription() }"
-					readonly="readonly"></textarea>
+					readonly="readonly"></input>
 				<label>Description :</label>
 			</div>
 			<c:if test="${enchere.getArticle().getEtatVente()==1 }">
@@ -86,11 +86,10 @@
 					<form 
 						action="${ pageContext.request.contextPath }/detail-vente?noArticle=${enchere.getArticle().getNoArticle()}"
 						method="post">
-						<label>Ma proposition :</label>
 						<input type="number" name="prix_enchere" id="mPrix"
 							step="1" min="${enchere.getArticle().getMiseAPrix() }"
 							max="10000" required> 
-
+						<label>Ma proposition :</label>
 						<button type="submit" class="btn btn-info">Enchérir</button>
 					</form>
 				</div>
