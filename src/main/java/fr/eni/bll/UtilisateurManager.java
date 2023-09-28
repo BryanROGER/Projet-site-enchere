@@ -88,7 +88,6 @@ public class UtilisateurManager {
 			EnchereManager enchereManager = EnchereManager.getInstance();
 			List<Enchere> encheres = null;
 			encheres = enchereManager.encheresEnCoursParUtilisateur(utilisateur.getNoUtilisateur());
-			System.out.println(encheres.size());
 			if(encheres.size() != 0)
 				throw new BLLException("La suppression du compte est impossible car vous avez des achats ou ventes en cours");
 			
