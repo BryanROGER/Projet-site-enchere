@@ -83,9 +83,17 @@
 						</c:if>
 						</div>
 						</div>
-							<c:if test="${user.getNoUtilisateur() != enchere.getArticle().getVendeur().getNoUtilisateur() && enchere.getArticle().getEtatVente()==1 }">
-				<div class="col-md-6">
+								<div class="col-md-6">
 					<div class="form-floating">
+						<c:if
+		test="${enchere.getArticle().getEtatVente()==2 && user.getNoUtilisateur()!=enchere.getUtilisateur().getNoUtilisateur() }">
+
+							<input class="form-control" type="text" readonly="readonly"
+							value="${enchere.getArticle().getVendeur().getPseudo() }">
+						<label>Vendeur :</label>
+					</c:if>
+							<c:if test="${user.getNoUtilisateur() != enchere.getArticle().getVendeur().getNoUtilisateur() && enchere.getArticle().getEtatVente()==1 }">
+				
 					
 							<input class="form-control" type="number" name="prix_enchere" id="mPrix"
 							step="1" min="${enchere.getArticle().getMiseAPrix() }"
@@ -93,13 +101,13 @@
 						
 						<label> Ma proposition :</label>
 					
-		
+			</c:if>
 					
 			</div>
 			</div>
-			</c:if>
+		
 			</div>
-			
+			<c:if test="${enchere.getArticle().getEtatVente()==1 } || ${enchere.getArticle().getEtatVente()==2 && user.getNoUtilisateur()!=enchere.getUtilisateur().getNoUtilisateur() } ">
 			<div class="row my-3">
 				<div class="col-md-6">
 					<div class="form-floating">
@@ -109,6 +117,7 @@
 						<label>Vendeur :</label>
 					</div>
 				</div>
+				
 					<c:if test="${user.getNoUtilisateur() != enchere.getArticle().getVendeur().getNoUtilisateur() && enchere.getArticle().getEtatVente()==1 }">
 				<div class="col-md-6">
 					<div class="form-floating">
@@ -116,7 +125,7 @@
 				</div>
 				</div>
 				</c:if>
-	
+
 				<c:if
 					test="${enchere.getArticle().getEtatVente()==2 && user.getNoUtilisateur()==enchere.getUtilisateur().getNoUtilisateur() }">
 					<div class="col-md-6">
@@ -128,7 +137,7 @@
 					</div>
 				</c:if>
 			</div>
-
+</c:if>
 			<div class="row my-3">
 				<div class="col-md-6">
 					<div class="form-floating">
