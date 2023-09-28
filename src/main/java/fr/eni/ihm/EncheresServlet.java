@@ -56,18 +56,15 @@ public class EncheresServlet extends HttpServlet {
 			try {
 				switch (venteChecked) {
 				case "mesVentesEnCours":
-					encheres = enchereManager.mesVentesParCategorie(user.getNoUtilisateur(), Article.EN_COURS, filtre,
-							libelleCategorie);
+					encheres = enchereManager.mesVentesParCategorie(user.getNoUtilisateur(), Article.EN_COURS, filtre, libelleCategorie);
 					break;
 
 				case "ventesNonDebutees":
-					encheres = enchereManager.mesVentesParCategorie(user.getNoUtilisateur(), Article.NON_DEBUTEE,
-							filtre, libelleCategorie);
+					encheres = enchereManager.mesVentesParCategorie(user.getNoUtilisateur(), Article.NON_DEBUTEE, filtre, libelleCategorie);
 					break;
 
 				case "ventesTerminees":
-					encheres = enchereManager.mesVentesParCategorie(user.getNoUtilisateur(), Article.TERMINEE, filtre,
-							libelleCategorie);
+					encheres = enchereManager.mesVentesParCategorie(user.getNoUtilisateur(), Article.TERMINEE, filtre,	libelleCategorie);
 					break;
 				}
 			} catch (BLLException e) {
@@ -108,8 +105,8 @@ public class EncheresServlet extends HttpServlet {
 			request.setAttribute("encheres", encheres);
 			request.getRequestDispatcher("/WEB-INF/pages/encheres.jsp").forward(request, response);
 			return;
-		} else if ((libelleCategorie.isBlank() != filtre.isBlank()) || !libelleCategorie.isBlank()) { // récupération si barre de recherche ou catégorie non vide
-
+		} else if ((libelleCategorie.isBlank() != filtre.isBlank()) || !libelleCategorie.isBlank()) { 
+					// récupération si barre de recherche ou catégorie non vide
 			try {
 				encheres = enchereManager.enchereParFiltreEtCatégorie(filtre, libelleCategorie);
 				request.setAttribute("encheres", encheres);

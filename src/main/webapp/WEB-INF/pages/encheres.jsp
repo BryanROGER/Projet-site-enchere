@@ -51,9 +51,7 @@
 
 												<div class="col-md-5 d-flex flex-column">
 													<label> <input type="radio" name="typeTransaction"
-														value="achats" id="achat" onclick="gererCasesACocher()">
-														Achat
-													</label>
+														value="achats" id="achat" onclick="gererCasesACocher()">Achat</label>
 													<div id="achatVente">
 														<label for="encheresOuvertes"> <input
 															type="checkbox" id="encheresOuvertes" name="achat"

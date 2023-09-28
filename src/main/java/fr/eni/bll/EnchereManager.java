@@ -109,4 +109,12 @@ public class EnchereManager {
 		}
 	}
 
+	public List<Enchere> encheresEnCoursParUtilisateur(int noUtilisateur) throws BLLException {
+		try {
+			return enchereDao.encheresEnCoursParUtilisateur(noUtilisateur);
+		} catch (DALException e) {
+			throw new BLLException(e.getMessage());
+		}
+	}
+
 }

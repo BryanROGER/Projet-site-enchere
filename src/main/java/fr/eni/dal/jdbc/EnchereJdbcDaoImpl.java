@@ -46,6 +46,10 @@ public class EnchereJdbcDaoImpl implements EnchereDao {
 			+ "inner join UTILISATEURS u on a.no_utilisateur= u.no_utilisateur\r\n"
 			+ "inner join CATEGORIES c on c.no_categorie = a.no_categorie\r\n"
 			+ "inner join ENCHERES e on e.no_article = a.no_article where a.etat_vente = 1 and (nom_article  LIKE ?  or description LIKE ?) and c.libelle like ?";
+	private static final String SELECT_ENCHERE_EN_COURS_PAR_UTILISATEUR = "SELECT * FROM ARTICLES_VENDUS a\r\n"
+			+ "inner join UTILISATEURS u on a.no_utilisateur= u.no_utilisateur\r\n"
+			+ "inner join CATEGORIES c on c.no_categorie = a.no_categorie\r\n"
+			+ "inner join ENCHERES e on e.no_article = a.no_article WHERE a.etat_vente=1 and u.no_utilisateur=?";
 
 	@Override
 	public List<Enchere> selectAll() throws DALException {
@@ -278,11 +282,11 @@ public class EnchereJdbcDaoImpl implements EnchereDao {
 			List<Enchere> encheres = new ArrayList<Enchere>();
 
 			stmt.setInt(1, etatVente);
-
 			stmt.setInt(2, noUtilisateur);
 			stmt.setString(3, "%" + query + "%");
 			stmt.setString(4, "%" + query + "%");
 			stmt.setString(5, "%" + libelle + "%");
+			
 			ResultSet rs = stmt.executeQuery();
 
 			while (rs.next()) {
@@ -324,6 +328,42 @@ public class EnchereJdbcDaoImpl implements EnchereDao {
 			stmt.setString(2, "%" + query + "%");
 			stmt.setString(3, "%" + libelle + "%");
 
+			List<Enchere> encheres = new ArrayList<Enchere>();
+
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				Utilisateur utilisateur = new Utilisateur(rs.getInt("no_utilisateur"), rs.getString("pseudo"),
+						rs.getString("nom"), rs.getString("prenom"), rs.getString("email"), rs.getString("telephone"),
+						rs.getString("rue"), rs.getString("code_postal"), rs.getString("ville"),
+						rs.getString("mot_de_passe"), rs.getInt("credit"), rs.getBoolean("administrateur"));
+
+				Categorie categorie = new Categorie(rs.getInt("no_categorie"), rs.getString("libelle"));
+
+				Article article = new Article(rs.getInt("no_article"), rs.getString("nom_article"),
+						rs.getString("description"), rs.getDate("date_debut_encheres").toLocalDate(),
+						rs.getDate("date_fin_encheres").toLocalDate(), rs.getInt("prix_initial"),
+						rs.getInt("prix_vente"), utilisateur, categorie, rs.getInt("etat_vente"));
+
+				encheres.add(new Enchere(utilisateur, article, rs.getDate("date_enchere").toLocalDate(),
+						rs.getInt("montant_enchere")));
+			}
+
+			return encheres;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DALException("Erreur lors de la récupération des enchères (achat) par état de vente ");
+
+		}
+	}
+
+	@Override
+	public List<Enchere> encheresEnCoursParUtilisateur(int noUtilisateur) throws DALException {
+		try (Connection connection = ConnectionProvider.getConnection();
+
+				PreparedStatement stmt = connection.prepareStatement(SELECT_ENCHERE_EN_COURS_PAR_UTILISATEUR)) {
+			stmt.setInt(1, noUtilisateur);
+		
 			List<Enchere> encheres = new ArrayList<Enchere>();
 
 			ResultSet rs = stmt.executeQuery();

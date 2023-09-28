@@ -96,8 +96,9 @@ public class ProfilServlet extends HttpServlet {
 				utilisateur = utilisateurManager.unUtilisateurParPseudoOuMail(pseudo);
 				utilisateurManager.supprimerCompteUtilisateur(utilisateur);
 			} catch (BLLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				request.setAttribute("error",e.getMessage());
+				doGet(request, response);
+				return;
 			}
 			session.invalidate();
 			response.sendRedirect(request.getContextPath()+"/encheres");

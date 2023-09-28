@@ -27,5 +27,7 @@ public interface EnchereDao {
 
 	List<Enchere> selectEnchereEnCoursParCategorie(String query, String libelle) throws DALException;
 	
+	public List<Enchere> encheresEnCoursParUtilisateur(int noUtilisateur) throws DALException;
+	
 
 }

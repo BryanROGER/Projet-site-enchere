@@ -2,11 +2,14 @@ package fr.eni.bll;
 
 
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.tomcat.jakartaee.commons.lang3.StringUtils;
 
+import fr.eni.bo.Enchere;
 import fr.eni.bo.Utilisateur;
 import fr.eni.dal.DALException;
 import fr.eni.dal.FactoryDAO;
@@ -81,6 +84,14 @@ public class UtilisateurManager {
 	public void supprimerCompteUtilisateur(Utilisateur utilisateur) throws BLLException {
 		
 		try {
+			//vérification si l'utilisateur n'a pas d'achats ou de ventes en cours
+			EnchereManager enchereManager = EnchereManager.getInstance();
+			List<Enchere> encheres = null;
+			encheres = enchereManager.encheresEnCoursParUtilisateur(utilisateur.getNoUtilisateur());
+			System.out.println(encheres.size());
+			if(encheres.size() != 0)
+				throw new BLLException("La suppression du compte est impossible car vous avez des achats ou ventes en cours");
+			
 			isUtilisateurValide(utilisateur);
 			utilisateurDao.delete(utilisateur);
 		} catch (DALException e) {
@@ -121,8 +132,8 @@ public class UtilisateurManager {
 			throw new BLLException("Le prénom ne peut pas dépasser 30 caractères!");
 		if(utilisateur.getEmail().length() > 80)
 			throw new BLLException("L'email ne peut pas dépasser 80 caractères!");
-		if(utilisateur.getTelephone().length() > 15)
-			throw new BLLException("Le téléphone ne peut pas dépasser 15 caractères!");
+		if(utilisateur.getTelephone().length() != 10)
+			throw new BLLException("Le téléphone doit contenir 10 caractères!");
 		if(utilisateur.getRue().length() > 80)
 			throw new BLLException("La rue ne peut pas dépasser 80 caractères!");
 		if(utilisateur.getCodePostal().length() != 5)
